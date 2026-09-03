@@ -133,6 +133,8 @@ position = Vector2(0, -2)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_88fa3")
 animation = &"Walk"
+frame = 2
+frame_progress = 0.74973416
 
 [node name="InteractBagHitbox" type="CollisionShape2D" parent="." unique_id=1134136638]
 scale = Vector2(1.2, 1.2)
@@ -161,6 +163,7 @@ shape = SubResource("CircleShape2D_dsc6t")
 [node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=1351174695]
 bank_paths = ["res://addons/fmod/banks/Master.strings.bank", "res://addons/fmod/banks/Master.bank", "res://addons/fmod/banks/player.bank"]
 
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_frame_changed"]
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]

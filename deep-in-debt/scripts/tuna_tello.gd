@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var SPEED = 200.0
+var SPEED = 250.0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area: Area2D = get_node_or_null("InteractionArea") as Area2D
@@ -19,12 +19,13 @@ var SPEED = 200.0
 @export var putdown_milk : String
 
 # the event instances (they start empty and are initialized in the setup_FMOD_event_instances function, called on _ready)
-#empty for now
 
 ## Emitted every time a garbage item is collected.
 signal garbage_collected(material_name: String)
 
-#needed to declare garbage_mass here bc i needed a bigger scope
+# needed to declare last_garbage_mass here bc it resets after putting the bag down, 
+# which means that when you pick it up it is set at 0, passing the wrong parameter to fmod
+var last_garbage_mass
 var garbage_mass
 var bags_in_range: Array[Node2D] = []
 var carried_bag: Node2D = null
@@ -37,15 +38,20 @@ func setup_FMOD_event_instances():
 	pass
 
 func _physics_process(_delta: float) -> void:
+<<<<<<< Updated upstream
 	garbage_mass = get_collected_count()
 	if garbage_mass < 10:
+=======
+	var garbage_mass = get_collected_count()
+	if garbage_mass < Globals.bag_slow_interval:
+		SPEED = 250
+	elif garbage_mass < (Globals.bag_slow_interval * 2):
+>>>>>>> Stashed changes
 		SPEED = 200
-	elif garbage_mass < 20:
-		SPEED = 150
 	elif garbage_mass < 30:
-		SPEED = 100
+		SPEED = 150
 	else:
-		SPEED = 50
+		SPEED = 100
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
 	update_animation(velocity)
 	move_and_slide()
@@ -63,7 +69,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func handle_bag_interaction() -> void:
 	if is_instance_valid(carried_bag):
 		if carried_bag.has_method("drop"):
-			FmodServer.play_one_shot_attached_with_params(putdown_bag, self, {"garbage_mass": garbage_mass})
+			# play put down sound passing the garbage mass parameter
+			last_garbage_mass = garbage_mass
+			FmodServer.play_one_shot_with_params(putdown_bag, {"garbage_mass": last_garbage_mass})
 			carried_bag.call("drop")
 		carried_bag = null
 		return
@@ -75,7 +83,9 @@ func handle_bag_interaction() -> void:
 	if bag != null and bag.has_method("pick_up"):
 		bag.call("pick_up", self)
 		carried_bag = bag
-		FmodServer.play_one_shot(pickup_bag)
+		# play pick up sound passing the garbage_mass parameter
+		print(last_garbage_mass)
+		FmodServer.play_one_shot_with_params(pickup_bag, {"garbage_mass": last_garbage_mass})
 
 		# Collect any garbage already standing inside the collection area.
 		collect_all_in_range()
@@ -131,6 +141,16 @@ func collect_garbage(garbage: Node2D) -> void:
 		# Store the material inside the bag the player is holding.
 		if is_instance_valid(carried_bag) and carried_bag.has_method("add_collected_material"):
 			carried_bag.call("add_collected_material", material_name)
+			# play the correct sfx
+			match material_name:
+				"PET Bottles":
+					FmodServer.play_one_shot(pickup_bottle)
+				"Aluminum Cans":
+					FmodServer.play_one_shot(pickup_can)
+				"Cellulose Paperboards":
+					FmodServer.play_one_shot(pickup_milk)
+				"PE Bags":
+					FmodServer.play_one_shot(pickup_bag)
 
 		garbage_collected.emit(material_name)
 
@@ -255,3 +275,8 @@ func update_animation(movement: Vector2) -> void:
 
 func get_facing_direction() -> float:
 	return facing_direction
+
+
+func _on_frame_changed() -> void:
+	if $AnimatedSprite2D.animation == "Walk" and $AnimatedSprite2D.frame == 0 or $AnimatedSprite2D.frame == 3:
+		FmodServer.play_one_shot(footsteps)

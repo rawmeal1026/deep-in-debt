@@ -1,3 +1,3 @@
 extends Node
 
-var bag_level = 1
+var bag_slow_interval = 10
