@@ -128,19 +128,29 @@ player_path = NodePath("../Entities/Tunado")
 deadzone_radius = 50.0
 
 [node name="Entities" type="Node2D" parent="." unique_id=694709244]
+z_as_relative = false
 y_sort_enabled = true
 
 [node name="Tunado" parent="Entities" unique_id=927444226 instance=ExtResource("1_o5qli")]
 position = Vector2(504, 317)
 
 [node name="GarbageBag" parent="Entities" unique_id=275557160 instance=ExtResource("5_tbgi4")]
-position = Vector2(737, 301)
+position = Vector2(733, 285)
 
 [node name="Garbage" parent="Entities" unique_id=1188977814 instance=ExtResource("6_tefeu")]
-position = Vector2(680, 462)
+position = Vector2(992, 164)
 
-[node name="Garbage2" parent="Entities" unique_id=1669580913 instance=ExtResource("6_tefeu")]
-position = Vector2(831, 484)
+[node name="Garbage2" parent="Entities" unique_id=1700283184 instance=ExtResource("6_tefeu")]
+position = Vector2(953, 105)
 
-[node name="Garbage3" parent="Entities" unique_id=1377491144 instance=ExtResource("6_tefeu")]
-position = Vector2(694, 559)
+[node name="Garbage3" parent="Entities" unique_id=748744975 instance=ExtResource("6_tefeu")]
+position = Vector2(795, 78)
+
+[node name="Garbage4" parent="Entities" unique_id=284639018 instance=ExtResource("6_tefeu")]
+position = Vector2(805, 166)
+
+[node name="Garbage5" parent="Entities" unique_id=1807085071 instance=ExtResource("6_tefeu")]
+position = Vector2(647, 129)
+
+[node name="Garbage6" parent="Entities" unique_id=649426841 instance=ExtResource("6_tefeu")]
+position = Vector2(516, 105)

@@ -111,7 +111,6 @@ func state_collected_materials() -> String:
 		if i < collected_materials.size() - 1:
 			text += ", "
 	
-	print(text)
 	return text
 
 func _ready() -> void:
@@ -339,17 +338,19 @@ func get_move_direction_name() -> String:
 			return "up"
 
 func _on_started_moving_debug(_direction: Vector2) -> void:
-	animated_sprite_2d.play("Drag")
-
+	if get_collected_count() < 5:
+		animated_sprite_2d.play("Drag")
+	else:
+		animated_sprite_2d.play("Drag4")
 
 func _on_moving_debug(direction: Vector2) -> void:
 	if direction.x > 0:
 		animated_sprite_2d.flip_h = false
 	if direction.x < 0:
 		animated_sprite_2d.flip_h = true
-		
-
 
 func _on_stopped_moving_debug() -> void:
-	animated_sprite_2d.stop()
-	animated_sprite_2d.play("Idle")
+	if get_collected_count() < 5:
+		animated_sprite_2d.play("Idle")
+	else:
+		animated_sprite_2d.play("Idle4")

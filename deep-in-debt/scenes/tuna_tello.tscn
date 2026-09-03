@@ -150,6 +150,5 @@ scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_dsc6t")
 
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
-[connection signal="area_exited" from="CollectionArea" to="." method="_on_collection_area_area_exited"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]
