@@ -118,6 +118,15 @@ radius = 16.666668
 
 [node name="Tuna Tello" type="CharacterBody2D" unique_id=927444226]
 script = ExtResource("1_2qooa")
+footsteps = "event:/player_footstep"
+pickup_bag = "event:/player_pickup_bag"
+putdown_bag = "event:/player_putdown_bag"
+pickup_bottle = "event:/player_pickup_bottle"
+putdown_bottle = "event:/player_putdown_bottle"
+pickup_can = "event:/player_pickup_can"
+putdown_can = "event:/player_putdown_can"
+pickup_milk = "event:/player_pickup_milk"
+putdown_milk = "event:/player_putdown_milk"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=616594180]
 position = Vector2(0, -2)
@@ -148,6 +157,9 @@ monitorable = false
 [node name="CollisionShape2d" type="CollisionShape2D" parent="InteractionArea" unique_id=715821396]
 scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_dsc6t")
+
+[node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=1351174695]
+bank_paths = ["res://addons/fmod/banks/Master.strings.bank", "res://addons/fmod/banks/Master.bank", "res://addons/fmod/banks/player.bank"]
 
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]

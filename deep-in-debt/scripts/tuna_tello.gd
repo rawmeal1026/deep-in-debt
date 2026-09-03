@@ -6,15 +6,38 @@ var SPEED = 200.0
 @onready var interaction_area: Area2D = get_node_or_null("InteractionArea") as Area2D
 @onready var collection_area: Area2D = get_node_or_null("CollectionArea") as Area2D
 
+# the event paths given by fmod
+@export_group("sfx references")
+@export var footsteps : String
+@export var pickup_bag : String
+@export var putdown_bag : String
+@export var pickup_bottle : String
+@export var putdown_bottle : String
+@export var pickup_can : String
+@export var putdown_can : String
+@export var pickup_milk : String
+@export var putdown_milk : String
+
+# the event instances (they start empty and are initialized in the setup_FMOD_event_instances function, called on _ready)
+#empty for now
+
 ## Emitted every time a garbage item is collected.
 signal garbage_collected(material_name: String)
 
+#needed to declare garbage_mass here bc i needed a bigger scope
+var garbage_mass
 var bags_in_range: Array[Node2D] = []
 var carried_bag: Node2D = null
 var facing_direction := 1.0
 
+func _ready() -> void:
+	setup_FMOD_event_instances()
+
+func setup_FMOD_event_instances():
+	pass
+
 func _physics_process(_delta: float) -> void:
-	var garbage_mass = get_collected_count()
+	garbage_mass = get_collected_count()
 	if garbage_mass < 10:
 		SPEED = 200
 	elif garbage_mass < 20:
@@ -40,6 +63,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func handle_bag_interaction() -> void:
 	if is_instance_valid(carried_bag):
 		if carried_bag.has_method("drop"):
+			FmodServer.play_one_shot_attached_with_params(putdown_bag, self, {"garbage_mass": garbage_mass})
 			carried_bag.call("drop")
 		carried_bag = null
 		return
@@ -51,6 +75,7 @@ func handle_bag_interaction() -> void:
 	if bag != null and bag.has_method("pick_up"):
 		bag.call("pick_up", self)
 		carried_bag = bag
+		FmodServer.play_one_shot(pickup_bag)
 
 		# Collect any garbage already standing inside the collection area.
 		collect_all_in_range()
