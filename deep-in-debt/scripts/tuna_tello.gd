@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 200.0
+var SPEED = 200.0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area: Area2D = get_node_or_null("InteractionArea") as Area2D
@@ -14,6 +14,15 @@ var carried_bag: Node2D = null
 var facing_direction := 1.0
 
 func _physics_process(_delta: float) -> void:
+	var garbage_mass = get_collected_count()
+	if garbage_mass < 10:
+		SPEED = 200
+	elif garbage_mass < 20:
+		SPEED = 150
+	elif garbage_mass < 30:
+		SPEED = 100
+	else:
+		SPEED = 50
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
 	update_animation(velocity)
 	move_and_slide()
@@ -148,7 +157,6 @@ func state_collected_materials() -> String:
 		return str(carried_bag.call("state_collected_materials"))
 
 	return ""
-
 
 # ------------------------------------------------------------------
 # Interaction area (bag pickup)

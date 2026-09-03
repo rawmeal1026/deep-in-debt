@@ -2,7 +2,20 @@
 
 [ext_resource type="Script" uid="uid://dtw4vm7gay0h3" path="res://scripts/garbage_bag.gd" id="1_nbjeb"]
 [ext_resource type="Texture2D" uid="uid://cnodyb2ggkabi" path="res://assets/sprites/Trash/Bag4.png" id="1_q373s"]
+[ext_resource type="Texture2D" uid="uid://dln7rqqbchjr8" path="res://assets/sprites/Trash/Bag2.png" id="2_c7e52"]
 [ext_resource type="Texture2D" uid="uid://bgyrbclabn28j" path="res://assets/sprites/Trash/Bag3.png" id="2_ewx2r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yd57"]
+atlas = ExtResource("2_c7e52")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtl3o"]
+atlas = ExtResource("2_c7e52")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2h6a"]
+atlas = ExtResource("2_c7e52")
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_01uhn"]
 atlas = ExtResource("2_ewx2r")
@@ -28,6 +41,10 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("1_q373s")
 region = Rect2(192, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_datxj"]
+atlas = ExtResource("2_c7e52")
+region = Rect2(0, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6pe6"]
 atlas = ExtResource("2_ewx2r")
 region = Rect2(0, 0, 64, 64)
@@ -38,6 +55,23 @@ region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q373s"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yd57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtl3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2h6a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtl3o")
+}],
+"loop": 1,
+"name": &"Drag2",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_01uhn")
@@ -52,7 +86,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_yhpgh")
 }],
 "loop": 1,
-"name": &"Drag",
+"name": &"Drag3",
 "speed": 5.0
 }, {
 "frames": [{
@@ -74,10 +108,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_datxj")
+}],
+"loop": 1,
+"name": &"Idle2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_p6pe6")
 }],
 "loop": 1,
-"name": &"Idle",
+"name": &"Idle3",
 "speed": 5.0
 }, {
 "frames": [{
@@ -101,7 +143,7 @@ flip_drop_offset_x_with_facing = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2103344845]
 sprite_frames = SubResource("SpriteFrames_q373s")
-animation = &"Idle"
+animation = &"Drag2"
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1046332861]
 collision_layer = 2

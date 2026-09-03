@@ -132,7 +132,7 @@ z_as_relative = false
 y_sort_enabled = true
 
 [node name="Tunado" parent="Entities" unique_id=927444226 instance=ExtResource("1_o5qli")]
-position = Vector2(504, 317)
+position = Vector2(492, 437)
 
 [node name="GarbageBag" parent="Entities" unique_id=275557160 instance=ExtResource("5_tbgi4")]
 position = Vector2(733, 285)
@@ -154,3 +154,114 @@ position = Vector2(647, 129)
 
 [node name="Garbage6" parent="Entities" unique_id=649426841 instance=ExtResource("6_tefeu")]
 position = Vector2(516, 105)
+
+[node name="Garbage7" parent="Entities" unique_id=1755543544 instance=ExtResource("6_tefeu")]
+position = Vector2(527, 202)
+
+[node name="Garbage8" parent="Entities" unique_id=1437772949 instance=ExtResource("6_tefeu")]
+position = Vector2(561, 282)
+
+[node name="Garbage9" parent="Entities" unique_id=1304620105 instance=ExtResource("6_tefeu")]
+position = Vector2(641, 373)
+
+[node name="Garbage10" parent="Entities" unique_id=99629360 instance=ExtResource("6_tefeu")]
+position = Vector2(746, 388)
+
+[node name="Garbage11" parent="Entities" unique_id=265710522 instance=ExtResource("6_tefeu")]
+position = Vector2(838, 388)
+
+[node name="Garbage12" parent="Entities" unique_id=326684514 instance=ExtResource("6_tefeu")]
+position = Vector2(937, 389)
+
+[node name="Garbage13" parent="Entities" unique_id=1276274004 instance=ExtResource("6_tefeu")]
+position = Vector2(994, 401)
+
+[node name="Garbage14" parent="Entities" unique_id=1926429297 instance=ExtResource("6_tefeu")]
+position = Vector2(1038, 285)
+
+[node name="Garbage15" parent="Entities" unique_id=2015628460 instance=ExtResource("6_tefeu")]
+position = Vector2(927, 297)
+
+[node name="Garbage16" parent="Entities" unique_id=1283602551 instance=ExtResource("6_tefeu")]
+position = Vector2(1083, 370)
+
+[node name="Garbage17" parent="Entities" unique_id=1131050481 instance=ExtResource("6_tefeu")]
+position = Vector2(868, 471)
+
+[node name="Garbage18" parent="Entities" unique_id=213051776 instance=ExtResource("6_tefeu")]
+position = Vector2(675, 524)
+
+[node name="Garbage19" parent="Entities" unique_id=382534660 instance=ExtResource("6_tefeu")]
+position = Vector2(804, 559)
+
+[node name="Garbage20" parent="Entities" unique_id=1479577363 instance=ExtResource("6_tefeu")]
+position = Vector2(501, 568)
+
+[node name="Garbage21" parent="Entities" unique_id=659420378 instance=ExtResource("6_tefeu")]
+position = Vector2(281, 539)
+
+[node name="Garbage22" parent="Entities" unique_id=1134583004 instance=ExtResource("6_tefeu")]
+position = Vector2(139, 540)
+
+[node name="Garbage23" parent="Entities" unique_id=193984082 instance=ExtResource("6_tefeu")]
+position = Vector2(165, 468)
+
+[node name="Garbage24" parent="Entities" unique_id=82772336 instance=ExtResource("6_tefeu")]
+position = Vector2(90, 449)
+
+[node name="Garbage25" parent="Entities" unique_id=766101248 instance=ExtResource("6_tefeu")]
+position = Vector2(263, 393)
+
+[node name="Garbage26" parent="Entities" unique_id=329545722 instance=ExtResource("6_tefeu")]
+position = Vector2(335, 509)
+
+[node name="Garbage27" parent="Entities" unique_id=26573320 instance=ExtResource("6_tefeu")]
+position = Vector2(357, 603)
+
+[node name="Garbage28" parent="Entities" unique_id=1946359589 instance=ExtResource("6_tefeu")]
+position = Vector2(416, 663)
+
+[node name="Garbage29" parent="Entities" unique_id=579394891 instance=ExtResource("6_tefeu")]
+position = Vector2(521, 663)
+
+[node name="Garbage30" parent="Entities" unique_id=150880842 instance=ExtResource("6_tefeu")]
+position = Vector2(521, 663)
+
+[node name="Garbage31" parent="Entities" unique_id=778540439 instance=ExtResource("6_tefeu")]
+position = Vector2(707, 664)
+
+[node name="Garbage32" parent="Entities" unique_id=732585779 instance=ExtResource("6_tefeu")]
+position = Vector2(861, 667)
+
+[node name="Garbage33" parent="Entities" unique_id=686675324 instance=ExtResource("6_tefeu")]
+position = Vector2(168, 677)
+
+[node name="Garbage34" parent="Entities" unique_id=1543002749 instance=ExtResource("6_tefeu")]
+position = Vector2(67, 658)
+
+[node name="Garbage35" parent="Entities" unique_id=1965616383 instance=ExtResource("6_tefeu")]
+position = Vector2(1, 545)
+
+[node name="Garbage36" parent="Entities" unique_id=670262333 instance=ExtResource("6_tefeu")]
+position = Vector2(-44, 495)
+
+[node name="Garbage37" parent="Entities" unique_id=508254400 instance=ExtResource("6_tefeu")]
+position = Vector2(-70, 425)
+
+[node name="Garbage38" parent="Entities" unique_id=1141525640 instance=ExtResource("6_tefeu")]
+position = Vector2(-61, 352)
+
+[node name="Garbage39" parent="Entities" unique_id=38982701 instance=ExtResource("6_tefeu")]
+position = Vector2(-54, 576)
+
+[node name="Garbage40" parent="Entities" unique_id=1171714314 instance=ExtResource("6_tefeu")]
+position = Vector2(-38, 651)
+
+[node name="Garbage41" parent="Entities" unique_id=1557369031 instance=ExtResource("6_tefeu")]
+position = Vector2(-12, 689)
+
+[node name="Garbage42" parent="Entities" unique_id=1534026279 instance=ExtResource("6_tefeu")]
+position = Vector2(170, 758)
+
+[node name="Garbage43" parent="Entities" unique_id=1380675938 instance=ExtResource("6_tefeu")]
+position = Vector2(261, 770)
