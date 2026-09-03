@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://b3wnd5ciwpvjj"]
+
+[ext_resource type="Script" uid="uid://h00l6lk4525v" path="res://scripts/garbage.gd" id="1_bng3h"]
+[ext_resource type="Texture2D" uid="uid://coxjwbrwpxqos" path="res://assets/sprites/Trash/Bottle1.png" id="1_h1t45"]
+[ext_resource type="Texture2D" uid="uid://b3xrsiywvfay6" path="res://assets/sprites/Trash/Bottle2.png" id="2_bng3h"]
+[ext_resource type="Texture2D" uid="uid://d1lx1kkkvag7o" path="res://assets/sprites/Trash/Can1.png" id="3_3om8r"]
+[ext_resource type="Texture2D" uid="uid://cbj4hmfwd7saq" path="res://assets/sprites/Trash/Can2.png" id="4_o0dql"]
+[ext_resource type="Texture2D" uid="uid://c4hhaqcebpxnf" path="res://assets/sprites/Trash/Carton1.png" id="5_ywsxd"]
+[ext_resource type="Texture2D" uid="uid://0nkci0ptpaof" path="res://assets/sprites/Trash/Carton2.png" id="6_dkfkb"]
+[ext_resource type="Texture2D" uid="uid://dlsm0xcrb6bn6" path="res://assets/sprites/Trash/Sprite-0009.png" id="7_fbk4h"]
+[ext_resource type="Texture2D" uid="uid://brpytbtp06ytb" path="res://assets/sprites/Trash/Sprite-0015.png" id="8_8v17s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88fa3"]
+radius = 17.0
+
+[node name="Garbage" type="Node2D" unique_id=1188977814 groups=["garbage"]]
+script = ExtResource("1_bng3h")
+
+[node name="PET Bottles" type="Node2D" parent="." unique_id=1965510244]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="PET Bottles" unique_id=1218247647]
+visible = false
+texture = ExtResource("1_h1t45")
+
+[node name="Sprite2D2" type="Sprite2D" parent="PET Bottles" unique_id=1416110341]
+visible = false
+texture = ExtResource("2_bng3h")
+
+[node name="Aluminum Cans" type="Node2D" parent="." unique_id=830982279]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Aluminum Cans" unique_id=1083723037]
+visible = false
+texture = ExtResource("3_3om8r")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Aluminum Cans" unique_id=664327927]
+visible = false
+texture = ExtResource("4_o0dql")
+
+[node name="Cellulose Paperboards" type="Node2D" parent="." unique_id=2088503730]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Cellulose Paperboards" unique_id=1935508569]
+visible = false
+texture = ExtResource("5_ywsxd")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Cellulose Paperboards" unique_id=1197050856]
+visible = false
+texture = ExtResource("6_dkfkb")
+
+[node name="PE Bags" type="Node2D" parent="." unique_id=437197920]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="PE Bags" unique_id=1968829441]
+visible = false
+texture = ExtResource("7_fbk4h")
+
+[node name="Sprite2D2" type="Sprite2D" parent="PE Bags" unique_id=629224598]
+visible = false
+texture = ExtResource("8_8v17s")
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=1615589387]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=46441847]
+shape = SubResource("CircleShape2D_88fa3")

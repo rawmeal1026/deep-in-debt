@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bktbabej4kben"]
+
+[ext_resource type="PackedScene" uid="uid://dakg68gr8t1qs" path="res://scenes/tunado.tscn" id="1_o5qli"]
+
+[node name="Main" type="Node" unique_id=77694649]
+
+[node name="Tunado" parent="." unique_id=927444226 instance=ExtResource("1_o5qli")]
+position = Vector2(504, 317)
