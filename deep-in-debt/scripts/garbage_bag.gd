@@ -43,10 +43,6 @@ signal stopped_moving
 # Minimum speed before the bag counts as moving.
 @export var move_threshold := 1.0
 
-@export var first_bag_increase := 5
-@export var second_bag_increase := 10
-@export var third_bag_increase := 15
-
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 var player: CharacterBody2D = null
@@ -342,18 +338,18 @@ func get_move_direction_name() -> String:
 			return "up"
 
 func _on_started_moving_debug(_direction: Vector2) -> void:
-	if get_collected_count() < first_bag_increase:
+	if get_collected_count() < Globals.bag_slow_interval:
 		animated_sprite_2d.play("Drag2")
-	elif get_collected_count() < second_bag_increase:
+	elif get_collected_count() < (Globals.bag_slow_interval * 2):
 		animated_sprite_2d.play("Drag3")
 	else:
 		animated_sprite_2d.play("Drag4")
 
 func _on_moving_debug(direction: Vector2) -> void:
-	if get_collected_count() < 5:
+	if get_collected_count() < Globals.bag_slow_interval:
 		if animated_sprite_2d.animation != "Drag2":
 			animated_sprite_2d.play("Drag2")
-	elif get_collected_count() < 10:
+	elif get_collected_count() < (Globals.bag_slow_interval * 2):
 		if animated_sprite_2d.animation != "Drag3":
 			animated_sprite_2d.play("Drag3")
 	else:
@@ -365,9 +361,9 @@ func _on_moving_debug(direction: Vector2) -> void:
 		animated_sprite_2d.flip_h = true
 
 func _on_stopped_moving_debug() -> void:
-	if get_collected_count() < first_bag_increase:
+	if get_collected_count() < Globals.bag_slow_interval:
 		animated_sprite_2d.play("Idle2")
-	elif get_collected_count() < second_bag_increase:
+	elif get_collected_count() < (Globals.bag_slow_interval * 2):
 		animated_sprite_2d.play("Idle3")
 	else:
 		animated_sprite_2d.play("Idle4")

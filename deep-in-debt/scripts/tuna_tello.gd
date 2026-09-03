@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var SPEED = 200.0
+var SPEED = 250.0
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area: Area2D = get_node_or_null("InteractionArea") as Area2D
@@ -37,15 +37,20 @@ func setup_FMOD_event_instances():
 	pass
 
 func _physics_process(_delta: float) -> void:
+<<<<<<< Updated upstream
 	garbage_mass = get_collected_count()
 	if garbage_mass < 10:
+=======
+	var garbage_mass = get_collected_count()
+	if garbage_mass < Globals.bag_slow_interval:
+		SPEED = 250
+	elif garbage_mass < (Globals.bag_slow_interval * 2):
+>>>>>>> Stashed changes
 		SPEED = 200
-	elif garbage_mass < 20:
-		SPEED = 150
 	elif garbage_mass < 30:
-		SPEED = 100
+		SPEED = 150
 	else:
-		SPEED = 50
+		SPEED = 100
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
 	update_animation(velocity)
 	move_and_slide()

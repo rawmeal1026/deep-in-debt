@@ -135,7 +135,13 @@ y_sort_enabled = true
 position = Vector2(492, 437)
 
 [node name="GarbageBag" parent="Entities" unique_id=275557160 instance=ExtResource("5_tbgi4")]
-position = Vector2(733, 285)
+position = Vector2(665, 267)
+
+[node name="GarbageBag2" parent="Entities" unique_id=65712786 instance=ExtResource("5_tbgi4")]
+position = Vector2(415, 350)
+
+[node name="GarbageBag3" parent="Entities" unique_id=1247420649 instance=ExtResource("5_tbgi4")]
+position = Vector2(123, 354)
 
 [node name="Garbage" parent="Entities" unique_id=1188977814 instance=ExtResource("6_tefeu")]
 position = Vector2(992, 164)
