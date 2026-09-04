@@ -45,6 +45,17 @@ signal stopped_moving
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+# the event paths given by fmod
+@export_group("sfx references")
+@export var pickup_bag : String
+@export var putdown_bag : String
+@export var pickup_bottle : String
+@export var putdown_bottle : String
+@export var pickup_can : String
+@export var putdown_can : String
+@export var pickup_milk : String
+@export var putdown_milk : String
+
 var player: CharacterBody2D = null
 var carried := false
 var can_pick_up := true
@@ -70,50 +81,11 @@ var previous_global_position := Vector2.ZERO
 
 ## Every material collected into this bag.
 var collected_materials: Array[String] = []
+var garbage_mass: int = 0.0
 
-
-func add_collected_material(material_name: String) -> void:
-	collected_materials.append(material_name)
-
-
-func get_collected_materials() -> Array[String]:
-	return collected_materials
-
-
-func get_collected_count() -> int:
-	return collected_materials.size()
-
-
-func get_last_collected_material() -> String:
-	if collected_materials.is_empty():
-		return ""
-
-	return collected_materials[-1]
-
-
-func has_material(material_name: String) -> bool:
-	return collected_materials.has(material_name)
-
-
-func clear_collected_materials() -> void:
-	collected_materials.clear()
-
-
-func state_collected_materials() -> String:
-	if collected_materials.is_empty():
-		return "The bag is empty."
-
-	var text := "Bag contains: "
-
-	for i in range(collected_materials.size()):
-		text += collected_materials[i]
-
-		if i < collected_materials.size() - 1:
-			text += ", "
-	
-	return text
-
+# INITIALIZE
 func _ready() -> void:
+	setup_FMOD_event_instances()
 	add_to_group("bag")
 
 	previous_global_position = global_position
@@ -133,14 +105,74 @@ func _ready() -> void:
 	moving.connect(_on_moving_debug)
 	stopped_moving.connect(_on_stopped_moving_debug)
 
+func _physics_process(delta: float) -> void:
+	garbage_mass = get_collected_count()
+	if carried and player != null:
+		update_carry_follow(delta)
 
+	elif drop_progress < 1.0:
+		global_position = drop_start_position.lerp(drop_target_position, drop_progress)
+
+	update_movement_detection(delta)
+
+func setup_FMOD_event_instances():
+	pass
+	
+# BAG CONTENTS FUNCTIONS
+func add_collected_material(material_name: String) -> void:
+	collected_materials.append(material_name)
+	#FMOD COLLECTION HERE
+	#match material_name:
+	#	"PET Bottles":
+	#		FmodServer.play_one_shot(pickup_bottle)
+	#	"Aluminum Cans":
+	#		FmodServer.play_one_shot(pickup_can)
+	#	"Cellulose Paperboards":
+	#		FmodServer.play_one_shot(pickup_milk)
+	#	"PE Bags":
+	#		FmodServer.play_one_shot(pickup_bag)
+
+func get_collected_materials() -> Array[String]:
+	return collected_materials
+
+func get_collected_count() -> int:
+	return collected_materials.size()
+
+func get_last_collected_material() -> String:
+	if collected_materials.is_empty():
+		return ""
+
+	return collected_materials[-1]
+
+func has_material(material_name: String) -> bool:
+	return collected_materials.has(material_name)
+
+func clear_collected_materials() -> void:
+	collected_materials.clear()
+
+func state_collected_materials() -> String:
+	if collected_materials.is_empty():
+		return "The bag is empty."
+
+	var text := "Bag contains: "
+
+	for i in range(collected_materials.size()):
+		text += collected_materials[i]
+
+		if i < collected_materials.size() - 1:
+			text += ", "
+	
+	return text
+
+# BAG STATE FUNCTIONS
 func can_be_picked_up() -> bool:
 	return can_pick_up and not carried
-
 
 func is_carried() -> bool:
 	return carried
 
+
+# PLAYER GARBAGE BAG INTERACTION
 
 func pick_up(new_player: CharacterBody2D) -> void:
 	if not can_be_picked_up():
@@ -171,7 +203,8 @@ func pick_up(new_player: CharacterBody2D) -> void:
 		pickup_tween.set_ease(Tween.EASE_OUT)
 
 		pickup_tween.tween_property(self, "pickup_blend", 1.0, pickup_time)
-
+	#PICKUP SOUND HERE
+	#FmodServer.play_one_shot_with_params(pickup_bag, {"garbage_mass": garbage_mass})
 
 func drop() -> void:
 	if not carried:
@@ -225,12 +258,11 @@ func drop() -> void:
 		_finish_drop_pickup_delay()
 	else:
 		get_tree().create_timer(drop_pickup_delay).timeout.connect(_finish_drop_pickup_delay)
-
+	#FmodServer.play_one_shot_with_params(putdown_bag, {"garbage_mass": garbage_mass})
 
 func _finish_drop_pickup_delay() -> void:
 	if not carried:
 		can_pick_up = true
-
 
 func kill_tweens() -> void:
 	if pickup_tween != null and pickup_tween.is_valid():
@@ -244,12 +276,12 @@ func kill_tweens() -> void:
 	drop_tween = null
 
 
+# PLAYER READING FUNCTIONS
 func get_player_facing_direction() -> float:
 	if player != null and player.has_method("get_facing_direction"):
 		return float(player.call("get_facing_direction"))
 
 	return 1.0
-
 
 func get_target_carry_offset() -> Vector2:
 	var direction := get_player_facing_direction()
@@ -259,24 +291,13 @@ func get_target_carry_offset() -> Vector2:
 		carry_offset.y
 	)
 
-
 func get_carry_target_position() -> Vector2:
 	if player == null:
 		return global_position
 
 	return player.global_position + current_carry_offset
 
-
-func _physics_process(delta: float) -> void:
-	if carried and player != null:
-		update_carry_follow(delta)
-
-	elif drop_progress < 1.0:
-		global_position = drop_start_position.lerp(drop_target_position, drop_progress)
-
-	update_movement_detection(delta)
-
-
+# MOVEMENT FUNCTIONS
 func update_carry_follow(delta: float) -> void:
 	# Smoothly adjust the carry offset.
 	# This stops the bag from snapping when the player turns around.
@@ -296,7 +317,6 @@ func update_carry_follow(delta: float) -> void:
 	# Snap when close enough to avoid tiny endless micro-adjustments.
 	if pickup_blend >= 1.0 and global_position.distance_to(target) < 0.2:
 		global_position = target
-
 
 func update_movement_detection(delta: float) -> void:
 	if delta <= 0.0:

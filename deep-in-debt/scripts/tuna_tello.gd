@@ -9,24 +9,15 @@ var SPEED = 250.0
 # the event paths given by fmod
 @export_group("sfx references")
 @export var footsteps : String
-@export var pickup_bag : String
-@export var putdown_bag : String
-@export var pickup_bottle : String
-@export var putdown_bottle : String
-@export var pickup_can : String
-@export var putdown_can : String
-@export var pickup_milk : String
-@export var putdown_milk : String
+
 
 # the event instances (they start empty and are initialized in the setup_FMOD_event_instances function, called on _ready)
 
 ## Emitted every time a garbage item is collected.
 signal garbage_collected(material_name: String)
 
-# needed to declare last_garbage_mass here bc it resets after putting the bag down, 
-# which means that when you pick it up it is set at 0, passing the wrong parameter to fmod
-var last_garbage_mass
-var garbage_mass
+# fixed it so there's only one garbage mass variable
+var garbage_mass: int
 var bags_in_range: Array[Node2D] = []
 var carried_bag: Node2D = null
 var facing_direction := 1.0
@@ -38,15 +29,10 @@ func setup_FMOD_event_instances():
 	pass
 
 func _physics_process(_delta: float) -> void:
-<<<<<<< Updated upstream
 	garbage_mass = get_collected_count()
-	if garbage_mass < 10:
-=======
-	var garbage_mass = get_collected_count()
 	if garbage_mass < Globals.bag_slow_interval:
 		SPEED = 250
 	elif garbage_mass < (Globals.bag_slow_interval * 2):
->>>>>>> Stashed changes
 		SPEED = 200
 	elif garbage_mass < 30:
 		SPEED = 150
@@ -69,9 +55,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func handle_bag_interaction() -> void:
 	if is_instance_valid(carried_bag):
 		if carried_bag.has_method("drop"):
-			# play put down sound passing the garbage mass parameter
-			last_garbage_mass = garbage_mass
-			FmodServer.play_one_shot_with_params(putdown_bag, {"garbage_mass": last_garbage_mass})
 			carried_bag.call("drop")
 		carried_bag = null
 		return
@@ -83,9 +66,6 @@ func handle_bag_interaction() -> void:
 	if bag != null and bag.has_method("pick_up"):
 		bag.call("pick_up", self)
 		carried_bag = bag
-		# play pick up sound passing the garbage_mass parameter
-		print(last_garbage_mass)
-		FmodServer.play_one_shot_with_params(pickup_bag, {"garbage_mass": last_garbage_mass})
 
 		# Collect any garbage already standing inside the collection area.
 		collect_all_in_range()
@@ -98,7 +78,6 @@ func get_carry_target_position() -> Vector2:
 		return target
 
 	return global_position
-
 
 # ------------------------------------------------------------------
 # Garbage collection
@@ -141,16 +120,6 @@ func collect_garbage(garbage: Node2D) -> void:
 		# Store the material inside the bag the player is holding.
 		if is_instance_valid(carried_bag) and carried_bag.has_method("add_collected_material"):
 			carried_bag.call("add_collected_material", material_name)
-			# play the correct sfx
-			match material_name:
-				"PET Bottles":
-					FmodServer.play_one_shot(pickup_bottle)
-				"Aluminum Cans":
-					FmodServer.play_one_shot(pickup_can)
-				"Cellulose Paperboards":
-					FmodServer.play_one_shot(pickup_milk)
-				"PE Bags":
-					FmodServer.play_one_shot(pickup_bag)
 
 		garbage_collected.emit(material_name)
 
