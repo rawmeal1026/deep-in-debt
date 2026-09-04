@@ -1,15 +1,10 @@
 extends Node
 
 var bag_slow_interval = 10
+#First increase threshold = bag_slow_interval * 2
+#Second increase threshold = bag_slow_interval * 3
+#Max_bag_content = bag_slow_interval * 4
 
-## Safely plays an FMOD one-shot.
-## path        = the FMOD event path, e.g. "event:/SFX/BagPickup"
-## param_name  = name of the FMOD parameter to set ("" = no parameter)
-## param_value = value for that parameter
-## Safe FMOD one-shot helper.
-## path        = FMOD event path, e.g. "event:/SFX/BagPickup"
-## param_name  = FMOD parameter name ("" = no parameter)
-## param_value = parameter value
 
 ## path        = the FMOD event path, e.g. "event:/SFX/BagPickup"
 ## param_name  = name of the FMOD parameter to set ("" = no parameter)

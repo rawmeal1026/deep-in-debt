@@ -30,14 +30,13 @@ func setup_FMOD_event_instances():
 
 func _physics_process(_delta: float) -> void:
 	garbage_mass = get_collected_count()
-	if garbage_mass < Globals.bag_slow_interval:
+	if garbage_mass < (Globals.bag_slow_interval * 2):
 		SPEED = 250
-	elif garbage_mass < (Globals.bag_slow_interval * 2):
+	elif garbage_mass < (Globals.bag_slow_interval * 3):
 		SPEED = 200
-	elif garbage_mass < 30:
-		SPEED = 150
 	else:
 		SPEED = 100
+
 	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
 	update_animation(velocity)
 	move_and_slide()
@@ -109,19 +108,21 @@ func collect_all_in_range() -> void:
 
 func collect_garbage(garbage: Node2D) -> void:
 	var material_name := ""
+	if garbage_mass < (Globals.bag_slow_interval * 3):
+		if garbage.has_method("get_material_name"):
+			material_name = str(garbage.call("get_material_name"))
 
-	if garbage.has_method("get_material_name"):
-		material_name = str(garbage.call("get_material_name"))
+		if garbage.has_method("collect"):
+			garbage.call("collect", self)
 
-	if garbage.has_method("collect"):
-		garbage.call("collect", self)
+		if material_name != "":
+			# Store the material inside the bag the player is holding.
+			if is_instance_valid(carried_bag) and carried_bag.has_method("add_collected_material"):
+				carried_bag.call("add_collected_material", material_name)
+			garbage_collected.emit(material_name)
 
-	if material_name != "":
-		# Store the material inside the bag the player is holding.
-		if is_instance_valid(carried_bag) and carried_bag.has_method("add_collected_material"):
-			carried_bag.call("add_collected_material", material_name)
-
-		garbage_collected.emit(material_name)
+	else:
+		pass
 
 
 func get_garbage_from_area(area: Area2D) -> Node2D:
@@ -148,20 +149,17 @@ func get_collected_materials() -> Array[String]:
 
 	return result
 
-
 func get_last_collected_material() -> String:
 	if is_instance_valid(carried_bag) and carried_bag.has_method("get_last_collected_material"):
 		return str(carried_bag.call("get_last_collected_material"))
 
 	return ""
 
-
 func get_collected_count() -> int:
 	if is_instance_valid(carried_bag) and carried_bag.has_method("get_collected_count"):
 		return int(carried_bag.call("get_collected_count"))
 
 	return 0
-
 
 func state_collected_materials() -> String:
 	if not is_instance_valid(carried_bag):

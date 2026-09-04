@@ -4,6 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://cnodyb2ggkabi" path="res://assets/sprites/Trash/Bag4.png" id="1_q373s"]
 [ext_resource type="Texture2D" uid="uid://dln7rqqbchjr8" path="res://assets/sprites/Trash/Bag2.png" id="2_c7e52"]
 [ext_resource type="Texture2D" uid="uid://bgyrbclabn28j" path="res://assets/sprites/Trash/Bag3.png" id="2_ewx2r"]
+[ext_resource type="Texture2D" uid="uid://b6jr7s4i6oejf" path="res://assets/sprites/Trash/Bag1.png" id="2_uwm1s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifpo6"]
+atlas = ExtResource("2_uwm1s")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2ega"]
+atlas = ExtResource("2_uwm1s")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0dkx"]
+atlas = ExtResource("2_uwm1s")
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7yd57"]
 atlas = ExtResource("2_c7e52")
@@ -41,6 +54,10 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("1_q373s")
 region = Rect2(192, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ubyd"]
+atlas = ExtResource("2_uwm1s")
+region = Rect2(0, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_datxj"]
 atlas = ExtResource("2_c7e52")
 region = Rect2(0, 0, 64, 64)
@@ -55,6 +72,23 @@ region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_q373s"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifpo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2ega")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0dkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2ega")
+}],
+"loop": 1,
+"name": &"Drag1",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7yd57")
@@ -108,6 +142,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_1ubyd")
+}],
+"loop": 1,
+"name": &"Idle1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_datxj")
 }],
 "loop": 1,
@@ -151,7 +193,7 @@ putdown_milk = "event:/player_putdown_milk"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2103344845]
 sprite_frames = SubResource("SpriteFrames_q373s")
-animation = &"Drag2"
+animation = &"Drag1"
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1046332861]
 collision_layer = 2

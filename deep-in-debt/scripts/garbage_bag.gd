@@ -360,18 +360,23 @@ func get_move_direction_name() -> String:
 			return "up"
 
 func _on_started_moving_debug(_direction: Vector2) -> void:
-	if get_collected_count() < Globals.bag_slow_interval:
+	if garbage_mass < 1:
+		animated_sprite_2d.play("Drag1")
+	elif garbage_mass < (Globals.bag_slow_interval * 2):
 		animated_sprite_2d.play("Drag2")
-	elif get_collected_count() < (Globals.bag_slow_interval * 2):
+	elif garbage_mass < (Globals.bag_slow_interval * 3):
 		animated_sprite_2d.play("Drag3")
 	else:
 		animated_sprite_2d.play("Drag4")
 
 func _on_moving_debug(direction: Vector2) -> void:
-	if get_collected_count() < Globals.bag_slow_interval:
+	if garbage_mass < 1:
+		if animated_sprite_2d.animation != "Drag1":
+			animated_sprite_2d.play("Drag1")
+	elif garbage_mass < (Globals.bag_slow_interval * 2):
 		if animated_sprite_2d.animation != "Drag2":
 			animated_sprite_2d.play("Drag2")
-	elif get_collected_count() < (Globals.bag_slow_interval * 2):
+	elif garbage_mass < (Globals.bag_slow_interval * 3):
 		if animated_sprite_2d.animation != "Drag3":
 			animated_sprite_2d.play("Drag3")
 	else:
@@ -383,9 +388,11 @@ func _on_moving_debug(direction: Vector2) -> void:
 		animated_sprite_2d.flip_h = true
 
 func _on_stopped_moving_debug() -> void:
-	if get_collected_count() < Globals.bag_slow_interval:
+	if garbage_mass < 1:
+		animated_sprite_2d.play("Idle1")
+	elif garbage_mass < (Globals.bag_slow_interval * 2):
 		animated_sprite_2d.play("Idle2")
-	elif get_collected_count() < (Globals.bag_slow_interval * 2):
+	elif garbage_mass < (Globals.bag_slow_interval * 3):
 		animated_sprite_2d.play("Idle3")
 	else:
 		animated_sprite_2d.play("Idle4")

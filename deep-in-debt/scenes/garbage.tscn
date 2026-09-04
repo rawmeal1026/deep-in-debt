@@ -7,8 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cbj4hmfwd7saq" path="res://assets/sprites/Trash/Can2.png" id="4_o0dql"]
 [ext_resource type="Texture2D" uid="uid://c4hhaqcebpxnf" path="res://assets/sprites/Trash/Carton1.png" id="5_ywsxd"]
 [ext_resource type="Texture2D" uid="uid://0nkci0ptpaof" path="res://assets/sprites/Trash/Carton2.png" id="6_dkfkb"]
-[ext_resource type="Texture2D" uid="uid://dlsm0xcrb6bn6" path="res://assets/sprites/Trash/Sprite-0009.png" id="7_fbk4h"]
-[ext_resource type="Texture2D" uid="uid://brpytbtp06ytb" path="res://assets/sprites/Trash/Sprite-0015.png" id="8_8v17s"]
+[ext_resource type="Texture2D" uid="uid://dlsm0xcrb6bn6" path="res://assets/sprites/Trash/Plastic1.png" id="7_fbk4h"]
+[ext_resource type="Texture2D" uid="uid://brpytbtp06ytb" path="res://assets/sprites/Trash/Plastic2.png" id="8_8v17s"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88fa3"]
 radius = 17.0
