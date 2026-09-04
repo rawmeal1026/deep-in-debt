@@ -248,4 +248,4 @@ func get_facing_direction() -> float:
 
 func _on_frame_changed() -> void:
 	if $AnimatedSprite2D.animation == "Walk" and $AnimatedSprite2D.frame == 0 or $AnimatedSprite2D.frame == 3:
-		FmodServer.play_one_shot(footsteps)
+		Globals.play_fmod_sfx(footsteps)

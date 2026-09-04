@@ -140,6 +140,14 @@ carry_offset = Vector2(-24, -10)
 follow_sharpness = 20.0
 drop_offset = Vector2(-24, -10)
 flip_drop_offset_x_with_facing = true
+pickup_bag = "event:/player_pickup_bag"
+putdown_bag = "event:/player_putdown_bag"
+pickup_bottle = "event:/player_pickup_bottle"
+putdown_bottle = "event:/player_putdown_bottle"
+pickup_can = "event:/player_pickup_can"
+putdown_can = "event:/player_putdown_can"
+pickup_milk = "event:/player_pickup_milk"
+putdown_milk = "event:/player_putdown_milk"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2103344845]
 sprite_frames = SubResource("SpriteFrames_q373s")

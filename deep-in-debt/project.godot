@@ -22,7 +22,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 FmodManager="*uid://cds10pm7hwn3p"
-<<<<<<<UpdatedupstreamFmodManager="*uid://cds10pm7hwn3p"
 Globals="*uid://burlh6vla1shr"
 
 [display]

@@ -81,7 +81,7 @@ var previous_global_position := Vector2.ZERO
 
 ## Every material collected into this bag.
 var collected_materials: Array[String] = []
-var garbage_mass: int = 0.0
+var garbage_mass
 
 # INITIALIZE
 func _ready() -> void:
@@ -120,17 +120,17 @@ func setup_FMOD_event_instances():
 	
 # BAG CONTENTS FUNCTIONS
 func add_collected_material(material_name: String) -> void:
+	match material_name:
+		"PET Bottles":
+			Globals.play_fmod_sfx(pickup_bottle)
+		"Aluminum Cans":
+			Globals.play_fmod_sfx(pickup_can)
+		"Cellulose Paperboards":
+			Globals.play_fmod_sfx(pickup_milk)
+		"PE Bags":
+			Globals.play_fmod_sfx(pickup_bag)
 	collected_materials.append(material_name)
-	#FMOD COLLECTION HERE
-	#match material_name:
-	#	"PET Bottles":
-	#		FmodServer.play_one_shot(pickup_bottle)
-	#	"Aluminum Cans":
-	#		FmodServer.play_one_shot(pickup_can)
-	#	"Cellulose Paperboards":
-	#		FmodServer.play_one_shot(pickup_milk)
-	#	"PE Bags":
-	#		FmodServer.play_one_shot(pickup_bag)
+	
 
 func get_collected_materials() -> Array[String]:
 	return collected_materials
@@ -178,6 +178,8 @@ func pick_up(new_player: CharacterBody2D) -> void:
 	if not can_be_picked_up():
 		return
 
+	Globals.play_fmod_sfx(pickup_bag, "garbage_mass", garbage_mass)
+	
 	carried = true
 	can_pick_up = false
 	player = new_player
@@ -204,7 +206,7 @@ func pick_up(new_player: CharacterBody2D) -> void:
 
 		pickup_tween.tween_property(self, "pickup_blend", 1.0, pickup_time)
 	#PICKUP SOUND HERE
-	#FmodServer.play_one_shot_with_params(pickup_bag, {"garbage_mass": garbage_mass})
+	
 
 func drop() -> void:
 	if not carried:
