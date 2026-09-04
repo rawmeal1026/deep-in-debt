@@ -260,7 +260,7 @@ func drop() -> void:
 		_finish_drop_pickup_delay()
 	else:
 		get_tree().create_timer(drop_pickup_delay).timeout.connect(_finish_drop_pickup_delay)
-	#FmodServer.play_one_shot_with_params(putdown_bag, {"garbage_mass": garbage_mass})
+	Globals.play_fmod_sfx(putdown_bag, "garbage_mass", garbage_mass)
 
 func _finish_drop_pickup_delay() -> void:
 	if not carried:
