@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://coj6bvo3vosxu"]
+
+[ext_resource type="Texture2D" uid="uid://v4pbd76lj0v4" path="res://assets/sprites/Whale The Blublu/Whale_The_BlubluI_idle.png" id="1_q6i5d"]
+[ext_resource type="Script" uid="uid://p34mx86gv56s" path="res://scripts/mon_whale.gd" id="1_t7li8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88fa3"]
+radius = 48.010414
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qaahb"]
+radius = 34.234486
+
+[node name="Mon Whale" type="Node2D" unique_id=1195302392 groups=["mon_whale"]]
+script = ExtResource("1_t7li8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1991769603]
+position = Vector2(-3, -2)
+texture = ExtResource("1_q6i5d")
+
+[node name="Mon Whale" type="Area2D" parent="." unique_id=1814212557]
+position = Vector2(0, 1)
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mon Whale" unique_id=567362826]
+shape = SubResource("CircleShape2D_88fa3")
+
+[node name="GarbageBagSpawn" type="Area2D" parent="." unique_id=1834488145]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GarbageBagSpawn" unique_id=1189784615]
+position = Vector2(68, 48)
+shape = SubResource("CircleShape2D_qaahb")

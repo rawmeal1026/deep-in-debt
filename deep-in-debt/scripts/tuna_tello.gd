@@ -22,6 +22,8 @@ var bags_in_range: Array[Node2D] = []
 var carried_bag: Node2D = null
 var facing_direction := 1.0
 
+var whales_in_range: Array[Node2D] = []
+
 func _ready() -> void:
 	setup_FMOD_event_instances()
 
@@ -41,11 +43,16 @@ func _physics_process(_delta: float) -> void:
 	update_animation(velocity)
 	move_and_slide()
 
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact_bag"):
-		handle_bag_interaction()
+		var whale := get_nearest_whale()
 
+		if whale != null:
+			if whale.has_method("interact"):
+				whale.call("interact")
+			return  # delete this line if the bag logic should ALSO run
+
+		handle_bag_interaction()
 
 # ------------------------------------------------------------------
 # Bag pickup / drop
@@ -179,6 +186,11 @@ func _on_interaction_area_area_entered(area: Area2D) -> void:
 
 	if bag != null and not bags_in_range.has(bag):
 		bags_in_range.append(bag)
+	
+	var whale := get_whale_from_area(area)
+
+	if whale != null and not whales_in_range.has(whale):
+		whales_in_range.append(whale)
 
 
 func _on_interaction_area_area_exited(area: Area2D) -> void:
@@ -187,6 +199,12 @@ func _on_interaction_area_area_exited(area: Area2D) -> void:
 	if bag != null:
 		bags_in_range.erase(bag)
 
+	var whale := get_whale_from_area(area)
+	
+	if whale != null:
+		whales_in_range.erase(whale)
+
+# BAG HELPER FUNCTIONS
 
 func get_bag_from_area(area: Area2D) -> Node2D:
 	if area.is_in_group("bag"):
@@ -219,6 +237,35 @@ func get_nearest_bag() -> Node2D:
 		if distance < best_distance:
 			best_distance = distance
 			nearest = bag
+
+	return nearest
+
+## The group is on the Area2D, so return its parent (the whale root).
+func get_whale_from_area(area: Area2D) -> Node2D:
+	if area.is_in_group("mon_whale"):
+		return area.get_parent() as Node2D
+
+	var parent := area.get_parent() as Node2D
+	if parent != null and parent.is_in_group("mon_whale"):
+		return parent
+
+	return null
+
+# WHALE HELPER FUNCTIONS
+
+func get_nearest_whale() -> Node2D:
+	var nearest: Node2D = null
+	var best_distance := INF
+
+	for whale in whales_in_range:
+		if not is_instance_valid(whale):
+			continue
+
+		var distance := global_position.distance_squared_to(whale.global_position)
+
+		if distance < best_distance:
+			best_distance = distance
+			nearest = whale
 
 	return nearest
 
