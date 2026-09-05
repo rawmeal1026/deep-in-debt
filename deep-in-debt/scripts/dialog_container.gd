@@ -23,7 +23,7 @@ enum Speaker { NONE, NPC, PLAYER }
 var current_speaker: int = Speaker.NONE
 var line_index := 0
 var player_line_index := 0   # ← which XXXXX / which option pair we're on
-var is_typing := false
+var is_typing := false # THIS VARIABLE IS ON WHEN THE TYPING IS ON
 
 var _full_texts: Array[String] = []
 var _labels: Array[Label] = []

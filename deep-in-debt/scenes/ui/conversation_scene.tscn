@@ -41,8 +41,8 @@ theme_override_constants/margin_bottom = 30
 script = ExtResource("1_nfjjb")
 npc_name = "Picass Shark"
 npc_speech = ["Hello", "I am talking", "poggers", "next line is the player", "XXXXX", " then another one", "XXXXX", "hehehhe"]
-player_option_1 = Array[String](["a", "e"])
-player_option_2 = Array[String](["1", "5"])
+player_option_1 = ["bery very very very long text this time", "e"]
+player_option_2 = ["jfhdbksdbcjzbxkjcsda", "5"]
 
 [node name="IllusContainer" type="VBoxContainer" parent="TalkScreen/Panel/DialogContainer" unique_id=1047287334]
 layout_mode = 2
