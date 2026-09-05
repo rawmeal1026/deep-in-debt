@@ -7,7 +7,7 @@
 radius = 48.010414
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qaahb"]
-radius = 34.234486
+radius = 21.023796
 
 [node name="Mon Whale" type="Node2D" unique_id=1195302392 groups=["mon_whale"]]
 script = ExtResource("1_t7li8")
@@ -28,5 +28,5 @@ shape = SubResource("CircleShape2D_88fa3")
 [node name="GarbageBagSpawn" type="Area2D" parent="." unique_id=1834488145]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GarbageBagSpawn" unique_id=1189784615]
-position = Vector2(68, 48)
+position = Vector2(63, 32)
 shape = SubResource("CircleShape2D_qaahb")
