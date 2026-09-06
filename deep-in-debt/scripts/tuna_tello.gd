@@ -66,6 +66,14 @@ func _unhandled_input(event: InputEvent) -> void:
 				if shark.has_method("talk"):
 					shark.call("talk")
 				return  # delete this line if the bag logic should ALSO run
+		
+		var koi := get_nearest_koi()
+		
+		if koi != null:
+			if not Globals.in_cutscene:
+				if koi.has_method("buy"):
+					koi.call("buy")
+				return  # delete this line if the bag logic should ALSO run
 		handle_bag_interaction()
 
 # ------------------------------------------------------------------
@@ -87,6 +95,11 @@ func _on_interaction_area_area_entered(area: Area2D) -> void:
 
 	if shark != null and not sharks_in_range.has(shark):
 		sharks_in_range.append(shark)
+	
+	var koi := get_koi_from_area(area)
+
+	if koi != null and not koi_in_range.has(koi):
+		koi_in_range.append(koi)
 
 
 func _on_interaction_area_area_exited(area: Area2D) -> void:
@@ -104,6 +117,11 @@ func _on_interaction_area_area_exited(area: Area2D) -> void:
 	
 	if shark != null:
 		sharks_in_range.erase(shark)
+
+	var koi := get_koi_from_area(area)
+
+	if koi != null:
+		sharks_in_range.erase(koi)
 
 # ------------------------------------------------------------------
 # Bag pickup / drop
@@ -276,19 +294,6 @@ func get_whale_from_area(area: Area2D) -> Node2D:
 	
 	return null
 
-## The group is on the Area2D, so return its parent (the shark root).
-func get_shark_from_area(area: Area2D) -> Node2D:
-	if area.is_in_group("picass_shark"):
-		return area.get_parent() as Node2D
-
-	var parent := area.get_parent() as Node2D
-	if parent != null and parent.is_in_group("picass_shark"):
-		return parent
-
-	return null
-
-# WHALE HELPER FUNCTIONS
-
 func get_nearest_whale() -> Node2D:
 	var nearest: Node2D = null
 	var best_distance := INF
@@ -305,6 +310,17 @@ func get_nearest_whale() -> Node2D:
 
 	return nearest
 
+## The group is on the Area2D, so return its parent (the shark root).
+func get_shark_from_area(area: Area2D) -> Node2D:
+	if area.is_in_group("picass_shark"):
+		return area.get_parent() as Node2D
+
+	var parent := area.get_parent() as Node2D
+	if parent != null and parent.is_in_group("picass_shark"):
+		return parent
+
+	return null
+
 func get_nearest_shark() -> Node2D:
 	var nearest: Node2D = null
 	var best_distance := INF
@@ -318,6 +334,33 @@ func get_nearest_shark() -> Node2D:
 		if distance < best_distance:
 			best_distance = distance
 			nearest = shark
+
+	return nearest
+
+## The group is on the Area2D, so return its parent (the shark root).
+func get_koi_from_area(area: Area2D) -> Node2D:
+	if area.is_in_group("mikoi_angelo"):
+		return area.get_parent() as Node2D
+
+	var parent := area.get_parent() as Node2D
+	if parent != null and parent.is_in_group("mikoi_angelo"):
+		return parent
+
+	return null
+
+func get_nearest_koi() -> Node2D:
+	var nearest: Node2D = null
+	var best_distance := INF
+
+	for koi in koi_in_range:
+		if not is_instance_valid(koi):
+			continue
+
+		var distance := global_position.distance_squared_to(koi.global_position)
+
+		if distance < best_distance:
+			best_distance = distance
+			nearest = koi
 
 	return nearest
 
