@@ -193,6 +193,12 @@ func _process(delta: float) -> void:
 func trigger_voice_sound():
 	if is_npc_speaking():
 		match Globals.npc_name:
+			"Leon Octo":
+				current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
+			"Mon Whale":
+				current_sfx_instance = Globals.play_fmod_sfx_managed(mon_whale)
+			"Van Gold":
+				current_sfx_instance = Globals.play_fmod_sfx_managed(van_gold)
 			"Picass Shark":
 				current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
 	elif is_player_speaking():

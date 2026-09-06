@@ -151,7 +151,7 @@ scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_dsc6t")
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=1351174695]
-bank_paths = ["res://addons/fmod/banks/Master.strings.bank", "res://addons/fmod/banks/Master.bank", "res://addons/fmod/banks/player.bank"]
+bank_paths = ["res://addons/fmod/banks/Master.strings.bank", "res://addons/fmod/banks/Master.bank", "res://addons/fmod/banks/player.bank", "res://addons/fmod/banks/npc_voices.bank"]
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_frame_changed"]
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
