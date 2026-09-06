@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://ccfq86i03b0ky"]
+
+[ext_resource type="Texture2D" uid="uid://cgrsslorhotdo" path="res://assets/sprites/Daddy Shark/Daddy_Shark_idle.png" id="1_12gtu"]
+[ext_resource type="Script" uid="uid://dhm473re7nd4c" path="res://scripts/picass_shark.gd" id="1_cpq2j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpq2j"]
+atlas = ExtResource("1_12gtu")
+region = Rect2(0, 0, 80, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdkoy"]
+atlas = ExtResource("1_12gtu")
+region = Rect2(80, 0, 80, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnjea"]
+atlas = ExtResource("1_12gtu")
+region = Rect2(160, 0, 80, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_em1bk"]
+atlas = ExtResource("1_12gtu")
+region = Rect2(240, 0, 80, 66)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xwebp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cpq2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdkoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnjea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_em1bk")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v7elb"]
+radius = 49.010204
+
+[node name="Picass Shark" type="Node2D" unique_id=583273182]
+script = ExtResource("1_cpq2j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=479510477]
+sprite_frames = SubResource("SpriteFrames_xwebp")
+animation = &"Idle"
+frame = 1
+frame_progress = 0.8740654
+
+[node name="Picass Shark" type="Area2D" parent="." unique_id=2117302878 groups=["picass_shark"]]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Picass Shark" unique_id=1171590816]
+shape = SubResource("CircleShape2D_v7elb")

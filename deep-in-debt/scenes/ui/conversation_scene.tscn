@@ -6,6 +6,22 @@
 [ext_resource type="Script" uid="uid://bfdbbdk4r41kr" path="res://scripts/name_card_sizing_script.gd" id="2_5dppf"]
 [ext_resource type="Texture2D" uid="uid://b2unbly66f0dk" path="res://assets/popart/Daddy_shark1.png" id="3_5dppf"]
 [ext_resource type="FontFile" uid="uid://bbo0jom7ar424" path="res://assets/fonts/monogram-extended.ttf" id="4_gq0ot"]
+[ext_resource type="Texture2D" uid="uid://dg7dw8vhmxhpc" path="res://assets/tilesets/UI - Copy.png" id="5_1liqq"]
+[ext_resource type="Texture2D" uid="uid://v51j0v7wfspw" path="res://assets/tilesets/arrow.png" id="5_372r4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgffk"]
+atlas = ExtResource("5_372r4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_372r4"]
+bg_color = Color(0.43137255, 0.27450982, 0.2509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ernsm"]
+bg_color = Color(0.32035646, 0.625895, 0.8811698, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ernsm"]
+atlas = ExtResource("5_372r4")
+region = Rect2(32, 0, 32, 32)
 
 [node name="ConversationScene" type="CanvasLayer" unique_id=1566053693]
 
@@ -39,10 +55,6 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 script = ExtResource("1_nfjjb")
-npc_name = "Picass Shark"
-npc_speech = ["Hello", "I am talking", "poggers", "next line is the player", "XXXXX", " then another one", "XXXXX", "hehehhe"]
-player_option_1 = ["bery very very very long text this time", "e"]
-player_option_2 = ["jfhdbksdbcjzbxkjcsda", "5"]
 
 [node name="IllusContainer" type="VBoxContainer" parent="TalkScreen/Panel/DialogContainer" unique_id=1047287334]
 layout_mode = 2
@@ -84,6 +96,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="NPCContainer" type="VBoxContainer" parent="TalkScreen/Panel/DialogContainer" unique_id=1062145252]
+visible = false
 layout_mode = 2
 
 [node name="DeadSpace" type="Panel" parent="TalkScreen/Panel/DialogContainer/NPCContainer" unique_id=422443037]
@@ -148,6 +161,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 2.2
 
 [node name="SpeechContainer" type="Panel" parent="TalkScreen/Panel/DialogContainer/PlayerContainer" unique_id=1497417209]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -187,16 +201,60 @@ theme_override_constants/margin_bottom = 30
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel" unique_id=775366622]
+[node name="HBoxContainer" type="HBoxContainer" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel" unique_id=666160524]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/HBoxContainer" unique_id=775366622]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 text = "penus"
 
-[node name="NinePatchRect2" type="NinePatchRect" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer" unique_id=2033594698]
+[node name="DeadSpace" type="Panel" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/HBoxContainer" unique_id=626038507]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="TextureRect" type="TextureRect" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/HBoxContainer" unique_id=243162413]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+texture = SubResource("AtlasTexture_pgffk")
+
+[node name="ProgressBar" type="ProgressBar" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer" unique_id=2060248211]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.1
+theme_override_styles/background = SubResource("StyleBoxFlat_372r4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ernsm")
+fill_mode = 3
+show_percentage = false
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/ProgressBar" unique_id=375258783]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+texture = ExtResource("5_1liqq")
+region_rect = Rect2(224, 448, 16, 48)
+patch_margin_left = 5
+patch_margin_top = 4
+patch_margin_right = 5
+patch_margin_bottom = 4
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer" unique_id=2033594698]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_5kld3")
@@ -208,7 +266,7 @@ patch_margin_bottom = 16
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect2" unique_id=673347321]
+[node name="MarginContainer" type="MarginContainer" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect3" unique_id=673347321]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -220,18 +278,36 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="Panel" type="Panel" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect2/MarginContainer" unique_id=1630230582]
+[node name="Panel" type="Panel" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect3/MarginContainer" unique_id=1630230582]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect2/MarginContainer/Panel" unique_id=1459047063]
+[node name="HBoxContainer" type="HBoxContainer" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect3/MarginContainer/Panel" unique_id=2109906370]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "yooo"
+
+[node name="TextureRect" type="TextureRect" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect3/MarginContainer/Panel/HBoxContainer" unique_id=1380451974]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+texture = SubResource("AtlasTexture_ernsm")
+
+[node name="DeadSpace" type="Panel" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect3/MarginContainer/Panel/HBoxContainer" unique_id=207052563]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect3/MarginContainer/Panel/HBoxContainer" unique_id=81731680]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "penus"
 
 [node name="NameContainer" type="VBoxContainer" parent="TalkScreen/Panel/DialogContainer" unique_id=1054502228]
 layout_mode = 2
@@ -305,7 +381,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="TalkScreen/Panel/DialogContainer/NameContainer/NamePanel/HBoxContainer" unique_id=1623385579]
-visible = false
 layout_mode = 2
 texture = ExtResource("1_5kld3")
 region_rect = Rect2(800, 0, 64, 48)
@@ -340,7 +415,6 @@ theme_override_constants/outline_size = 8
 theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("4_gq0ot")
 theme_override_font_sizes/font_size = 30
-text = "Picass Shark"
 
 [node name="DeadSpace3" type="Panel" parent="TalkScreen/Panel/DialogContainer/NameContainer/NamePanel/HBoxContainer" unique_id=865162722]
 self_modulate = Color(1, 1, 1, 0)

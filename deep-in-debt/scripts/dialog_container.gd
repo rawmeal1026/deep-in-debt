@@ -1,22 +1,19 @@
 extends MarginContainer
 
-@export var npc_name: String = ""
-@export var npc_speech: Array
-@export var player_option_1: Array
-@export var player_option_2: Array
-
 ## Marker in npc_speech that triggers a player turn. It is NEVER displayed.
 @export var player_turn_marker: String = "XXXXX"
 
 @export var type_speed := 30.0
 
 @onready var npc_speech_label: Label = $NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel/Label
-@onready var player_option_1_label: Label = $PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/Label
-@onready var player_option_2_label: Label = $PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect2/MarginContainer/Panel/Label
+@onready var player_option_1_label: Label = $PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/HBoxContainer/Label
+@onready var player_option_2_label: Label = $PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect3/MarginContainer/Panel/HBoxContainer/Label
 @onready var npc_name_label: Label = $NameContainer/NamePanel/HBoxContainer/NinePatchRect2/MarginContainer/CenterContainer/Label
 
 @onready var npc_container: VBoxContainer = $NPCContainer
 @onready var player_container: VBoxContainer = $PlayerContainer
+@onready var player_name_container: NinePatchRect = $NameContainer/NamePanel/HBoxContainer/NinePatchRect
+@onready var npc_name_container: NinePatchRect = $NameContainer/NamePanel/HBoxContainer/NinePatchRect2
 
 enum Speaker { NONE, NPC, PLAYER }
 
@@ -31,10 +28,8 @@ var _revealed_counts: Array[int] = []
 
 
 func _ready() -> void:
-	npc_name_label.text = npc_name
+	Globals.initiate_talk.connect(start_dialog)
 	visible = false
-	start_dialog()
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
@@ -52,6 +47,7 @@ func start_dialog() -> void:
 	line_index = 0
 	player_line_index = 0
 	visible = true
+	npc_name_label.text = Globals.npc_name
 	show_current_line()
 
 
@@ -74,14 +70,17 @@ func is_player_speaking() -> bool:
 ## Shows the entry at line_index:
 ## a normal NPC line, or a player turn if the entry is the marker.
 func show_current_line() -> void:
-	if line_index >= npc_speech.size():
+	if line_index >= Globals.npc_speech.size():
 		end_dialog()
 		return
 
-	if str(npc_speech[line_index]) == player_turn_marker:
-		# The NPC never "says" the marker; the player takes over instead.
+	if str(Globals.npc_speech[line_index]) == player_turn_marker:
+		player_name_container.show()
+		npc_name_container.hide()
 		start_player_line()
 	else:
+		player_name_container.hide()
+		npc_name_container.show()
 		start_npc_line()
 
 
@@ -103,7 +102,7 @@ func start_npc_line() -> void:
 	npc_container.visible = true
 	player_container.visible = false
 
-	begin_typing([npc_speech_label], [str(npc_speech[line_index])])
+	begin_typing([npc_speech_label], [str(Globals.npc_speech[line_index])])
 
 
 func start_player_line() -> void:
@@ -113,10 +112,10 @@ func start_player_line() -> void:
 	player_container.visible = true
 
 	var texts: Array[String] = ["", ""]
-	if player_line_index < player_option_1.size():
-		texts[0] = str(player_option_1[player_line_index])
-	if player_line_index < player_option_2.size():
-		texts[1] = str(player_option_2[player_line_index])
+	if player_line_index < Globals.player_option_1.size():
+		texts[0] = str(Globals.player_option_1[player_line_index])
+	if player_line_index < Globals.player_option_2.size():
+		texts[1] = str(Globals.player_option_2[player_line_index])
 
 	begin_typing([player_option_1_label, player_option_2_label], texts)
 
@@ -126,6 +125,7 @@ func end_dialog() -> void:
 	is_typing = false
 	set_process(false)
 	visible = false
+	Globals.in_cutscene = false
 
 
 # ------------------------------------------------------------------

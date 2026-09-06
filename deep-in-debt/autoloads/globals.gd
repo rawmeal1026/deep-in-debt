@@ -1,13 +1,6 @@
 extends Node
 
-var bag_slow_interval = 10
-#First increase threshold = bag_slow_interval * 2
-#Second increase threshold = bag_slow_interval * 3
-#Max_bag_content = bag_slow_interval * 4
-
-# Adjust this path to wherever your GarbageBag scene file actually is.
-const GarbageBagScene := preload("res://scenes/entities/garbage_bag.tscn")
-
+# FMOD GLOBALS
 ## path        = the FMOD event path, e.g. "event:/SFX/BagPickup"
 ## param_name  = name of the FMOD parameter to set ("" = no parameter)
 ## param_value = value for that parameter
@@ -24,6 +17,20 @@ func play_fmod_sfx(path: String, param_name := "", param_value := 0.0) -> void:
 #if playing sfx with no parameter: Globals.play_fmod_sfx(path)
 #if playing sfx with ONE parameter: Globals.play_fmod_sfx(path, parameter_name, parameter_value)
 
+# BAG SLOW EFFECT GLOBALS
+
+var bag_slow_interval = 10
+var player_garbage_carry_count: int
+var is_player_carrying_a_bag: bool = false
+var carried_bag: Node2D = null
+#First increase threshold = bag_slow_interval * 2
+#Second increase threshold = bag_slow_interval * 3
+
+
+# GARBAGE_BAG_FROM_WHALE_GLOBALS
+
+# Adjust this path to wherever your GarbageBag scene file actually is.
+const GarbageBagScene := preload("res://scenes/entities/garbage_bag.tscn")
 
 ## Spawns a GarbageBag under Entities at the given position.
 ## Returns the spawned bag so you can configure it if needed.
@@ -44,3 +51,19 @@ func spawn_garbage_bag(at_position: Vector2) -> Node2D:
 	bag.global_position = at_position
 
 	return bag
+
+
+# DIALOG GLOBALS
+signal initiate_talk
+
+var in_cutscene = false
+
+func talk():
+	in_cutscene = true
+	initiate_talk.emit()
+
+# Dialog Manager
+var npc_name: String
+var npc_speech: Array
+var player_option_1: Array
+var player_option_2: Array

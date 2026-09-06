@@ -5,10 +5,7 @@ extends Node2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var spawn_shape: CollisionShape2D = $GarbageBagSpawn/CollisionShape2D
 
-var move_tween: Tween = null
-
-
-## Called by the player when interact_bag is pressed nearby.
+## Called by the player when interact is pressed nearby.
 func interact() -> void:
 	Globals.spawn_garbage_bag(get_random_spawn_point())
 
