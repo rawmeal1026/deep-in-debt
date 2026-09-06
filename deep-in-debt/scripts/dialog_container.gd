@@ -194,3 +194,45 @@ func _process(delta: float) -> void:
 		revealed_chars = 0
 		is_typing = false
 		set_process(false)
+<<<<<<< Updated upstream
+=======
+
+
+func trigger_voice_sound():
+	if is_npc_speaking():
+		match Globals.npc_name:
+			"Leon Octo":
+				current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
+			"Mon Whale":
+				current_sfx_instance = Globals.play_fmod_sfx_managed(mon_whale)
+			"Van Gold":
+				current_sfx_instance = Globals.play_fmod_sfx_managed(van_gold)
+			"Picass Shark":
+				current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
+	elif is_player_speaking():
+		current_sfx_instance = Globals.play_fmod_sfx_managed(tuna_tello)
+	check_sfx()
+
+func is_voice_sound_active() -> bool:
+	if not current_sfx_instance or not current_sfx_instance.is_valid():
+		return false
+	
+	var state = current_sfx_instance.get_playback_state()
+	
+	# Returns true if active, or false if stopped / finished
+	return state != FmodServer.FMOD_STUDIO_PLAYBACK_STOPPED
+
+func check_sfx():
+	if current_sfx_instance:
+		var state = current_sfx_instance.get_playback_state()
+		
+		match state:
+			FmodServer.FMOD_STUDIO_PLAYBACK_PLAYING:
+				print("SFX is actively playing.")
+			FmodServer.FMOD_STUDIO_PLAYBACK_STOPPED:
+				print("SFX has finished or stopped.")
+			FmodServer.FMOD_STUDIO_PLAYBACK_STARTING:
+				print("SFX is currently loading/starting.")
+			FmodServer.FMOD_STUDIO_PLAYBACK_STOPPING:
+				print("SFX is fading out or stopping.")
+>>>>>>> Stashed changes
