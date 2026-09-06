@@ -119,22 +119,12 @@ radius = 16.666668
 [node name="Tuna Tello" type="CharacterBody2D" unique_id=927444226]
 script = ExtResource("1_2qooa")
 footsteps = "event:/player_footstep"
-pickup_bag = "event:/player_pickup_bag"
-putdown_bag = "event:/player_putdown_bag"
-pickup_bottle = "event:/player_pickup_bottle"
-putdown_bottle = "event:/player_putdown_bottle"
-pickup_can = "event:/player_pickup_can"
-putdown_can = "event:/player_putdown_can"
-pickup_milk = "event:/player_pickup_milk"
-putdown_milk = "event:/player_putdown_milk"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=616594180]
 position = Vector2(0, -2)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_88fa3")
-animation = &"Walk"
-frame = 2
-frame_progress = 0.74973416
+animation = &"Death"
 
 [node name="InteractBagHitbox" type="CollisionShape2D" parent="." unique_id=1134136638]
 scale = Vector2(1.2, 1.2)
