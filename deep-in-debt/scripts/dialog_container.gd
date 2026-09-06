@@ -26,6 +26,7 @@ var _full_texts: Array[String] = []
 var _labels: Array[Label] = []
 var _revealed_counts: Array[int] = []
 
+var revealed_chars : int = 0
 
 func _ready() -> void:
 	Globals.initiate_talk.connect(start_dialog)
@@ -153,6 +154,18 @@ func finish_typing() -> void:
 	is_typing = false
 	set_process(false)
 
+func count_shown_chars():
+	for ch in npc_speech_label.text:
+		if ch != "" or ch != " ":
+			revealed_chars += 1
+	print(revealed_chars)
+
+func try_playing_char_voice():
+	match npc_name_label.text:
+		"Picass Shark":
+			if revealed_chars >= 4:
+				Globals.play_fmod_sfx("event:/picass_shark_voice")
+				revealed_chars = 0
 
 func _process(delta: float) -> void:
 	if npc_name_container.custom_minimum_size.x != npc_name_label.size.x + 60:
@@ -174,6 +187,10 @@ func _process(delta: float) -> void:
 		if _revealed_counts[i] < _full_texts[i].length():
 			all_done = false
 
+	count_shown_chars()
+	try_playing_char_voice()
+
 	if all_done:
+		revealed_chars = 0
 		is_typing = false
 		set_process(false)
