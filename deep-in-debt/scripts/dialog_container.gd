@@ -70,10 +70,11 @@ func is_player_speaking() -> bool:
 ## Shows the entry at line_index:
 ## a normal NPC line, or a player turn if the entry is the marker.
 func show_current_line() -> void:
+	
 	if line_index >= Globals.npc_speech.size():
 		end_dialog()
 		return
-
+	
 	if str(Globals.npc_speech[line_index]) == player_turn_marker:
 		player_name_container.show()
 		npc_name_container.hide()
@@ -154,6 +155,9 @@ func finish_typing() -> void:
 
 
 func _process(delta: float) -> void:
+	if npc_name_container.custom_minimum_size.x != npc_name_label.size.x + 60:
+		npc_name_container.custom_minimum_size.x = npc_name_label.size.x + 60
+
 	if not is_typing:
 		return
 
