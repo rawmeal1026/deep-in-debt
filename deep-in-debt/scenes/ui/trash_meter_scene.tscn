@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cqicmensgt7gn"]
+
+[ext_resource type="Texture2D" uid="uid://c3pm4ysg7mobn" path="res://assets/tilesets/player_slow_meter.png" id="1_oaalu"]
+[ext_resource type="Script" uid="uid://c8rvbqdgavm1x" path="res://scripts/move_speed_meter.gd" id="2_ssacs"]
+[ext_resource type="Texture2D" uid="uid://byhnhnqm1rudy" path="res://assets/tilesets/trash_meter_void.png" id="2_v3dkh"]
+[ext_resource type="Texture2D" uid="uid://c1u7qjkpvnr7b" path="res://assets/tilesets/trash_meter_fill.png" id="3_ssacs"]
+[ext_resource type="Script" uid="uid://bpcmdllc7qdjs" path="res://scripts/trash_count_meter.gd" id="5_ssacs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2fhn"]
+atlas = ExtResource("1_oaalu")
+region = Rect2(0, 0, 80, 81)
+
+[node name="TrashMeterScene" type="CanvasLayer" unique_id=1141202860]
+
+[node name="TrashMeter" type="Control" parent="." unique_id=87465810]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TrashMeter" unique_id=1966679783]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer" unique_id=1890227429]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.03
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrashMeter/HBoxContainer" unique_id=1743964714]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer/VBoxContainer" unique_id=637853847]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.03
+
+[node name="MoveSpeedMeter" type="TextureRect" parent="TrashMeter/HBoxContainer/VBoxContainer" unique_id=1091921934]
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("AtlasTexture_w2fhn")
+stretch_mode = 2
+script = ExtResource("2_ssacs")
+
+[node name="TrashCountMeter" type="TextureProgressBar" parent="TrashMeter/HBoxContainer/VBoxContainer/MoveSpeedMeter" unique_id=174490406]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 3
+texture_under = ExtResource("2_v3dkh")
+texture_progress = ExtResource("3_ssacs")
+script = ExtResource("5_ssacs")

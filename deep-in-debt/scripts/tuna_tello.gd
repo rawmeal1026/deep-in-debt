@@ -17,10 +17,16 @@ var SPEED = 250.0
 signal garbage_collected(material_name: String)
 
 # fixed it so there's only one garbage mass variable
-var garbage_mass: int
 var bags_in_range: Array[Node2D] = []
-var carried_bag: Node2D = null
 var facing_direction := 1.0
+
+var whales_in_range: Array[Node2D] = []
+var sharks_in_range: Array[Node2D] = []
+var koi_in_range: Array[Node2D] = []
+var carp_in_range: Array[Node2D] = []
+var octopi_in_range: Array[Node2D] = []
+var cake_in_range: Array[Node2D] = []
+var goldfishes_in_range: Array[Node2D] = []
 
 func _ready() -> void:
 	setup_FMOD_event_instances()
@@ -29,51 +35,104 @@ func setup_FMOD_event_instances():
 	pass
 
 func _physics_process(_delta: float) -> void:
-	garbage_mass = get_collected_count()
-	if garbage_mass < (Globals.bag_slow_interval * 2):
+	Globals.player_garbage_carry_count = get_collected_count()
+	if Globals.player_garbage_carry_count < (Globals.bag_slow_interval * 2):
 		SPEED = 250
-	elif garbage_mass < (Globals.bag_slow_interval * 3):
+	elif Globals.player_garbage_carry_count < (Globals.bag_slow_interval * 3):
 		SPEED = 200
 	else:
 		SPEED = 100
-
-	velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
+	
+	if not Globals.in_cutscene:
+		velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
+	else:
+		velocity = Vector2.ZERO
 	update_animation(velocity)
 	move_and_slide()
 
-
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact_bag"):
+	if event.is_action_pressed("interact"):
+		var whale := get_nearest_whale()
+
+		if whale != null:
+			if whale.has_method("interact"):
+				whale.call("interact")
+			return  # delete this line if the bag logic should ALSO run
+
+		var shark := get_nearest_shark()
+
+		if shark != null:
+			if not Globals.in_cutscene:
+				if shark.has_method("talk"):
+					shark.call("talk")
+				return  # delete this line if the bag logic should ALSO run
 		handle_bag_interaction()
 
+# ------------------------------------------------------------------
+# Interaction area (bag pickup)
+# ------------------------------------------------------------------
+
+func _on_interaction_area_area_entered(area: Area2D) -> void:
+	var bag := get_bag_from_area(area)
+
+	if bag != null and not bags_in_range.has(bag):
+		bags_in_range.append(bag)
+	
+	var whale := get_whale_from_area(area)
+
+	if whale != null and not whales_in_range.has(whale):
+		whales_in_range.append(whale)
+	
+	var shark := get_shark_from_area(area)
+
+	if shark != null and not sharks_in_range.has(shark):
+		sharks_in_range.append(shark)
+
+
+func _on_interaction_area_area_exited(area: Area2D) -> void:
+	var bag := get_bag_from_area(area)
+
+	if bag != null:
+		bags_in_range.erase(bag)
+
+	var whale := get_whale_from_area(area)
+	
+	if whale != null:
+		whales_in_range.erase(whale)
+	
+	var shark := get_shark_from_area(area)
+	
+	if shark != null:
+		sharks_in_range.erase(shark)
 
 # ------------------------------------------------------------------
 # Bag pickup / drop
 # ------------------------------------------------------------------
 
 func handle_bag_interaction() -> void:
-	if is_instance_valid(carried_bag):
-		if carried_bag.has_method("drop"):
-			carried_bag.call("drop")
-		carried_bag = null
+	if is_instance_valid(Globals.carried_bag):
+		if Globals.carried_bag.has_method("drop"):
+			Globals.carried_bag.call("drop")
+		Globals.carried_bag = null
+		Globals.is_player_carrying_a_bag = false
 		return
 
-	carried_bag = null
+	Globals.carried_bag = null
 
 	var bag := get_nearest_bag()
 
 	if bag != null and bag.has_method("pick_up"):
 		bag.call("pick_up", self)
-		carried_bag = bag
-
+		Globals.carried_bag = bag
+		Globals.is_player_carrying_a_bag = true
 		# Collect any garbage already standing inside the collection area.
 		collect_all_in_range()
 
 
 ## The position garbage should fly to (same spot the bag sits at).
 func get_carry_target_position() -> Vector2:
-	if is_instance_valid(carried_bag) and carried_bag.has_method("get_carry_target_position"):
-		var target: Vector2 = carried_bag.call("get_carry_target_position")
+	if is_instance_valid(Globals.carried_bag) and Globals.carried_bag.has_method("get_carry_target_position"):
+		var target: Vector2 = Globals.carried_bag.call("get_carry_target_position")
 		return target
 
 	return global_position
@@ -84,7 +143,7 @@ func get_carry_target_position() -> Vector2:
 
 func _on_collection_area_area_entered(area: Area2D) -> void:
 	# Only collect while holding a bag.
-	if not is_instance_valid(carried_bag):
+	if not is_instance_valid(Globals.carried_bag):
 		return
 
 	var garbage := get_garbage_from_area(area)
@@ -108,7 +167,7 @@ func collect_all_in_range() -> void:
 
 func collect_garbage(garbage: Node2D) -> void:
 	var material_name := ""
-	if garbage_mass < (Globals.bag_slow_interval * 3):
+	if get_collected_count() < (Globals.bag_slow_interval * 3):
 		if garbage.has_method("get_material_name"):
 			material_name = str(garbage.call("get_material_name"))
 
@@ -117,8 +176,8 @@ func collect_garbage(garbage: Node2D) -> void:
 
 		if material_name != "":
 			# Store the material inside the bag the player is holding.
-			if is_instance_valid(carried_bag) and carried_bag.has_method("add_collected_material"):
-				carried_bag.call("add_collected_material", material_name)
+			if is_instance_valid(Globals.carried_bag) and Globals.carried_bag.has_method("add_collected_material"):
+				Globals.carried_bag.call("add_collected_material", material_name)
 			garbage_collected.emit(material_name)
 
 	else:
@@ -144,49 +203,33 @@ func get_garbage_from_area(area: Area2D) -> Node2D:
 func get_collected_materials() -> Array[String]:
 	var result: Array[String] = []
 
-	if is_instance_valid(carried_bag) and carried_bag.has_method("get_collected_materials"):
-		result = carried_bag.call("get_collected_materials")
+	if is_instance_valid(Globals.carried_bag) and Globals.carried_bag.has_method("get_collected_materials"):
+		result = Globals.carried_bag.call("get_collected_materials")
 
 	return result
 
 func get_last_collected_material() -> String:
-	if is_instance_valid(carried_bag) and carried_bag.has_method("get_last_collected_material"):
-		return str(carried_bag.call("get_last_collected_material"))
+	if is_instance_valid(Globals.carried_bag) and Globals.carried_bag.has_method("get_last_collected_material"):
+		return str(Globals.carried_bag.call("get_last_collected_material"))
 
 	return ""
 
 func get_collected_count() -> int:
-	if is_instance_valid(carried_bag) and carried_bag.has_method("get_collected_count"):
-		return int(carried_bag.call("get_collected_count"))
+	if is_instance_valid(Globals.carried_bag) and Globals.carried_bag.has_method("get_collected_count"):
+		return int(Globals.carried_bag.call("get_collected_count"))
 
 	return 0
 
 func state_collected_materials() -> String:
-	if not is_instance_valid(carried_bag):
+	if not is_instance_valid(Globals.carried_bag):
 		return "You are not holding a bag."
 
-	if carried_bag.has_method("state_collected_materials"):
-		return str(carried_bag.call("state_collected_materials"))
+	if Globals.carried_bag.has_method("state_collected_materials"):
+		return str(Globals.carried_bag.call("state_collected_materials"))
 
 	return ""
 
-# ------------------------------------------------------------------
-# Interaction area (bag pickup)
-# ------------------------------------------------------------------
-
-func _on_interaction_area_area_entered(area: Area2D) -> void:
-	var bag := get_bag_from_area(area)
-
-	if bag != null and not bags_in_range.has(bag):
-		bags_in_range.append(bag)
-
-
-func _on_interaction_area_area_exited(area: Area2D) -> void:
-	var bag := get_bag_from_area(area)
-
-	if bag != null:
-		bags_in_range.erase(bag)
-
+# BAG HELPER FUNCTIONS
 
 func get_bag_from_area(area: Area2D) -> Node2D:
 	if area.is_in_group("bag"):
@@ -222,6 +265,61 @@ func get_nearest_bag() -> Node2D:
 
 	return nearest
 
+## The group is on the Area2D, so return its parent (the whale root).
+func get_whale_from_area(area: Area2D) -> Node2D:
+	if area.is_in_group("mon_whale"):
+		return area.get_parent() as Node2D
+
+	var parent := area.get_parent() as Node2D
+	if parent != null and parent.is_in_group("mon_whale"):
+		return parent
+	
+	return null
+
+## The group is on the Area2D, so return its parent (the shark root).
+func get_shark_from_area(area: Area2D) -> Node2D:
+	if area.is_in_group("picass_shark"):
+		return area.get_parent() as Node2D
+
+	var parent := area.get_parent() as Node2D
+	if parent != null and parent.is_in_group("picass_shark"):
+		return parent
+
+	return null
+
+# WHALE HELPER FUNCTIONS
+
+func get_nearest_whale() -> Node2D:
+	var nearest: Node2D = null
+	var best_distance := INF
+
+	for whale in whales_in_range:
+		if not is_instance_valid(whale):
+			continue
+
+		var distance := global_position.distance_squared_to(whale.global_position)
+
+		if distance < best_distance:
+			best_distance = distance
+			nearest = whale
+
+	return nearest
+
+func get_nearest_shark() -> Node2D:
+	var nearest: Node2D = null
+	var best_distance := INF
+
+	for shark in sharks_in_range:
+		if not is_instance_valid(shark):
+			continue
+
+		var distance := global_position.distance_squared_to(shark.global_position)
+
+		if distance < best_distance:
+			best_distance = distance
+			nearest = shark
+
+	return nearest
 
 func update_animation(movement: Vector2) -> void:
 	if movement == Vector2.ZERO:

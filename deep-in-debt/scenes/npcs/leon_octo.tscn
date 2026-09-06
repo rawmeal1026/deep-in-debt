@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c0kxuwdq8uwbt"]
+
+[ext_resource type="Script" uid="uid://sj06iri5fnnl" path="res://scripts/leon_octo.gd" id="1_72qqj"]
+[ext_resource type="Texture2D" uid="uid://fdeoaotxcod2" path="res://assets/sprites/Octy/Octy_idle.png" id="2_i0p7j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujkyx"]
+atlas = ExtResource("2_i0p7j")
+region = Rect2(0, 0, 48, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xo7i"]
+atlas = ExtResource("2_i0p7j")
+region = Rect2(48, 0, 48, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_65qpk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujkyx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xo7i")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0dssy"]
+radius = 49.010204
+
+[node name="Leon Octo" type="Node2D" unique_id=1795971412]
+script = ExtResource("1_72qqj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=517837957]
+sprite_frames = SubResource("SpriteFrames_65qpk")
+animation = &"Idle"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=293946084]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1638671386]
+shape = SubResource("CircleShape2D_0dssy")

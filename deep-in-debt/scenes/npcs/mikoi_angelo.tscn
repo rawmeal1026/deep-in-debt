@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cmlxai0bwhpyq"]
+
+[ext_resource type="Texture2D" uid="uid://duqns5a3ck2nc" path="res://assets/sprites/Carponello/Carponello_idle.png" id="1_wvjj4"]
+[ext_resource type="Script" uid="uid://cd1smgurp82e6" path="res://scripts/mikoi_angelo.gd" id="1_xuqnv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuqnv"]
+atlas = ExtResource("1_wvjj4")
+region = Rect2(0, 0, 32, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqwu3"]
+atlas = ExtResource("1_wvjj4")
+region = Rect2(48, 0, 32, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m17i2"]
+atlas = ExtResource("1_wvjj4")
+region = Rect2(96, 0, 32, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_88fa3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xuqnv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqwu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m17i2")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88fa3"]
+radius = 49.010204
+
+[node name="Mikoi Angelo" type="Node2D" unique_id=1716099161]
+script = ExtResource("1_xuqnv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1345886026]
+sprite_frames = SubResource("SpriteFrames_88fa3")
+animation = &"Idle"
+frame_progress = 0.12539491
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1948870626]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1189871125]
+shape = SubResource("CircleShape2D_88fa3")

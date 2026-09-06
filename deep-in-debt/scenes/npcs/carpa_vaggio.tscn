@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://ttoda0m6njw2"]
+
+[ext_resource type="Texture2D" uid="uid://c026xo2bxea5d" path="res://assets/sprites/Greeny's Granny/Greeny's_Granny_idle.png" id="1_37qyh"]
+[ext_resource type="Script" uid="uid://t8uu4bs3jtuv" path="res://scripts/carpa_vaggio.gd" id="1_68swd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68swd"]
+atlas = ExtResource("1_37qyh")
+region = Rect2(0, 0, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x51rh"]
+atlas = ExtResource("1_37qyh")
+region = Rect2(32, 0, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lwdh"]
+atlas = ExtResource("1_37qyh")
+region = Rect2(64, 0, 32, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_71cu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68swd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x51rh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2lwdh")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o36mj"]
+radius = 49.010204
+
+[node name="Carpa Vaggio" type="Node2D" unique_id=1773769974]
+script = ExtResource("1_68swd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1768188941]
+sprite_frames = SubResource("SpriteFrames_71cu8")
+animation = &"Idle"
+frame_progress = 0.41486225
+
+[node name="Area2D" type="Area2D" parent="." unique_id=240688921]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=170919710]
+shape = SubResource("CircleShape2D_o36mj")
