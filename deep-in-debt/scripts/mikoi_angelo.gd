@@ -24,7 +24,9 @@ func buy() -> void:
 	print("Sold ", Globals.player_garbage_carry_count, " items for ", Globals.player_garbage_carry_count, " shells.")
 	print("Total shells: ", Globals.shell_count)
 
-	# Destroy the bag instance.
+	if Globals.carried_bag.has_method("drop"):
+			Globals.carried_bag.call("drop")
+			
 	Globals.carried_bag.queue_free()
 
 	# Reset the player's carrying state.

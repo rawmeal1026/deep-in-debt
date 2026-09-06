@@ -15,6 +15,14 @@ extends MarginContainer
 @onready var player_name_container: NinePatchRect = $NameContainer/NamePanel/HBoxContainer/NinePatchRect
 @onready var npc_name_container: NinePatchRect = $NameContainer/NamePanel/HBoxContainer/NinePatchRect2
 
+# the event paths given by fmod
+@export_group("sfx references")
+@export var leon_octo : String
+@export var mon_whale : String
+@export var picass_shark : String
+@export var tuna_tello : String
+@export var van_gold : String
+
 enum Speaker { NONE, NPC, PLAYER }
 
 var current_speaker: int = Speaker.NONE
@@ -26,7 +34,7 @@ var _full_texts: Array[String] = []
 var _labels: Array[Label] = []
 var _revealed_counts: Array[int] = []
 
-var revealed_chars : int = 0
+var current_sfx_instance: FmodEvent
 
 func _ready() -> void:
 	Globals.initiate_talk.connect(start_dialog)
@@ -154,19 +162,6 @@ func finish_typing() -> void:
 	is_typing = false
 	set_process(false)
 
-func count_shown_chars():
-	for ch in npc_speech_label.text:
-		if ch != "" or ch != " ":
-			revealed_chars += 1
-	print(revealed_chars)
-
-func try_playing_char_voice():
-	match npc_name_label.text:
-		"Picass Shark":
-			if revealed_chars >= 4:
-				Globals.play_fmod_sfx("event:/picass_shark_voice")
-				revealed_chars = 0
-
 func _process(delta: float) -> void:
 	if npc_name_container.custom_minimum_size.x != npc_name_label.size.x + 60:
 		npc_name_container.custom_minimum_size.x = npc_name_label.size.x + 60
@@ -187,10 +182,41 @@ func _process(delta: float) -> void:
 		if _revealed_counts[i] < _full_texts[i].length():
 			all_done = false
 
-	count_shown_chars()
-	try_playing_char_voice()
+	if not is_voice_sound_active() and is_typing:
+		trigger_voice_sound()
 
 	if all_done:
-		revealed_chars = 0
 		is_typing = false
 		set_process(false)
+
+
+func trigger_voice_sound():
+	if is_npc_speaking():
+		match Globals.npc_name:
+			"Picass Shark":
+				current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
+	elif is_player_speaking():
+		current_sfx_instance = Globals.play_fmod_sfx_managed(tuna_tello)
+
+func is_voice_sound_active() -> bool:
+	if not current_sfx_instance or not current_sfx_instance.is_valid():
+		return false
+	
+	var state = current_sfx_instance.get_playback_state()
+	
+	# Returns true if active, or false if stopped / finished
+	return state != FmodServer.FMOD_STUDIO_PLAYBACK_STOPPED
+
+func check_sfx():
+	if current_sfx_instance:
+		var state = current_sfx_instance.get_playback_state()
+		
+		match state:
+			FmodServer.FMOD_STUDIO_PLAYBACK_PLAYING:
+				print("SFX is actively playing.")
+			FmodServer.FMOD_STUDIO_PLAYBACK_STOPPED:
+				print("SFX has finished or stopped.")
+			FmodServer.FMOD_STUDIO_PLAYBACK_STARTING:
+				print("SFX is currently loading/starting.")
+			FmodServer.FMOD_STUDIO_PLAYBACK_STOPPING:
+				print("SFX is fading out or stopping.")

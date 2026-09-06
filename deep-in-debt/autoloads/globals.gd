@@ -14,8 +14,22 @@ func play_fmod_sfx(path: String, param_name := "", param_value := 0.0) -> void:
 	else:
 		FmodServer.play_one_shot_with_params(path, {param_name: float(param_value)})
 
+# MANAGED: For SFX where you need to check if it's playing or finished
+func play_fmod_sfx_managed(path: String, param_name := "", param_value := 0.0) -> FmodEvent:
+	if path.is_empty():
+		push_warning(name + ": FMOD event path is empty.")
+		return null
+
+	var instance: FmodEvent = FmodServer.create_event_instance(path)
+	
+	if not param_name.is_empty():
+		instance.set_parameter_by_name(param_name, float(param_value))
+
+	instance.start()
+	return instance
 #if playing sfx with no parameter: Globals.play_fmod_sfx(path)
 #if playing sfx with ONE parameter: Globals.play_fmod_sfx(path, parameter_name, parameter_value)
+
 
 # BAG SLOW EFFECT GLOBALS
 

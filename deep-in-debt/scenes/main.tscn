@@ -336,6 +336,5 @@ player_path = NodePath("../Entities/Tunado")
 deadzone_radius = 50.0
 
 [node name="ConversationScene" parent="." unique_id=1566053693 instance=ExtResource("19_0ld40")]
-visible = false
 
 [node name="TrashMeterScene" parent="." unique_id=1141202860 instance=ExtResource("19_gqmmt")]

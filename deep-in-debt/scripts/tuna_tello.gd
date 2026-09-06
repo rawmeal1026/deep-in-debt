@@ -66,14 +66,15 @@ func _unhandled_input(event: InputEvent) -> void:
 				if shark.has_method("talk"):
 					shark.call("talk")
 				return  # delete this line if the bag logic should ALSO run
-		
+
 		var koi := get_nearest_koi()
-		
+
 		if koi != null:
 			if not Globals.in_cutscene:
 				if koi.has_method("buy"):
 					koi.call("buy")
 				return  # delete this line if the bag logic should ALSO run
+
 		handle_bag_interaction()
 
 # ------------------------------------------------------------------
