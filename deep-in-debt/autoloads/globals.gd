@@ -67,3 +67,7 @@ var npc_name: String
 var npc_speech: Array
 var player_option_1: Array
 var player_option_2: Array
+
+
+# SHELL CURRENCY
+var shell_count = 0

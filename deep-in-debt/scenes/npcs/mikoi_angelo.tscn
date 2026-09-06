@@ -43,7 +43,9 @@ sprite_frames = SubResource("SpriteFrames_88fa3")
 animation = &"Idle"
 frame_progress = 0.12539491
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1948870626]
+[node name="Mikoi Angelo" type="Area2D" parent="." unique_id=1948870626 groups=["mikoi_angelo"]]
+collision_layer = 2
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1189871125]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mikoi Angelo" unique_id=1189871125]
 shape = SubResource("CircleShape2D_88fa3")
