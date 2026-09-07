@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3052tabftwsq"]
 
-[ext_resource type="Script" uid="uid://dtw4vm7gay0h3" path="res://scripts/garbage_bag.gd" id="1_nbjeb"]
+[ext_resource type="Script" uid="uid://dtw4vm7gay0h3" path="res://scripts/entities/garbage_bag.gd" id="1_nbjeb"]
 [ext_resource type="Texture2D" uid="uid://cnodyb2ggkabi" path="res://assets/sprites/Trash/Bag4.png" id="1_q373s"]
 [ext_resource type="Texture2D" uid="uid://dln7rqqbchjr8" path="res://assets/sprites/Trash/Bag2.png" id="2_c7e52"]
 [ext_resource type="Texture2D" uid="uid://bgyrbclabn28j" path="res://assets/sprites/Trash/Bag3.png" id="2_ewx2r"]

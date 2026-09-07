@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b3wnd5ciwpvjj"]
 
-[ext_resource type="Script" uid="uid://h00l6lk4525v" path="res://scripts/garbage.gd" id="1_bng3h"]
+[ext_resource type="Script" uid="uid://h00l6lk4525v" path="res://scripts/entities/garbage.gd" id="1_bng3h"]
 [ext_resource type="Texture2D" uid="uid://coxjwbrwpxqos" path="res://assets/sprites/Trash/Bottle1.png" id="1_h1t45"]
 [ext_resource type="Texture2D" uid="uid://b3xrsiywvfay6" path="res://assets/sprites/Trash/Bottle2.png" id="2_bng3h"]
 [ext_resource type="Texture2D" uid="uid://d1lx1kkkvag7o" path="res://assets/sprites/Trash/Can1.png" id="3_3om8r"]

@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://cugvg8eexht22" path="res://assets/popart/TunaTello1.png" id="1_5dppf"]
 [ext_resource type="Texture2D" uid="uid://ditd8rvyh51rs" path="res://assets/tilesets/UI.png" id="1_5kld3"]
-[ext_resource type="Script" uid="uid://b5m3g5fqgujuq" path="res://scripts/dialog_container.gd" id="1_nfjjb"]
-[ext_resource type="Script" uid="uid://bfdbbdk4r41kr" path="res://scripts/name_card_sizing_script.gd" id="2_5dppf"]
+[ext_resource type="Script" uid="uid://b5m3g5fqgujuq" path="res://scripts/ui/dialog_container.gd" id="1_nfjjb"]
+[ext_resource type="Script" uid="uid://bfdbbdk4r41kr" path="res://scripts/ui/name_card_sizing_script.gd" id="2_5dppf"]
 [ext_resource type="Texture2D" uid="uid://b2unbly66f0dk" path="res://assets/popart/Daddy_shark1.png" id="3_5dppf"]
 [ext_resource type="FontFile" uid="uid://bbo0jom7ar424" path="res://assets/fonts/monogram-extended.ttf" id="4_gq0ot"]
 [ext_resource type="Texture2D" uid="uid://dg7dw8vhmxhpc" path="res://assets/tilesets/UI - Copy.png" id="5_1liqq"]
@@ -146,14 +146,24 @@ theme_override_constants/margin_bottom = 30
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel" unique_id=943166884]
+[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel" unique_id=2036897316]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "ayo im speaking"
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.034516893, 0.013806753, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.9372549, 0.69803923, 0.61960787, 1)
+theme_override_colors/font_outline_color = Color(0.9372549, 0.69803923, 0.61960787, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("4_gq0ot")
+theme_override_font_sizes/font_size = 46
+text = "penus"
+autowrap_mode = 3
 
 [node name="PlayerContainer" type="VBoxContainer" parent="TalkScreen/Panel/DialogContainer" unique_id=1905602898]
 layout_mode = 2
@@ -213,11 +223,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/HBoxContainer" unique_id=775366622]
+[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/HBoxContainer" unique_id=675177897]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.034516893, 0.013806753, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.9372549, 0.69803923, 0.61960787, 1)
+theme_override_colors/font_outline_color = Color(0.9372549, 0.69803923, 0.61960787, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("4_gq0ot")
+theme_override_font_sizes/font_size = 46
 text = "penus"
+autowrap_mode = 3
 
 [node name="DeadSpace" type="Panel" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/HBoxContainer" unique_id=626038507]
 modulate = Color(1, 1, 1, 0)
@@ -307,11 +325,19 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect3/MarginContainer/Panel/HBoxContainer" unique_id=81731680]
+[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect3/MarginContainer/Panel/HBoxContainer" unique_id=1269896149]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.034516893, 0.013806753, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.9372549, 0.69803923, 0.61960787, 1)
+theme_override_colors/font_outline_color = Color(0.9372549, 0.69803923, 0.61960787, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/font = ExtResource("4_gq0ot")
+theme_override_font_sizes/font_size = 46
 text = "penus"
+autowrap_mode = 3
 
 [node name="NameContainer" type="VBoxContainer" parent="TalkScreen/Panel/DialogContainer" unique_id=1054502228]
 layout_mode = 2

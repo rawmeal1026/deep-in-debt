@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ccfq86i03b0ky"]
 
 [ext_resource type="Texture2D" uid="uid://cgrsslorhotdo" path="res://assets/sprites/Daddy Shark/Daddy_Shark_idle.png" id="1_12gtu"]
-[ext_resource type="Script" uid="uid://dhm473re7nd4c" path="res://scripts/picass_shark.gd" id="1_cpq2j"]
+[ext_resource type="Script" uid="uid://dhm473re7nd4c" path="res://scripts/npcs/picass_shark.gd" id="1_cpq2j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cpq2j"]
 atlas = ExtResource("1_12gtu")

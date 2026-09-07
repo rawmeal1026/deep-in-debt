@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c0kxuwdq8uwbt"]
 
-[ext_resource type="Script" uid="uid://sj06iri5fnnl" path="res://scripts/leon_octo.gd" id="1_72qqj"]
+[ext_resource type="Script" uid="uid://sj06iri5fnnl" path="res://scripts/npcs/leon_octo.gd" id="1_72qqj"]
 [ext_resource type="Texture2D" uid="uid://fdeoaotxcod2" path="res://assets/sprites/Octy/Octy_idle.png" id="2_i0p7j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ujkyx"]
@@ -35,7 +35,9 @@ script = ExtResource("1_72qqj")
 sprite_frames = SubResource("SpriteFrames_65qpk")
 animation = &"Idle"
 
-[node name="Area2D" type="Area2D" parent="." unique_id=293946084]
+[node name="Leon Octo" type="Area2D" parent="." unique_id=293946084 groups=["leon_octo"]]
+collision_layer = 2
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1638671386]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leon Octo" unique_id=1638671386]
 shape = SubResource("CircleShape2D_0dssy")

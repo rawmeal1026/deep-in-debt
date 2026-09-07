@@ -71,8 +71,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		if koi != null:
 			if not Globals.in_cutscene:
-				if koi.has_method("buy"):
-					koi.call("buy")
+				if koi.has_method("interact"):
+					koi.call("interact")
+				return  # delete this line if the bag logic should ALSO run
+
+		var octopus := get_nearest_octopus()
+
+		if octopus != null:
+			if not Globals.in_cutscene:
+				if octopus.has_method("interact"):
+					octopus.call("interact")
 				return  # delete this line if the bag logic should ALSO run
 
 		handle_bag_interaction()
@@ -102,6 +110,11 @@ func _on_interaction_area_area_entered(area: Area2D) -> void:
 	if koi != null and not koi_in_range.has(koi):
 		koi_in_range.append(koi)
 
+	var octopus := get_octopus_from_area(area)
+
+	if octopus != null and not octopi_in_range.has(octopus):
+		octopi_in_range.append(octopus)
+
 
 func _on_interaction_area_area_exited(area: Area2D) -> void:
 	var bag := get_bag_from_area(area)
@@ -122,7 +135,12 @@ func _on_interaction_area_area_exited(area: Area2D) -> void:
 	var koi := get_koi_from_area(area)
 
 	if koi != null:
-		sharks_in_range.erase(koi)
+		koi_in_range.erase(koi)
+
+	var octopus := get_octopus_from_area(area)
+
+	if octopus != null:
+		octopi_in_range.erase(octopus)
 
 # ------------------------------------------------------------------
 # Bag pickup / drop
@@ -362,6 +380,33 @@ func get_nearest_koi() -> Node2D:
 		if distance < best_distance:
 			best_distance = distance
 			nearest = koi
+
+	return nearest
+
+## The group is on the Area2D, so return its parent (the shark root).
+func get_octopus_from_area(area: Area2D) -> Node2D:
+	if area.is_in_group("leon_octo"):
+		return area.get_parent() as Node2D
+
+	var parent := area.get_parent() as Node2D
+	if parent != null and parent.is_in_group("leon_octo"):
+		return parent
+
+	return null
+
+func get_nearest_octopus() -> Node2D:
+	var nearest: Node2D = null
+	var best_distance := INF
+
+	for octopus in octopi_in_range:
+		if not is_instance_valid(octopus):
+			continue
+
+		var distance := global_position.distance_squared_to(octopus.global_position)
+
+		if distance < best_distance:
+			best_distance = distance
+			nearest = octopus
 
 	return nearest
 

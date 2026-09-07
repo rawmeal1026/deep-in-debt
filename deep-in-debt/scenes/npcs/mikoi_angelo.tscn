@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cmlxai0bwhpyq"]
 
 [ext_resource type="Texture2D" uid="uid://duqns5a3ck2nc" path="res://assets/sprites/Carponello/Carponello_idle.png" id="1_wvjj4"]
-[ext_resource type="Script" uid="uid://cd1smgurp82e6" path="res://scripts/mikoi_angelo.gd" id="1_xuqnv"]
+[ext_resource type="Script" uid="uid://cd1smgurp82e6" path="res://scripts/npcs/mikoi_angelo.gd" id="1_xuqnv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xuqnv"]
 atlas = ExtResource("1_wvjj4")
