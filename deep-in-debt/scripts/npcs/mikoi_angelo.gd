@@ -6,11 +6,22 @@ extends Node2D
 func _ready() -> void:
 	animated_sprite_2d.play("Idle")
 
+func interact():
+	polish()
+
+func get_collected_materials() -> Array[String]:
+	var result: Array[String] = []
+
+	if is_instance_valid(Globals.carried_bag) and Globals.carried_bag.has_method("get_collected_materials"):
+		result = Globals.carried_bag.call("get_collected_materials")
+
+	return result
+
 ## Called by the player when they press interact near this NPC.
-func buy() -> void:
+func polish() -> void:
 	# Must be carrying a bag.
 	if not is_instance_valid(Globals.carried_bag):
-		print("No bag to sell.")
+		print("No bag to polish.")
 		return
 
 	# Must have garbage in the bag.
@@ -18,12 +29,19 @@ func buy() -> void:
 		print("The bag is empty.")
 		return
 
-	# Add one shell per garbage item.
-	Globals.shell_count += Globals.player_garbage_carry_count
-
-	print("Sold ", Globals.player_garbage_carry_count, " items for ", Globals.player_garbage_carry_count, " shells.")
-	print("Total shells: ", Globals.shell_count)
-
+	for i in get_collected_materials():
+		match i:
+			"PE Bags":
+				Globals.soft_plastic_count += 1
+			"PET Bottles":
+				Globals.hard_plastic_count += 1
+			"Cellulose Paperboards":
+				Globals.paper_count += 1
+			"Aluminum Cans":
+				Globals.metal_count += 1
+			_:
+				print(i)
+				
 	if Globals.carried_bag.has_method("drop"):
 			Globals.carried_bag.call("drop")
 			

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ttoda0m6njw2"]
 
 [ext_resource type="Texture2D" uid="uid://c026xo2bxea5d" path="res://assets/sprites/Greeny's Granny/Greeny's_Granny_idle.png" id="1_37qyh"]
-[ext_resource type="Script" uid="uid://t8uu4bs3jtuv" path="res://scripts/carpa_vaggio.gd" id="1_68swd"]
+[ext_resource type="Script" uid="uid://t8uu4bs3jtuv" path="res://scripts/npcs/carpa_vaggio.gd" id="1_68swd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_68swd"]
 atlas = ExtResource("1_37qyh")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dakg68gr8t1qs"]
 
-[ext_resource type="Script" uid="uid://cm63hmnw2chye" path="res://scripts/tuna_tello.gd" id="1_2qooa"]
+[ext_resource type="Script" uid="uid://cm63hmnw2chye" path="res://scripts/entities/tuna_tello.gd" id="1_2qooa"]
 [ext_resource type="Texture2D" uid="uid://23kbi7xaunx2" path="res://assets/sprites/Handsome guy in sneakers/Handsome_guy_in_sneakers_damaged.png" id="1_xm4hj"]
 [ext_resource type="Texture2D" uid="uid://cuclcyftpol46" path="res://assets/sprites/Handsome guy in sneakers/Handsome_guy_in_sneakers_idle.png" id="2_dsc6t"]
 [ext_resource type="Texture2D" uid="uid://ba6mvq03eby84" path="res://assets/sprites/Handsome guy in sneakers/Handsome_guy_in_sneakers_walk.png" id="3_qwt8m"]

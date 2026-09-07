@@ -85,3 +85,7 @@ var player_option_2: Array
 
 # SHELL CURRENCY
 var shell_count = 0
+var soft_plastic_count = 0
+var hard_plastic_count = 0
+var metal_count = 0
+var paper_count = 0
