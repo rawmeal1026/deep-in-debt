@@ -1,5 +1,6 @@
 extends MarginContainer
 
+var letters_shown := 0
 ## Marker in npc_speech that triggers a player turn. It is NEVER displayed.
 @export var player_turn_marker: String = "XXXXX"
 
@@ -23,6 +24,8 @@ extends MarginContainer
 @export var picass_shark : String
 @export var tuna_tello : String
 @export var van_gold : String
+@export var mikoi_angelo : String
+@export var carpa_vaggio : String
 
 enum Speaker { NONE, NPC, PLAYER }
 var player_sprites = [preload("res://assets/popart/TunaTello1.png"), preload("res://assets/popart/TunaTello2.png")]
@@ -184,25 +187,40 @@ func _process(delta: float) -> void:
 		if _revealed_counts[i] < _full_texts[i].length():
 			all_done = false
 
+	letters_shown = npc_speech_label.text.replace(" ", "").length()
 	if not is_voice_sound_active() and is_typing:
-		trigger_voice_sound()
+		trigger_voice_sound(letters_shown)
 
 	if all_done:
 		is_typing = false
 		set_process(false)
 
 
-func trigger_voice_sound():
+func trigger_voice_sound(letters: int):
 	if is_npc_speaking():
 		match Globals.npc_name:
 			"Leon Octo":
-				current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
+				if letters % 5 == 0:
+					Globals.play_fmod_sfx(leon_octo)
+				#current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
 			"Mon Whale":
-				current_sfx_instance = Globals.play_fmod_sfx_managed(mon_whale)
+				if letters % 5 == 0:
+					Globals.play_fmod_sfx(mon_whale)
+				#current_sfx_instance = Globals.play_fmod_sfx_managed(mon_whale)
 			"Van Gold":
-				current_sfx_instance = Globals.play_fmod_sfx_managed(van_gold)
+				if letters % 5 == 0:
+					Globals.play_fmod_sfx(van_gold)
+				#current_sfx_instance = Globals.play_fmod_sfx_managed(van_gold)
 			"Picass Shark":
-				current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
+				if letters % 5 == 0:
+					Globals.play_fmod_sfx(picass_shark)
+				#current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
+			"Carpa Vaggio":
+				if letters % 5 == 0:
+					Globals.play_fmod_sfx(carpa_vaggio)
+			"Mikoi Angelo":
+				if letters % 5 == 0:
+					Globals.play_fmod_sfx(mikoi_angelo)
 	elif is_player_speaking():
 		current_sfx_instance = Globals.play_fmod_sfx_managed(tuna_tello)
 

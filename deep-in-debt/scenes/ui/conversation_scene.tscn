@@ -60,6 +60,8 @@ mon_whale = "event:/mon_whale_voice"
 picass_shark = "event:/picass_shark_voice"
 tuna_tello = "event:/tuna_tello_voice"
 van_gold = "event:/van_gold_voice"
+mikoi_angelo = "event:/mikoi_angelo_voice"
+carpa_vaggio = "event:/carpa_vaggio_voice"
 
 [node name="IllusContainer" type="VBoxContainer" parent="TalkScreen/Panel/DialogContainer" unique_id=1047287334]
 layout_mode = 2
