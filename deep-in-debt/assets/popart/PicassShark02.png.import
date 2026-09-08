@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx7e4lgyack4a"
-path="res://.godot/imported/Daddy_shark2.png-45581bd4f05a500459d6aa8d21e03fdd.ctex"
+uid="uid://cyd25krdx4qdf"
+path="res://.godot/imported/PicassShark02.png-c93908fa6d1398e4993e60e81d648401.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/popart/Daddy_shark2.png"
-dest_files=["res://.godot/imported/Daddy_shark2.png-45581bd4f05a500459d6aa8d21e03fdd.ctex"]
+source_file="res://assets/popart/PicassShark02.png"
+dest_files=["res://.godot/imported/PicassShark02.png-c93908fa6d1398e4993e60e81d648401.ctex"]
 
 [params]
 

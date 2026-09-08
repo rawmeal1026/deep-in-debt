@@ -14,6 +14,7 @@ extends MarginContainer
 @onready var player_container: VBoxContainer = $PlayerContainer
 @onready var player_name_container: NinePatchRect = $NameContainer/NamePanel/HBoxContainer/NinePatchRect
 @onready var npc_name_container: NinePatchRect = $NameContainer/NamePanel/HBoxContainer/NinePatchRect2
+@onready var player_portrait: TextureRect = $IllusContainer/HBoxContainer/TextureRect
 
 # the event paths given by fmod
 @export_group("sfx references")
@@ -24,7 +25,8 @@ extends MarginContainer
 @export var van_gold : String
 
 enum Speaker { NONE, NPC, PLAYER }
-
+var player_sprites = [preload("res://assets/popart/TunaTello1.png"), preload("res://assets/popart/TunaTello2.png")]
+var shark_sprites = [preload("res://assets/popart/PicassShark01.png"), preload("res://assets/popart/PicassShark02.png")]
 var current_speaker: int = Speaker.NONE
 var line_index := 0
 var player_line_index := 0   # ← which XXXXX / which option pair we're on

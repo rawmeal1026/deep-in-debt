@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cqicmensgt7gn"]
 
+[ext_resource type="Texture2D" uid="uid://ditd8rvyh51rs" path="res://assets/tilesets/UI.png" id="1_4mtr5"]
 [ext_resource type="Texture2D" uid="uid://c3pm4ysg7mobn" path="res://assets/tilesets/player_slow_meter.png" id="1_oaalu"]
 [ext_resource type="Script" uid="uid://c8rvbqdgavm1x" path="res://scripts/ui/move_speed_meter.gd" id="2_ssacs"]
 [ext_resource type="Texture2D" uid="uid://byhnhnqm1rudy" path="res://assets/tilesets/trash_meter_void.png" id="2_v3dkh"]
@@ -46,6 +47,61 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TrashMeter" unique_id=178182177]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer2" unique_id=1573002332]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TrashMeter/HBoxContainer2" unique_id=565050529]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer" unique_id=1640104506]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.35
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TrashMeter/HBoxContainer2/VBoxContainer" unique_id=543277317]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.09
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TrashMeter/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1291646245]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.36
+texture = ExtResource("1_4mtr5")
+region_rect = Rect2(592, 64, 127, 32)
+patch_margin_left = 17
+patch_margin_top = 7
+patch_margin_right = 16
+patch_margin_bottom = 7
+
+[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1328561440]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DeadSpace2" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer" unique_id=592466784]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.04
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TrashMeter" unique_id=1966679783]
 layout_mode = 1
@@ -228,38 +284,6 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 50.0
 
 [node name="DeadSpace4" type="Panel" parent="TrashMeter/HBoxContainer/VBoxContainer" unique_id=812814541]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.05
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="TrashMeter" unique_id=178182177]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer2" unique_id=1573002332]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.03
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TrashMeter/HBoxContainer2" unique_id=565050529]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer" unique_id=1640104506]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 1.35
-
-[node name="DeadSpace4" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer" unique_id=592466784]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3

@@ -13,6 +13,8 @@ func interact() -> void:
 	if intro:
 		intro = false
 		Globals.npc_name = "Mon Whale"
+		Globals.npc_speech = ["I like my steak...", "Whale done.", "HAHAHAHAHAHA.", "Laugh or I'll eat you."]
+		'''
 		Globals.npc_speech = ["The shining stars falling from the sky.",
 								"Who would've known even the most beautiful thing can emit such a bad smell?",
 								"XXXXX",
@@ -25,6 +27,7 @@ func interact() -> void:
 								"I'm the wise star collector, I forgot to introduce. I give free star containers.",
 								"If you fill them up and return it to me, I'll give a shell for each stars you've collected.",
 								"I wish your brother a happy birthday party."]
+		'''
 		Globals.player_option_1 = ["They're disgusting. We should stay away from them.", "I don't know about that."]
 		Globals.player_option_2 = ["They reek incomprehensible wonders.", "That's a plausible theory."]
 		Globals.talk()

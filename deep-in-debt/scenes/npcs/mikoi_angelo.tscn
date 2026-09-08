@@ -42,6 +42,7 @@ script = ExtResource("1_xuqnv")
 sprite_frames = SubResource("SpriteFrames_88fa3")
 animation = &"Idle"
 frame_progress = 0.12539491
+flip_h = true
 
 [node name="Mikoi Angelo" type="Area2D" parent="." unique_id=1948870626 groups=["mikoi_angelo"]]
 collision_layer = 2

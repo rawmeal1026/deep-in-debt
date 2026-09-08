@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2unbly66f0dk"
-path="res://.godot/imported/Daddy_shark1.png-ac1a9ded9bdba388bb14c0ccccc8bd5a.ctex"
+uid="uid://7fq8lhjcf8ch"
+path="res://.godot/imported/MonWhale02.png-e84ee4152e5c5f96db69a1937b4f1750.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/popart/Daddy_shark1.png"
-dest_files=["res://.godot/imported/Daddy_shark1.png-ac1a9ded9bdba388bb14c0ccccc8bd5a.ctex"]
+source_file="res://assets/popart/MonWhale02.png"
+dest_files=["res://.godot/imported/MonWhale02.png-e84ee4152e5c5f96db69a1937b4f1750.ctex"]
 
 [params]
 
