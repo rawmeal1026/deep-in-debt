@@ -4,7 +4,7 @@ var letters_shown := 0
 ## Marker in npc_speech that triggers a player turn. It is NEVER displayed.
 @export var player_turn_marker: String = "XXXXX"
 
-@export var type_speed := 30.0
+@export var type_speed := 3
 
 @onready var npc_speech_label: Label = $NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel/Label
 @onready var player_option_1_label: Label = $PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/HBoxContainer/Label
@@ -167,7 +167,7 @@ func finish_typing() -> void:
 	is_typing = false
 	set_process(false)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if npc_name_container.custom_minimum_size.x != npc_name_label.size.x + 60:
 		npc_name_container.custom_minimum_size.x = npc_name_label.size.x + 60
 
@@ -179,7 +179,7 @@ func _process(delta: float) -> void:
 	for i in range(_full_texts.size()):
 		if _revealed_counts[i] < _full_texts[i].length():
 			_revealed_counts[i] = mini(
-				_revealed_counts[i] + int(type_speed * delta) + 1,
+				_revealed_counts[i] + type_speed,
 				_full_texts[i].length()
 			)
 			_labels[i].text = _full_texts[i].substr(0, _revealed_counts[i])
@@ -200,26 +200,26 @@ func trigger_voice_sound(letters: int):
 	if is_npc_speaking():
 		match Globals.npc_name:
 			"Leon Octo":
-				if letters % 5 == 0:
+				if letters % 2 == 0:
 					Globals.play_fmod_sfx(leon_octo)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
 			"Mon Whale":
-				if letters % 5 == 0:
+				if letters % 2 == 0:
 					Globals.play_fmod_sfx(mon_whale)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(mon_whale)
 			"Van Gold":
-				if letters % 5 == 0:
+				if letters % 2 == 0:
 					Globals.play_fmod_sfx(van_gold)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(van_gold)
 			"Picass Shark":
-				if letters % 5 == 0:
+				if letters % 2 == 0:
 					Globals.play_fmod_sfx(picass_shark)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
 			"Carpa Vaggio":
-				if letters % 5 == 0:
+				if letters % 2 == 0:
 					Globals.play_fmod_sfx(carpa_vaggio)
 			"Mikoi Angelo":
-				if letters % 5 == 0:
+				if letters % 2 == 0:
 					Globals.play_fmod_sfx(mikoi_angelo)
 	elif is_player_speaking():
 		current_sfx_instance = Globals.play_fmod_sfx_managed(tuna_tello)
