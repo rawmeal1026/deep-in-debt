@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://p34mx86gv56s" path="res://scripts/npcs/mon_whale.gd" id="1_t7li8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88fa3"]
-radius = 42.0119
+radius = 54.00926
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qaahb"]
 radius = 21.023796
@@ -13,12 +13,12 @@ radius = 21.023796
 script = ExtResource("1_t7li8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1991769603]
-position = Vector2(-3, -2)
+position = Vector2(-3, -41)
 texture = ExtResource("1_q6i5d")
 flip_h = true
 
 [node name="Mon Whale" type="Area2D" parent="." unique_id=1814212557 groups=["mon_whale"]]
-position = Vector2(0, 1)
+position = Vector2(0, -38)
 collision_layer = 2
 collision_mask = 0
 monitoring = false
@@ -27,6 +27,7 @@ monitoring = false
 shape = SubResource("CircleShape2D_88fa3")
 
 [node name="GarbageBagSpawn" type="Area2D" parent="." unique_id=1834488145]
+position = Vector2(0, -39)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GarbageBagSpawn" unique_id=1189784615]
 position = Vector2(-92, 36)

@@ -1,0 +1,201 @@
+[gd_scene format=3 uid="uid://ds6cq4hfx4h4i"]
+
+[ext_resource type="PackedScene" uid="uid://bx55ihv3fawks" path="res://scenes/npcs/waste_collector.tscn" id="1_n1i7m"]
+[ext_resource type="PackedScene" uid="uid://b3wnd5ciwpvjj" path="res://scenes/entities/garbage.tscn" id="2_6l2vu"]
+[ext_resource type="PackedScene" uid="uid://d3052tabftwsq" path="res://scenes/entities/garbage_bag.tscn" id="3_6l2vu"]
+
+[node name="DebugScene" type="Node2D" unique_id=1678638544]
+
+[node name="WasteCollector" parent="." unique_id=1621547015 instance=ExtResource("1_n1i7m")]
+position = Vector2(159, 108)
+
+[node name="Camera2D" type="Camera2D" parent="WasteCollector" unique_id=33854129]
+
+[node name="Garbage" parent="." unique_id=1188977814 instance=ExtResource("2_6l2vu")]
+position = Vector2(546, 199)
+
+[node name="Garbage2" parent="." unique_id=1694921762 instance=ExtResource("2_6l2vu")]
+position = Vector2(802, 113)
+
+[node name="Garbage3" parent="." unique_id=1657890234 instance=ExtResource("2_6l2vu")]
+position = Vector2(815, 142)
+
+[node name="Garbage4" parent="." unique_id=738153688 instance=ExtResource("2_6l2vu")]
+position = Vector2(807, 193)
+
+[node name="Garbage5" parent="." unique_id=1272777470 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage6" parent="." unique_id=236099598 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage7" parent="." unique_id=1730575087 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage8" parent="." unique_id=379934448 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage9" parent="." unique_id=743337875 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage10" parent="." unique_id=1244064454 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage11" parent="." unique_id=191963437 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage12" parent="." unique_id=1740288696 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage13" parent="." unique_id=175916892 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage14" parent="." unique_id=274900159 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage15" parent="." unique_id=51576679 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage16" parent="." unique_id=1517808701 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage17" parent="." unique_id=712958816 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage18" parent="." unique_id=1831762231 instance=ExtResource("2_6l2vu")]
+position = Vector2(808, 225)
+
+[node name="Garbage19" parent="." unique_id=1800061315 instance=ExtResource("2_6l2vu")]
+position = Vector2(856, 313)
+
+[node name="Garbage20" parent="." unique_id=1037811527 instance=ExtResource("2_6l2vu")]
+position = Vector2(772, 347)
+
+[node name="Garbage23" parent="." unique_id=1227066308 instance=ExtResource("2_6l2vu")]
+position = Vector2(691, 376)
+
+[node name="Garbage24" parent="." unique_id=1428606212 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage25" parent="." unique_id=1463628637 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage26" parent="." unique_id=1328866945 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage27" parent="." unique_id=1285105542 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage28" parent="." unique_id=334235577 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage29" parent="." unique_id=1874318585 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage30" parent="." unique_id=990624483 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage31" parent="." unique_id=591996941 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage32" parent="." unique_id=277876762 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage33" parent="." unique_id=1046820433 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage34" parent="." unique_id=1440530707 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage35" parent="." unique_id=256165602 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage36" parent="." unique_id=1143864872 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage37" parent="." unique_id=244581003 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage38" parent="." unique_id=1104673466 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage39" parent="." unique_id=1095483521 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage40" parent="." unique_id=1934754864 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage41" parent="." unique_id=331755426 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage42" parent="." unique_id=1987138830 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage43" parent="." unique_id=580691977 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage44" parent="." unique_id=1744899423 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage45" parent="." unique_id=1205325838 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage46" parent="." unique_id=1906096393 instance=ExtResource("2_6l2vu")]
+position = Vector2(591, 420)
+
+[node name="Garbage47" parent="." unique_id=1593523949 instance=ExtResource("2_6l2vu")]
+position = Vector2(538, 347)
+
+[node name="Garbage48" parent="." unique_id=292885375 instance=ExtResource("2_6l2vu")]
+position = Vector2(362, 396)
+
+[node name="Garbage49" parent="." unique_id=2076544928 instance=ExtResource("2_6l2vu")]
+position = Vector2(362, 396)
+
+[node name="Garbage50" parent="." unique_id=99543862 instance=ExtResource("2_6l2vu")]
+position = Vector2(362, 396)
+
+[node name="Garbage51" parent="." unique_id=566473835 instance=ExtResource("2_6l2vu")]
+position = Vector2(483, 436)
+
+[node name="Garbage52" parent="." unique_id=868237500 instance=ExtResource("2_6l2vu")]
+position = Vector2(483, 436)
+
+[node name="Garbage53" parent="." unique_id=265303972 instance=ExtResource("2_6l2vu")]
+position = Vector2(483, 436)
+
+[node name="Garbage54" parent="." unique_id=1543486233 instance=ExtResource("2_6l2vu")]
+position = Vector2(483, 436)
+
+[node name="Garbage55" parent="." unique_id=1478829091 instance=ExtResource("2_6l2vu")]
+position = Vector2(483, 436)
+
+[node name="Garbage56" parent="." unique_id=1310679675 instance=ExtResource("2_6l2vu")]
+position = Vector2(380, 481)
+
+[node name="Garbage57" parent="." unique_id=995710893 instance=ExtResource("2_6l2vu")]
+position = Vector2(380, 481)
+
+[node name="Garbage58" parent="." unique_id=721590816 instance=ExtResource("2_6l2vu")]
+position = Vector2(380, 481)
+
+[node name="Garbage59" parent="." unique_id=1794365373 instance=ExtResource("2_6l2vu")]
+position = Vector2(380, 481)
+
+[node name="Garbage60" parent="." unique_id=1197042729 instance=ExtResource("2_6l2vu")]
+position = Vector2(380, 481)
+
+[node name="Garbage61" parent="." unique_id=1290853946 instance=ExtResource("2_6l2vu")]
+position = Vector2(380, 481)
+
+[node name="Garbage21" parent="." unique_id=1678186316 instance=ExtResource("2_6l2vu")]
+position = Vector2(628, 331)
+
+[node name="Garbage22" parent="." unique_id=1371602371 instance=ExtResource("2_6l2vu")]
+position = Vector2(628, 331)
+
+[node name="GarbageBag" parent="." unique_id=275557160 instance=ExtResource("3_6l2vu")]
+position = Vector2(275, 204)
+
+[node name="GarbageBag2" parent="." unique_id=1481444307 instance=ExtResource("3_6l2vu")]
+position = Vector2(17, 110)

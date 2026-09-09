@@ -50,7 +50,6 @@ const GarbageBagScene := preload("res://scenes/entities/garbage_bag.tscn")
 ## Returns the spawned bag so you can configure it if needed.
 func spawn_garbage_bag(at_position: Vector2) -> Node2D:
 	var bag: Node2D = GarbageBagScene.instantiate()
-
 	var entities := get_tree().current_scene.get_node_or_null("Entities")
 
 	if entities == null:
@@ -58,11 +57,14 @@ func spawn_garbage_bag(at_position: Vector2) -> Node2D:
 		bag.queue_free()
 		return null
 
-	# Parent it under Entities so it participates in Y Sort with everything else.
-	entities.add_child(bag)
-
-	# Set the position AFTER add_child, so global_position resolves correctly.
+	# 1. Set the position BEFORE adding to the tree. 
+	# This ensures it resolves to the correct global position once added.
 	bag.global_position = at_position
+
+	# 2. Defer adding the child to avoid the "flushing queries" error.
+	# This tells Godot: "Wait until the physics engine is done with the 
+	# current collision before adding this new physics body to the world."
+	entities.call_deferred("add_child", bag)
 
 	return bag
 

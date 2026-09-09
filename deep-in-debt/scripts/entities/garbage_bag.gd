@@ -1,47 +1,22 @@
 extends Node2D
 
-# Emitted when the bag starts moving.
 signal started_moving(direction)
-
-# Emitted every physics frame while the bag is moving.
 signal moving(direction)
-
-# Emitted when the bag stops moving.
 signal stopped_moving
 
-
-# Where the bag sits while being carried.
 @export var carry_offset := Vector2(-24.0, 8.0)
-
-# Pickup animation time.
 @export var pickup_time := 0.25
-
-# How slow the bag starts moving toward the player.
 @export var pickup_start_sharpness := 3.0
-
-# How strongly the bag follows the player after pickup.
-# If this is too high, it can jitter.
-# Good range: 6 to 14.
 @export var follow_sharpness := 10.0
-
-# How quickly the carry offset adjusts when the player turns around.
-# This prevents the bag from snapping instantly from left to right.
 @export var offset_follow_sharpness := 12.0
-
-# Where the bag lands when dropped.
 @export var drop_offset := Vector2(0.0, 16.0)
-
-# Drop animation time.
 @export var drop_time := 0.15
-
-# Prevents instant re-pickup.
 @export var drop_pickup_delay := 0.3
-
-# If true, drop_offset.x flips based on player facing.
 @export var flip_drop_offset_x_with_facing := false
-
-# Minimum speed before the bag counts as moving.
 @export var move_threshold := 1.0
+
+# If the carrier is in this group, FMOD SFX will not play.
+@export var worker_group: String = "worker"
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -81,33 +56,35 @@ var previous_global_position := Vector2.ZERO
 
 ## Every material collected into this bag.
 var collected_materials: Array[String] = []
-var garbage_mass
+var garbage_mass: int = 0
+
 
 # INITIALIZE
 func _ready() -> void:
 	setup_FMOD_event_instances()
 	add_to_group("bag")
 
+	garbage_mass = get_collected_count()
+
 	previous_global_position = global_position
 	current_carry_offset = carry_offset
 
 	set_physics_process(true)
 
-	# Try to make the bag update after the player.
-	# If your Godot version does not expose this property, set it manually:
-	# GarbageBag > Node > Process > Physics Process Priority = 100
 	if "physics_process_priority" in self:
 		set("physics_process_priority", 100)
 	elif "process_physics_priority" in self:
 		set("process_physics_priority", 100)
-	
+
 	started_moving.connect(_on_started_moving_debug)
 	moving.connect(_on_moving_debug)
 	stopped_moving.connect(_on_stopped_moving_debug)
 
+
 func _physics_process(delta: float) -> void:
 	garbage_mass = get_collected_count()
-	if carried and player != null:
+
+	if carried and is_instance_valid(player):
 		update_carry_follow(delta)
 
 	elif drop_progress < 1.0:
@@ -115,28 +92,65 @@ func _physics_process(delta: float) -> void:
 
 	update_movement_detection(delta)
 
+
 func setup_FMOD_event_instances():
 	pass
-	
+
+
+# ------------------------------------------------------------------
+# FMOD SAFETY HELPERS
+# ------------------------------------------------------------------
+
+func is_worker(carrier: Node) -> bool:
+	return is_instance_valid(carrier) and carrier.is_in_group(worker_group)
+
+
+func play_sfx(event_path: String, carrier: Node = null) -> void:
+	if event_path == "":
+		return
+
+	if is_worker(carrier):
+		return
+
+	Globals.play_fmod_sfx(event_path)
+
+
+func play_sfx_with_mass(event_path: String, carrier: Node = null) -> void:
+	if event_path == "":
+		return
+
+	if is_worker(carrier):
+		return
+
+	Globals.play_fmod_sfx(event_path, "garbage_mass", float(garbage_mass))
+
+
+# ------------------------------------------------------------------
 # BAG CONTENTS FUNCTIONS
+# ------------------------------------------------------------------
+
 func add_collected_material(material_name: String) -> void:
 	match material_name:
 		"PET Bottles":
-			Globals.play_fmod_sfx(pickup_bottle)
+			play_sfx(pickup_bottle, player)
 		"Aluminum Cans":
-			Globals.play_fmod_sfx(pickup_can)
+			play_sfx(pickup_can, player)
 		"Cellulose Paperboards":
-			Globals.play_fmod_sfx(pickup_milk)
+			play_sfx(pickup_milk, player)
 		"PE Bags":
-			Globals.play_fmod_sfx(pickup_bag)
+			play_sfx(pickup_bag, player)
+
 	collected_materials.append(material_name)
-	
+	garbage_mass = collected_materials.size()
+
 
 func get_collected_materials() -> Array[String]:
 	return collected_materials
 
+
 func get_collected_count() -> int:
 	return collected_materials.size()
+
 
 func get_last_collected_material() -> String:
 	if collected_materials.is_empty():
@@ -144,11 +158,22 @@ func get_last_collected_material() -> String:
 
 	return collected_materials[-1]
 
+
+func is_full() -> bool:
+	if get_collected_count() < Globals.bag_slow_interval * 3:
+		return false
+	else:
+		return true
+
+
 func has_material(material_name: String) -> bool:
 	return collected_materials.has(material_name)
 
+
 func clear_collected_materials() -> void:
 	collected_materials.clear()
+	garbage_mass = 0
+
 
 func state_collected_materials() -> String:
 	if collected_materials.is_empty():
@@ -161,25 +186,35 @@ func state_collected_materials() -> String:
 
 		if i < collected_materials.size() - 1:
 			text += ", "
-	
+
 	return text
 
+
+# ------------------------------------------------------------------
 # BAG STATE FUNCTIONS
+# ------------------------------------------------------------------
+
 func can_be_picked_up() -> bool:
 	return can_pick_up and not carried
+
 
 func is_carried() -> bool:
 	return carried
 
 
-# PLAYER GARBAGE BAG INTERACTION
+# ------------------------------------------------------------------
+# PLAYER / WORKER GARBAGE BAG INTERACTION
+# ------------------------------------------------------------------
 
 func pick_up(new_player: CharacterBody2D) -> void:
 	if not can_be_picked_up():
 		return
 
-	Globals.play_fmod_sfx(pickup_bag, "garbage_mass", garbage_mass)
-	
+	garbage_mass = get_collected_count()
+
+	# Do not play FMOD if the one picking up the bag is a worker.
+	play_sfx_with_mass(pickup_bag, new_player)
+
 	carried = true
 	can_pick_up = false
 	player = new_player
@@ -187,7 +222,7 @@ func pick_up(new_player: CharacterBody2D) -> void:
 	pickup_blend = 0.0
 	drop_progress = 1.0
 
-	if player != null:
+	if is_instance_valid(player):
 		current_carry_offset = global_position - player.global_position
 
 	kill_tweens()
@@ -196,17 +231,11 @@ func pick_up(new_player: CharacterBody2D) -> void:
 		pickup_blend = 1.0
 	else:
 		pickup_tween = create_tween()
-
-		# Very important: sync the tween with physics.
 		pickup_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-
-		# Smoother pickup curve.
 		pickup_tween.set_trans(Tween.TRANS_SINE)
 		pickup_tween.set_ease(Tween.EASE_OUT)
-
 		pickup_tween.tween_property(self, "pickup_blend", 1.0, pickup_time)
-	#PICKUP SOUND HERE
-	
+
 
 func drop() -> void:
 	if not carried:
@@ -260,11 +289,15 @@ func drop() -> void:
 		_finish_drop_pickup_delay()
 	else:
 		get_tree().create_timer(drop_pickup_delay).timeout.connect(_finish_drop_pickup_delay)
-	Globals.play_fmod_sfx(putdown_bag, "garbage_mass", garbage_mass)
+
+	# Do not play FMOD if the one dropping the bag is a worker.
+	play_sfx_with_mass(putdown_bag, old_player)
+
 
 func _finish_drop_pickup_delay() -> void:
 	if not carried:
 		can_pick_up = true
+
 
 func kill_tweens() -> void:
 	if pickup_tween != null and pickup_tween.is_valid():
@@ -278,12 +311,16 @@ func kill_tweens() -> void:
 	drop_tween = null
 
 
+# ------------------------------------------------------------------
 # PLAYER READING FUNCTIONS
+# ------------------------------------------------------------------
+
 func get_player_facing_direction() -> float:
-	if player != null and player.has_method("get_facing_direction"):
+	if is_instance_valid(player) and player.has_method("get_facing_direction"):
 		return float(player.call("get_facing_direction"))
 
 	return 1.0
+
 
 func get_target_carry_offset() -> Vector2:
 	var direction := get_player_facing_direction()
@@ -293,13 +330,18 @@ func get_target_carry_offset() -> Vector2:
 		carry_offset.y
 	)
 
+
 func get_carry_target_position() -> Vector2:
-	if player == null:
+	if not is_instance_valid(player):
 		return global_position
 
 	return player.global_position + current_carry_offset
 
+
+# ------------------------------------------------------------------
 # MOVEMENT FUNCTIONS
+# ------------------------------------------------------------------
+
 func update_carry_follow(delta: float) -> void:
 	# Smoothly adjust the carry offset.
 	# This stops the bag from snapping when the player turns around.
@@ -319,6 +361,7 @@ func update_carry_follow(delta: float) -> void:
 	# Snap when close enough to avoid tiny endless micro-adjustments.
 	if pickup_blend >= 1.0 and global_position.distance_to(target) < 0.2:
 		global_position = target
+
 
 func update_movement_detection(delta: float) -> void:
 	if delta <= 0.0:
@@ -359,6 +402,7 @@ func get_move_direction_name() -> String:
 		else:
 			return "up"
 
+
 func _on_started_moving_debug(_direction: Vector2) -> void:
 	if garbage_mass < 1:
 		animated_sprite_2d.play("Drag1")
@@ -368,6 +412,7 @@ func _on_started_moving_debug(_direction: Vector2) -> void:
 		animated_sprite_2d.play("Drag3")
 	else:
 		animated_sprite_2d.play("Drag4")
+
 
 func _on_moving_debug(direction: Vector2) -> void:
 	if garbage_mass < 1:
@@ -382,10 +427,12 @@ func _on_moving_debug(direction: Vector2) -> void:
 	else:
 		if animated_sprite_2d.animation != "Drag4":
 			animated_sprite_2d.play("Drag4")
+
 	if direction.x > 0:
 		animated_sprite_2d.flip_h = false
 	if direction.x < 0:
 		animated_sprite_2d.flip_h = true
+
 
 func _on_stopped_moving_debug() -> void:
 	if garbage_mass < 1:

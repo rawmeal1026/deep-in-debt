@@ -18,6 +18,7 @@ script = ExtResource("1_bng3h")
 
 [node name="PET Bottles" type="Node2D" parent="." unique_id=1965510244]
 visible = false
+position = Vector2(0, -15)
 
 [node name="Sprite2D" type="Sprite2D" parent="PET Bottles" unique_id=1218247647]
 visible = false
@@ -61,6 +62,7 @@ visible = false
 texture = ExtResource("8_8v17s")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1615589387]
+position = Vector2(0, -15)
 collision_layer = 4
 collision_mask = 0
 monitoring = false

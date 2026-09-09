@@ -8,8 +8,12 @@ extends Node2D
 var intro = true
 var stars_bought = 0
 
+func worker_interact() -> void:
+	Globals.spawn_garbage_bag(get_random_spawn_point())
+
 ## Called by the player when interact is pressed nearby.
 func interact() -> void:
+	
 	if intro:
 		intro = false
 		Globals.npc_name = "Mon Whale"
@@ -27,10 +31,10 @@ func interact() -> void:
 								"I'm the wise star collector, I forgot to introduce. I give free star containers.",
 								"If you fill them up and return it to me, I'll give a shell for each stars you've collected.",
 								"I wish your brother a happy birthday party."]
-		'''
 		Globals.player_option_1 = ["They're disgusting. We should stay away from them.", "I don't know about that."]
 		Globals.player_option_2 = ["They reek incomprehensible wonders.", "That's a plausible theory."]
 		Globals.talk()
+		'''
 		return
 
 	if not is_instance_valid(Globals.carried_bag):

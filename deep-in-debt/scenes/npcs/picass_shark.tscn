@@ -5,19 +5,19 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cpq2j"]
 atlas = ExtResource("1_12gtu")
-region = Rect2(0, 0, 80, 66)
+region = Rect2(0, 0, 80, 68)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vdkoy"]
 atlas = ExtResource("1_12gtu")
-region = Rect2(80, 0, 80, 66)
+region = Rect2(80, 0, 80, 68)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tnjea"]
 atlas = ExtResource("1_12gtu")
-region = Rect2(160, 0, 80, 66)
+region = Rect2(160, 0, 80, 68)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_em1bk"]
 atlas = ExtResource("1_12gtu")
-region = Rect2(240, 0, 80, 66)
+region = Rect2(240, 0, 80, 68)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xwebp"]
 animations = [{
@@ -46,12 +46,13 @@ radius = 49.010204
 script = ExtResource("1_cpq2j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=479510477]
+position = Vector2(0, -30)
 sprite_frames = SubResource("SpriteFrames_xwebp")
 animation = &"Idle"
-frame = 1
 frame_progress = 0.8740654
 
 [node name="Picass Shark" type="Area2D" parent="." unique_id=2117302878 groups=["picass_shark"]]
+position = Vector2(0, -30)
 collision_layer = 2
 collision_mask = 0
 monitoring = false

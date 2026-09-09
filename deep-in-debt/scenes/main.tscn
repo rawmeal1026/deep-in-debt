@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cmem05hfegjms" path="res://assets/tilesets/desert_demo_objects.png" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://di8d0n6e8sf0s" path="res://assets/tilesets/Buildings/Bakery.png" id="4_85g3d"]
 [ext_resource type="Shader" uid="uid://ba1jy8venrdoq" path="res://assets/shaders/buildings.gdshader" id="4_jbj1t"]
+[ext_resource type="PackedScene" uid="uid://c6vtwth2gasdi" path="res://scenes/npcs/waste_hauler.tscn" id="4_jscy8"]
 [ext_resource type="Script" uid="uid://bo37lwdbpo0qn" path="res://scripts/camera_2d.gd" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bx55ihv3fawks" path="res://scenes/npcs/waste_collector.tscn" id="4_yc10j"]
 [ext_resource type="Texture2D" uid="uid://ceq7wiqtio61g" path="res://assets/tilesets/Buildings/Observatory.png" id="5_choun"]
 [ext_resource type="PackedScene" uid="uid://b3wnd5ciwpvjj" path="res://scenes/entities/garbage.tscn" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://cnw67na7su25f" path="res://assets/tilesets/Buildings/Workshop House.png" id="6_trceg"]
@@ -242,6 +244,11 @@ size = Vector2(72.16664, 34.999996)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pm3ni"]
 size = Vector2(68.999985, 35.33334)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_88fa3"]
+vertices = PackedVector2Array(2754, 1662, 2574, 1662, 2042, 1642, 2042, 1478, 2714, 938, 1057, 164, 2374, 106, 2770, 106, 1506, 334, 1326, 334, 1057, 33, 833, 33, 410, 10, 410, -154, 1786, 1274, 1854, 1478, 354, 1402, 1518, 1274, 2714, 750, 2518, 750, 1746, 662, 1506, 490, 2966, -326, 2966, 2054, 2518, 938, 1786, 1118, 2770, -138, 58, -326, 2374, -138, 2754, 1834, 58, 2054, 2574, 1834, 1558, 662, 1558, 834, 1518, 1118, 1370, 794, 1370, 670, 1746, 834, 1326, 490, 1126, 670, 833, 164, 650, 458, 650, 310, 882, 1274, 882, 1126, 1126, 794, 222, -154, 222, 10, 174, 1230, 1854, 1642, 174, 1402, 406, 310, 606, 1126, 406, 458, 606, 1274, 354, 1230)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(14, 3, 15, 16, 17), PackedInt32Array(7, 18, 19, 20, 21, 8), PackedInt32Array(22, 23, 0, 4, 18, 7), PackedInt32Array(24, 4, 3, 14, 25), PackedInt32Array(22, 7, 26), PackedInt32Array(27, 22, 26, 28), PackedInt32Array(29, 23, 30, 31), PackedInt32Array(32, 33, 34, 35, 36, 21), PackedInt32Array(37, 20, 19, 24, 25), PackedInt32Array(21, 20, 32), PackedInt32Array(38, 21, 36, 39), PackedInt32Array(40, 5, 9, 38, 39, 41, 42), PackedInt32Array(37, 25, 34, 33), PackedInt32Array(6, 5, 10, 28), PackedInt32Array(27, 28, 10, 13), PackedInt32Array(35, 34, 17, 43, 44, 45), PackedInt32Array(27, 13, 46), PackedInt32Array(30, 27, 46, 47, 48), PackedInt32Array(2, 1, 31, 30, 49), PackedInt32Array(16, 15, 49, 30, 50), PackedInt32Array(12, 11, 40, 42, 51, 47), PackedInt32Array(41, 39, 45, 44, 52, 53), PackedInt32Array(23, 29, 0), PackedInt32Array(43, 17, 16), PackedInt32Array(54, 43, 16), PackedInt32Array(52, 54, 16, 55, 53), PackedInt32Array(53, 55, 48, 47, 51), PackedInt32Array(30, 48, 50)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(48, -336, 2976, -336, 2976, 2064, 48, 2064), PackedVector2Array(1568, 824, 1736, 824, 1736, 672, 1568, 672), PackedVector2Array(1136, 784, 1360, 784, 1360, 680, 1136, 680), PackedVector2Array(616, 1136, 616, 1264, 872, 1264, 872, 1136), PackedVector2Array(1528, 1128, 1528, 1264, 1776, 1264, 1776, 1128), PackedVector2Array(843, 154, 1047, 154, 1047, 43, 843, 43), PackedVector2Array(416, 448, 640, 448, 640, 320, 416, 320), PackedVector2Array(184, 1392, 344, 1392, 344, 1240, 184, 1240), PackedVector2Array(1864, 1632, 2032, 1632, 2032, 1488, 1864, 1488), PackedVector2Array(2584, 1824, 2744, 1824, 2744, 1672, 2584, 1672), PackedVector2Array(2528, 928, 2704, 928, 2704, 760, 2528, 760), PackedVector2Array(2384, 96, 2760, 96, 2760, -128, 2384, -128), PackedVector2Array(232, 0, 400, 0, 400, -144, 232, -144), PackedVector2Array(1336, 480, 1496, 480, 1496, 344, 1336, 344)])
+
 [node name="Main" type="Node" unique_id=77694649]
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1164151809]
@@ -265,23 +272,41 @@ tile_set = SubResource("TileSet_gyiwm")
 z_as_relative = false
 y_sort_enabled = true
 
+[node name="WasteHauler" parent="Entities" unique_id=504530844 instance=ExtResource("4_jscy8")]
+position = Vector2(-48, 256)
+
+[node name="WasteHauler2" parent="Entities" unique_id=57024760 instance=ExtResource("4_jscy8")]
+position = Vector2(2040, 848)
+
+[node name="WasteHauler3" parent="Entities" unique_id=440068262 instance=ExtResource("4_jscy8")]
+position = Vector2(1360, 1032)
+
+[node name="WasteCollector" parent="Entities" unique_id=1621547015 instance=ExtResource("4_yc10j")]
+position = Vector2(3072, 888)
+
+[node name="WasteCollector2" parent="Entities" unique_id=170904839 instance=ExtResource("4_yc10j")]
+position = Vector2(-56, 1632)
+
+[node name="WasteCollector3" parent="Entities" unique_id=208984702 instance=ExtResource("4_yc10j")]
+position = Vector2(1496, -120)
+
 [node name="Tunado" parent="Entities" unique_id=927444226 instance=ExtResource("1_o5qli")]
-position = Vector2(1203, 791)
+position = Vector2(1200, 808)
 
 [node name="Mon Whale" parent="Entities" unique_id=1195302392 instance=ExtResource("8_85g3d")]
-position = Vector2(1702, 803)
+position = Vector2(1696, 832)
 
 [node name="Mikoi Angelo" parent="Entities" unique_id=1716099161 instance=ExtResource("7_o6xl0")]
-position = Vector2(1659, 1244)
+position = Vector2(1664, 1280)
 
 [node name="Carpa Vaggio" parent="Entities" unique_id=1773769974 instance=ExtResource("10_choun")]
-position = Vector2(919, 156)
+position = Vector2(920, 160)
 
 [node name="Leon Octo" parent="Entities" unique_id=1795971412 instance=ExtResource("13_jkv2x")]
-position = Vector2(749, 1250)
+position = Vector2(744, 1280)
 
 [node name="Picass Shark" parent="Entities" unique_id=583273182 instance=ExtResource("15_jbj1t")]
-position = Vector2(508, 448)
+position = Vector2(504, 472)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Entities" unique_id=1407797791]
 position = Vector2(933, 40)
@@ -1011,7 +1036,7 @@ position = Vector2(425, 1254)
 position = Vector2(334, 1184)
 
 [node name="Garbage218" parent="Entities" unique_id=2008689612 instance=ExtResource("6_tefeu")]
-position = Vector2(378, 1340)
+position = Vector2(400, 1344)
 
 [node name="Garbage219" parent="Entities" unique_id=530451813 instance=ExtResource("6_tefeu")]
 position = Vector2(338, 1443)
@@ -1233,7 +1258,7 @@ position = Vector2(85, 264)
 position = Vector2(89, 391)
 
 [node name="Garbage292" parent="Entities" unique_id=1743661484 instance=ExtResource("6_tefeu")]
-position = Vector2(119, 176)
+position = Vector2(112, 104)
 
 [node name="Garbage293" parent="Entities" unique_id=498012591 instance=ExtResource("6_tefeu")]
 position = Vector2(267, 177)
@@ -1581,7 +1606,7 @@ position = Vector2(2276, 394)
 position = Vector2(2202, 217)
 
 [node name="Garbage408" parent="Entities" unique_id=1176425238 instance=ExtResource("6_tefeu")]
-position = Vector2(2489, 197)
+position = Vector2(2472, 216)
 
 [node name="Garbage409" parent="Entities" unique_id=923674172 instance=ExtResource("6_tefeu")]
 position = Vector2(2126, 54)
@@ -1656,7 +1681,7 @@ position = Vector2(2344, 111)
 position = Vector2(2305, 222)
 
 [node name="Garbage433" parent="Entities" unique_id=711736635 instance=ExtResource("6_tefeu")]
-position = Vector2(2436, 128)
+position = Vector2(2432, 176)
 
 [node name="Garbage434" parent="Entities" unique_id=1566411318 instance=ExtResource("6_tefeu")]
 position = Vector2(2337, 317)
@@ -1665,7 +1690,7 @@ position = Vector2(2337, 317)
 position = Vector2(2408, 260)
 
 [node name="Garbage436" parent="Entities" unique_id=907548380 instance=ExtResource("6_tefeu")]
-position = Vector2(2529, 126)
+position = Vector2(2544, 232)
 
 [node name="Garbage437" parent="Entities" unique_id=2039982200 instance=ExtResource("6_tefeu")]
 position = Vector2(1914, 53)
@@ -1719,10 +1744,10 @@ position = Vector2(2569, -294)
 position = Vector2(2832, 369)
 
 [node name="Garbage454" parent="Entities" unique_id=1189998544 instance=ExtResource("6_tefeu")]
-position = Vector2(2701, 127)
+position = Vector2(2704, 160)
 
 [node name="Garbage455" parent="Entities" unique_id=1428780041 instance=ExtResource("6_tefeu")]
-position = Vector2(2543, -139)
+position = Vector2(2952, -160)
 
 [node name="Garbage456" parent="Entities" unique_id=1218781760 instance=ExtResource("6_tefeu")]
 position = Vector2(2466, -178)
@@ -1743,10 +1768,10 @@ position = Vector2(2648, -298)
 position = Vector2(2616, -176)
 
 [node name="Garbage462" parent="Entities" unique_id=1196209425 instance=ExtResource("6_tefeu")]
-position = Vector2(2656, -103)
+position = Vector2(2392, -309)
 
 [node name="Garbage463" parent="Entities" unique_id=1863923182 instance=ExtResource("6_tefeu")]
-position = Vector2(2772, 60)
+position = Vector2(2264, 280)
 
 [node name="Garbage464" parent="Entities" unique_id=108643682 instance=ExtResource("6_tefeu")]
 position = Vector2(2719, -168)
@@ -1758,7 +1783,7 @@ position = Vector2(2730, -265)
 position = Vector2(2795, -221)
 
 [node name="Garbage467" parent="Entities" unique_id=538556573 instance=ExtResource("6_tefeu")]
-position = Vector2(2786, -103)
+position = Vector2(2824, -104)
 
 [node name="Garbage468" parent="Entities" unique_id=2011092579 instance=ExtResource("6_tefeu")]
 position = Vector2(2855, 65)
@@ -1884,13 +1909,13 @@ position = Vector2(2847, 1796)
 position = Vector2(2910, 1704)
 
 [node name="Garbage509" parent="Entities" unique_id=1044703631 instance=ExtResource("6_tefeu")]
-position = Vector2(2731, 1859)
+position = Vector2(2728, 1888)
 
 [node name="Garbage510" parent="Entities" unique_id=1821750408 instance=ExtResource("6_tefeu")]
-position = Vector2(2546, 1735)
+position = Vector2(2528, 1736)
 
 [node name="Garbage511" parent="Entities" unique_id=1870535334 instance=ExtResource("6_tefeu")]
-position = Vector2(2765, 1698)
+position = Vector2(2800, 1688)
 
 [node name="Garbage512" parent="Entities" unique_id=1363910354 instance=ExtResource("6_tefeu")]
 position = Vector2(2511, 1658)
@@ -2016,7 +2041,7 @@ position = Vector2(2422, 788)
 position = Vector2(2470, 864)
 
 [node name="Garbage553" parent="Entities" unique_id=17270426 instance=ExtResource("6_tefeu")]
-position = Vector2(2675, 963)
+position = Vector2(2680, 984)
 
 [node name="Garbage554" parent="Entities" unique_id=351078920 instance=ExtResource("6_tefeu")]
 position = Vector2(2814, 893)
@@ -2028,13 +2053,13 @@ position = Vector2(2922, 936)
 position = Vector2(2905, 834)
 
 [node name="Garbage557" parent="Entities" unique_id=1116278322 instance=ExtResource("6_tefeu")]
-position = Vector2(2733, 837)
+position = Vector2(2776, 832)
 
 [node name="Garbage558" parent="Entities" unique_id=778726507 instance=ExtResource("6_tefeu")]
 position = Vector2(2561, 996)
 
 [node name="Garbage559" parent="Entities" unique_id=2141737271 instance=ExtResource("6_tefeu")]
-position = Vector2(2533, 763)
+position = Vector2(2496, 744)
 
 [node name="Garbage560" parent="Entities" unique_id=1686091266 instance=ExtResource("6_tefeu")]
 position = Vector2(2471, 685)
@@ -2049,10 +2074,10 @@ position = Vector2(2571, 519)
 position = Vector2(2533, 589)
 
 [node name="Garbage564" parent="Entities" unique_id=2128419485 instance=ExtResource("6_tefeu")]
-position = Vector2(2586, 685)
+position = Vector2(2568, 664)
 
 [node name="Garbage565" parent="Entities" unique_id=1662681201 instance=ExtResource("6_tefeu")]
-position = Vector2(2671, 728)
+position = Vector2(2664, 696)
 
 [node name="Garbage566" parent="Entities" unique_id=1774276556 instance=ExtResource("6_tefeu")]
 position = Vector2(2789, 774)
@@ -2119,7 +2144,10 @@ player_path = NodePath("../Entities/Tunado")
 deadzone_radius = 50.0
 
 [node name="TrashMeterScene" parent="." unique_id=1141202860 instance=ExtResource("19_gqmmt")]
-visible = false
 
 [node name="ConversationScene" parent="." unique_id=1566053693 instance=ExtResource("19_0ld40")]
 visible = false
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1134050533]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_88fa3")

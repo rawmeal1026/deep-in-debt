@@ -32,10 +32,12 @@ radius = 49.010204
 script = ExtResource("1_72qqj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=517837957]
+position = Vector2(0, -23)
 sprite_frames = SubResource("SpriteFrames_65qpk")
 animation = &"Idle"
 
 [node name="Leon Octo" type="Area2D" parent="." unique_id=293946084 groups=["leon_octo"]]
+position = Vector2(0, -23)
 collision_layer = 2
 collision_mask = 0
 
