@@ -1,16 +1,11 @@
 extends Node
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 var bag_slow_interval = 10
 #First increase threshold = bag_slow_interval * 2
 #Second increase threshold = bag_slow_interval * 3
 #Max_bag_content = bag_slow_interval * 4
 
 
-=======
-=======
->>>>>>> Stashed changes
 var bgm_instance
 # FMOD GLOBALS
 >>>>>>> Stashed changes
@@ -27,13 +22,10 @@ func play_fmod_sfx(path: String, param_name := "", param_value := 0.0) -> void:
 	else:
 		FmodServer.play_one_shot_with_params(path, {param_name: float(param_value)})
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 #if playing sfx with no parameter: Globals.play_fmod_sfx(path)
 #if playing sfx with ONE parameter: Globals.play_fmod_sfx(path, parameter_name, parameter_value)
-=======
-=======
->>>>>>> Stashed changes
+
 '''
 # MANAGED: For SFX where you need to check if it's playing or finished
 func play_fmod_sfx_managed(path: String, param_name := "", param_value := 0.0) -> FmodEvent:
