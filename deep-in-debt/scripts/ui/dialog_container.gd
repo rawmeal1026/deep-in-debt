@@ -63,13 +63,6 @@ func start_dialog() -> void:
 	visible = true
 	npc_name_label.text = Globals.npc_name
 	show_current_line()
-	match Globals.npc_name:
-		"Van Gold":
-			FmodServer.set_global_parameter_by_name("Character", 2)
-		"Leon Octo":
-			FmodServer.set_global_parameter_by_name("Character", 3)
-		"Picass Shark":
-			FmodServer.set_global_parameter_by_name("Character", 4)
 
 
 func get_current_speaker() -> int:
@@ -148,7 +141,6 @@ func end_dialog() -> void:
 	set_process(false)
 	visible = false
 	Globals.in_cutscene = false
-	FmodServer.set_global_parameter_by_name("Character", 0) #default bgm
 
 
 # ------------------------------------------------------------------

@@ -6,13 +6,19 @@ var SPEED = 250.0
 @onready var interaction_area: Area2D = get_node_or_null("InteractionArea") as Area2D
 @onready var collection_area: Area2D = get_node_or_null("CollectionArea") as Area2D
 
+#npc nodes
+@onready var mon_whale: Node2D = $"../Mon Whale"
+@onready var mikoi_angelo: Node2D = $"../Mikoi Angelo"
+@onready var carpa_vaggio: Node2D = $"../Carpa Vaggio"
+@onready var leon_octo: Node2D = $"../Leon Octo"
+@onready var picass_shark: Node2D = $"../Picass Shark"
+
+
 # the event paths given by fmod
 @export_group("sfx references")
 @export var footsteps : String
 
-
-# the event instances (they start empty and are initialized in the setup_FMOD_event_instances function, called on _ready)
-
+var npc_list
 ## Emitted every time a garbage item is collected.
 signal garbage_collected(material_name: String)
 
@@ -30,10 +36,25 @@ var goldfishes_in_range: Array[Node2D] = []
 
 func _ready() -> void:
 	setup_FMOD_event_instances()
+	npc_list = [mon_whale, mikoi_angelo, carpa_vaggio, leon_octo, picass_shark]
 
 func setup_FMOD_event_instances():
 	Globals.bgm_instance = FmodServer.create_event_instance("event:/BGM")
 	Globals.bgm_instance.start()
+
+func _process(_delta: float) -> void:
+	match get_nearest_npc():
+		null:
+			FmodServer.set_global_parameter_by_name("Character", 0)
+		"Tuna Tello":
+			FmodServer.set_global_parameter_by_name("Character", 1)
+		"Van Gold":
+			FmodServer.set_global_parameter_by_name("Character", 2)
+		"Leon Octo":
+			FmodServer.set_global_parameter_by_name("Character", 3)
+		"Picass Shark":
+			FmodServer.set_global_parameter_by_name("Character", 4)
+
 
 func _physics_process(_delta: float) -> void:
 	Globals.player_garbage_carry_count = get_collected_count()
@@ -431,6 +452,14 @@ func update_animation(movement: Vector2) -> void:
 func get_facing_direction() -> float:
 	return facing_direction
 
+func get_nearest_npc():
+	var npc_dist_dict := {}
+	for npc in npc_list:
+		npc_dist_dict.set(npc.name, self.global_position.distance_to(npc.global_position))
+	var val_list = npc_dist_dict.values()
+	if val_list.min() <= 200:
+		return npc_dist_dict.find_key(val_list.min())
+	return null
 
 func _on_frame_changed() -> void:
 	if $AnimatedSprite2D.animation == "Walk" and $AnimatedSprite2D.frame == 0 or $AnimatedSprite2D.frame == 3:
