@@ -117,6 +117,8 @@ radius = 36.11779
 radius = 16.666668
 
 [node name="Tuna Tello" type="CharacterBody2D" unique_id=927444226]
+collision_layer = 9
+collision_mask = 8
 script = ExtResource("1_2qooa")
 footsteps = "event:/player_footstep"
 

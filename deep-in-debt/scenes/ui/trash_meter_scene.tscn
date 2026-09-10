@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ditd8rvyh51rs" path="res://assets/tilesets/UI.png" id="1_4mtr5"]
 [ext_resource type="Texture2D" uid="uid://c3pm4ysg7mobn" path="res://assets/tilesets/player_slow_meter.png" id="1_oaalu"]
+[ext_resource type="Script" uid="uid://b41sm21pkm44g" path="res://scripts/ui/waste_container.gd" id="2_6rjhb"]
 [ext_resource type="Script" uid="uid://c8rvbqdgavm1x" path="res://scripts/ui/move_speed_meter.gd" id="2_ssacs"]
 [ext_resource type="Texture2D" uid="uid://byhnhnqm1rudy" path="res://assets/tilesets/trash_meter_void.png" id="2_v3dkh"]
 [ext_resource type="Texture2D" uid="uid://c1u7qjkpvnr7b" path="res://assets/tilesets/trash_meter_fill.png" id="3_ssacs"]
@@ -11,8 +12,15 @@
 [ext_resource type="Script" uid="uid://b0k0yagqad733" path="res://scripts/ui/shell_count_label.gd" id="8_ifwpy"]
 [ext_resource type="Script" uid="uid://nd0xxcyhypny" path="res://scripts/ui/hard_plastic_label.gd" id="9_0t6xy"]
 [ext_resource type="Script" uid="uid://3jbie2a6n8jm" path="res://scripts/ui/soft_plastic_label.gd" id="10_gwmkp"]
+[ext_resource type="Script" uid="uid://x7eltyc0kpbp" path="res://scripts/ui/currency_container.gd" id="11_6xt5f"]
 [ext_resource type="Script" uid="uid://cdgyg1evg7c3j" path="res://scripts/ui/metal_label.gd" id="11_trmey"]
 [ext_resource type="Script" uid="uid://h5elck7ue20h" path="res://scripts/ui/paper_label.gd" id="12_dh3d5"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6xt5f"]
+load_path = "res://.godot/imported/UI.png-ddb3d8ab5c55eb4556bdcf542d2dd099.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mm4kw"]
+load_path = "res://.godot/imported/UI.png-ddb3d8ab5c55eb4556bdcf542d2dd099.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w2fhn"]
 atlas = ExtResource("1_oaalu")
@@ -82,13 +90,14 @@ size_flags_stretch_ratio = 0.09
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.36
+size_flags_stretch_ratio = 0.25
 texture = ExtResource("1_4mtr5")
 region_rect = Rect2(592, 64, 127, 32)
 patch_margin_left = 17
 patch_margin_top = 7
 patch_margin_right = 16
 patch_margin_bottom = 7
+script = ExtResource("2_6rjhb")
 
 [node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer/HBoxContainer" unique_id=1328561440]
 self_modulate = Color(1, 1, 1, 0)
@@ -103,6 +112,151 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.04
 
+[node name="VBoxContainer2" type="VBoxContainer" parent="TrashMeter/HBoxContainer2" unique_id=984977934]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer2" unique_id=1686240302]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TrashMeter/HBoxContainer2/VBoxContainer2" unique_id=557687387]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+texture = ExtResource("1_4mtr5")
+region_rect = Rect2(464, 176, 448, 64)
+patch_margin_left = 12
+patch_margin_top = 15
+patch_margin_right = 12
+patch_margin_bottom = 15
+
+[node name="Label" type="Label" parent="TrashMeter/HBoxContainer2/VBoxContainer2/NinePatchRect" unique_id=710620557]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
+theme_override_colors/font_shadow_color = Color(0.29868206, 0.035102785, 0.012229759, 1)
+theme_override_colors/font_outline_color = Color(0.043137256, 0.047058824, 0.047058824, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("7_obpgh")
+theme_override_font_sizes/font_size = 30
+text = "OBJECTIVES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="TrashMeter/HBoxContainer2/VBoxContainer2" unique_id=846908275]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.12
+texture = SubResource("CompressedTexture2D_6xt5f")
+region_rect = Rect2(578, 0, 156, 32)
+patch_margin_left = 31
+patch_margin_top = 7
+patch_margin_right = 31
+patch_margin_bottom = 7
+
+[node name="Label" type="Label" parent="TrashMeter/HBoxContainer2/VBoxContainer2/NinePatchRect2" unique_id=1532188897]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
+theme_override_colors/font_shadow_color = Color(0.29868206, 0.035102785, 0.012229759, 1)
+theme_override_colors/font_outline_color = Color(0.043137256, 0.047058824, 0.047058824, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("7_obpgh")
+theme_override_font_sizes/font_size = 30
+text = "Clean the town"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="TrashMeter/HBoxContainer2/VBoxContainer2" unique_id=545885564]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.12
+texture = SubResource("CompressedTexture2D_mm4kw")
+region_rect = Rect2(578, 32, 156, 32)
+patch_margin_left = 31
+patch_margin_top = 7
+patch_margin_right = 31
+patch_margin_bottom = 7
+
+[node name="Label" type="Label" parent="TrashMeter/HBoxContainer2/VBoxContainer2/NinePatchRect3" unique_id=1041737443]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
+theme_override_colors/font_shadow_color = Color(0.29868206, 0.035102785, 0.012229759, 1)
+theme_override_colors/font_outline_color = Color(0.043137256, 0.047058824, 0.047058824, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("7_obpgh")
+theme_override_font_sizes/font_size = 30
+text = "Prepare party items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="TrashMeter/HBoxContainer2/VBoxContainer2" unique_id=2038546504]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.12
+texture = SubResource("CompressedTexture2D_mm4kw")
+region_rect = Rect2(578, 96, 156, 32)
+patch_margin_left = 31
+patch_margin_top = 7
+patch_margin_right = 31
+patch_margin_bottom = 7
+
+[node name="Label" type="Label" parent="TrashMeter/HBoxContainer2/VBoxContainer2/NinePatchRect4" unique_id=1650994628]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
+theme_override_colors/font_shadow_color = Color(0.29868206, 0.035102785, 0.012229759, 1)
+theme_override_colors/font_outline_color = Color(0.043137256, 0.047058824, 0.047058824, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("7_obpgh")
+theme_override_font_sizes/font_size = 30
+text = "Buy surprise cake"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeadSpace2" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer2" unique_id=1819176203]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.35
+
+[node name="DeadSpace2" type="Panel" parent="TrashMeter/HBoxContainer2" unique_id=1314058463]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.02
+
 [node name="HBoxContainer" type="HBoxContainer" parent="TrashMeter" unique_id=1966679783]
 layout_mode = 1
 anchors_preset = 15
@@ -115,7 +269,7 @@ grow_vertical = 2
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.03
+size_flags_stretch_ratio = 0.02
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TrashMeter/HBoxContainer" unique_id=1743964714]
 layout_mode = 2
@@ -186,12 +340,23 @@ size_flags_vertical = 3
 layout_mode = 2
 offset_transform_scale = Vector2(2, 2)
 
-[node name="TextureRect" type="TextureRect" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=856869003]
+[node name="CenterContainer" type="CenterContainer" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1309454333]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+script = ExtResource("11_6xt5f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer" unique_id=671874193]
+propagate_maximum_size = false
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=856869003]
+layout_mode = 2
+size_flags_horizontal = 3
 texture = SubResource("AtlasTexture_88fa3")
 stretch_mode = 3
 
-[node name="HardPlasticLabel" type="Label" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1113690378]
+[node name="HardPlasticLabel" type="Label" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=1113690378]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
@@ -204,18 +369,19 @@ theme_override_font_sizes/font_size = 30
 text = "0"
 script = ExtResource("9_0t6xy")
 
-[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=660891631]
+[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=660891631]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TextureRect2" type="TextureRect" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=2086265806]
+[node name="TextureRect2" type="TextureRect" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=2086265806]
 layout_mode = 2
+size_flags_horizontal = 3
 texture = SubResource("AtlasTexture_0t6xy")
 stretch_mode = 3
 
-[node name="SoftPlasticLabel" type="Label" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1043289940]
+[node name="SoftPlasticLabel" type="Label" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=1043289940]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
@@ -228,18 +394,19 @@ theme_override_font_sizes/font_size = 30
 text = "0"
 script = ExtResource("10_gwmkp")
 
-[node name="DeadSpace2" type="Panel" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=151869033]
+[node name="DeadSpace2" type="Panel" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=151869033]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TextureRect3" type="TextureRect" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=188377962]
+[node name="TextureRect3" type="TextureRect" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=188377962]
 layout_mode = 2
+size_flags_horizontal = 3
 texture = SubResource("AtlasTexture_gwmkp")
 stretch_mode = 3
 
-[node name="MetalLabel" type="Label" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=115684293]
+[node name="MetalLabel" type="Label" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=115684293]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
@@ -252,18 +419,19 @@ theme_override_font_sizes/font_size = 30
 text = "0"
 script = ExtResource("11_trmey")
 
-[node name="DeadSpace3" type="Panel" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1931526356]
+[node name="DeadSpace3" type="Panel" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=1931526356]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TextureRect4" type="TextureRect" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1385442555]
+[node name="TextureRect4" type="TextureRect" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=1385442555]
 layout_mode = 2
+size_flags_horizontal = 3
 texture = SubResource("AtlasTexture_trmey")
 stretch_mode = 3
 
-[node name="PaperLabel" type="Label" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1604763202]
+[node name="PaperLabel" type="Label" parent="TrashMeter/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/HBoxContainer" unique_id=1604763202]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
@@ -281,7 +449,6 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 50.0
 
 [node name="DeadSpace4" type="Panel" parent="TrashMeter/HBoxContainer/VBoxContainer" unique_id=812814541]
 self_modulate = Color(1, 1, 1, 0)
@@ -289,3 +456,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.05
+
+[node name="DeadSpace2" type="Panel" parent="TrashMeter/HBoxContainer" unique_id=887961485]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.32

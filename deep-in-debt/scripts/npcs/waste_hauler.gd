@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
-@export var SPEED: float = 200.0
+@export var locked_walk_frames: Array[int] = [1, 2, 3, 8, 9, 10]
+@export var SPEED: float = 200
 @export var bag_group: String = "bag"
 @export var koi_group: String = "mikoi_angelo"
 @export var move_stop_distance: float = 2.0
@@ -60,6 +61,7 @@ func _physics_process(_delta: float) -> void:
 		nav_agent.target_position = global_position
 
 	update_animation(velocity)
+	apply_walk_frame_lock()
 	move_and_slide()
 
 
@@ -73,6 +75,22 @@ func move_towards(target_position: Vector2) -> void:
 	else:
 		velocity = Vector2.ZERO
 
+## Freezes movement while the Walk animation is showing one of the locked
+## frames, giving the hauler his stuttering gait.
+## Must run AFTER update_animation() and BEFORE move_and_slide().
+func apply_walk_frame_lock() -> void:
+	if animated_sprite_2d == null:
+		return
+
+	if animated_sprite_2d.animation != "Walk":
+		return
+
+	# AnimatedSprite2D.frame is 0-based; locked_walk_frames uses 1-based
+	# human numbering (frame 1 = index 0).
+	var current_frame := animated_sprite_2d.frame + 1
+
+	if locked_walk_frames.has(current_frame):
+		velocity = Vector2.ZERO
 
 # ------------------------------------------------------------------
 # InteractionArea handling
@@ -130,8 +148,7 @@ func get_nearest_bag() -> Node2D:
 		if bag.has_method("can_be_picked_up") and not bag.call("can_be_picked_up"):
 			continue
 
-		# The hauler ONLY picks up FULL bags.
-		if bag.has_method("is_full") and not bag.call("is_full"):
+		if bag.has_method("get_collected_count") and int(bag.call("get_collected_count")) <= 0:
 			continue
 
 		var distance := global_position.distance_squared_to(bag.global_position)
@@ -280,7 +297,7 @@ func get_nearest_available_bag_target() -> Node2D:
 			continue
 
 		# The hauler ONLY targets FULL bags.
-		if bag.has_method("is_full") and not bag.call("is_full"):
+		if bag.has_method("get_collected_count") and int(bag.call("get_collected_count")) <= 0:
 			continue
 
 		var distance := global_position.distance_squared_to(target.global_position)

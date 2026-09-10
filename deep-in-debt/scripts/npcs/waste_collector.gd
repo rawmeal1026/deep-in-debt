@@ -3,7 +3,7 @@ extends CharacterBody2D
 ## Emitted every time this worker collects garbage.
 signal garbage_collected(material_name: String)
 
-@export var SPEED: float = 200.0
+var SPEED: float = 200.0
 @export var bag_group: String = "bag"
 @export var garbage_group: String = "garbage"
 @export var whale_group: String = "mon_whale"
@@ -25,32 +25,42 @@ func _physics_process(_delta: float) -> void:
 	var target: Vector2 = Vector2.ZERO
 	var has_target := false
 
+	# Nearest collectable waste this frame (null = the world is clean).
+	var garbage := get_nearest_garbage_target()
+
 	# 1. Determine the target based on current state
 	if is_carrying_bag and is_instance_valid(carried_bag):
 		if is_bag_full(carried_bag):
 			drop_current_bag()
+		elif garbage != null:
+			target = garbage.global_position
+			has_target = true
 		else:
-			var garbage := get_nearest_garbage_target()
-			if garbage != null:
-				target = garbage.global_position
-				has_target = true
+			# No waste left to collect: drop the partial bag
+			# so the hauler can take it away.
+			drop_current_bag()
 	else:
 		if is_carrying_bag and not is_instance_valid(carried_bag):
 			clear_carried_bag()
 
-		var bag := get_nearest_available_bag_target()
-		if bag != null:
-			if no_bags == true:
-				no_bags = false
-			target = bag.global_position
-			has_target = true
-		else:
-			if no_bags == false:
-				no_bags = true
-			var whale := get_nearest_whale_target()
-			if whale != null:
-				target = whale.global_position
+		# Only hunt for bags / whale while waste actually exists.
+		# Otherwise we'd instantly re-pick-up the bag we just dropped.
+		if garbage != null:
+			var bag := get_nearest_available_bag_target()
+
+			if bag != null:
+				if no_bags == true:
+					no_bags = false
+				target = bag.global_position
 				has_target = true
+			else:
+				if no_bags == false:
+					no_bags = true
+				var whale := get_nearest_whale_target()
+
+				if whale != null:
+					target = whale.global_position
+					has_target = true
 
 	# 2. Handle Movement via NavigationAgent
 	if has_target:
@@ -58,6 +68,11 @@ func _physics_process(_delta: float) -> void:
 		if global_position.distance_to(target) <= move_stop_distance:
 			velocity = Vector2.ZERO
 			nav_agent.target_position = global_position # Stop navigating
+
+			# Arrival retry: pick up a bag we are already standing inside
+			# (its area_entered fired long ago, so it won't fire again).
+			if not is_carrying_bag:
+				handle_bag_interaction()
 		else:
 			nav_agent.target_position = target
 			
