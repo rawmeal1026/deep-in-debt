@@ -50,6 +50,15 @@ func start_dialog() -> void:
 	visible = true
 	npc_name_label.text = Globals.npc_name
 	show_current_line()
+	match Globals.npc_name:
+		"Tuna Tello":
+			FmodServer.set_global_parameter_by_name("Character", 1)
+		"Van Gold":
+			FmodServer.set_global_parameter_by_name("Character", 2)
+		"Leon Octo":
+			FmodServer.set_global_parameter_by_name("Character", 3)
+		"Picass Shark":
+			FmodServer.set_global_parameter_by_name("Character", 4)
 
 
 func get_current_speaker() -> int:
@@ -128,6 +137,7 @@ func end_dialog() -> void:
 	set_process(false)
 	visible = false
 	Globals.in_cutscene = false
+	FmodServer.set_global_parameter_by_name("Character", 0)
 
 
 # ------------------------------------------------------------------
@@ -194,24 +204,54 @@ func _process(delta: float) -> void:
 		revealed_chars = 0
 		is_typing = false
 		set_process(false)
+<<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
 <<<<<<< Updated upstream
 =======
+=======
+	
+>>>>>>> Stashed changes:deep-in-debt/scripts/ui/dialog_container.gd
 
 
 func trigger_voice_sound():
 	if is_npc_speaking():
 		match Globals.npc_name:
 			"Leon Octo":
+<<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
 				current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
 			"Mon Whale":
 				current_sfx_instance = Globals.play_fmod_sfx_managed(mon_whale)
+=======
+				if letters % 4 == 0:
+					Globals.play_fmod_sfx(leon_octo)
+				#current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
+			"Mon Whale":
+				if letters % 5 == 0:
+					Globals.play_fmod_sfx(mon_whale)
+				#current_sfx_instance = Globals.play_fmod_sfx_managed(mon_whale)
+>>>>>>> Stashed changes:deep-in-debt/scripts/ui/dialog_container.gd
 			"Van Gold":
 				current_sfx_instance = Globals.play_fmod_sfx_managed(van_gold)
 			"Picass Shark":
+<<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
 				current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
 	elif is_player_speaking():
 		current_sfx_instance = Globals.play_fmod_sfx_managed(tuna_tello)
 	check_sfx()
+=======
+				if letters % 5 == 0:
+					Globals.play_fmod_sfx(picass_shark)
+				#current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
+			"Carpa Vaggio":
+				if letters % 4 == 0:
+					Globals.play_fmod_sfx(carpa_vaggio)
+			"Mikoi Angelo":
+				if letters % 4 == 0:
+					Globals.play_fmod_sfx(mikoi_angelo)
+	elif is_player_speaking():
+		if letters % 4 == 0:
+			Globals.play_fmod_sfx(tuna_tello)
+		#current_sfx_instance = Globals.play_fmod_sfx(tuna_tello)
+>>>>>>> Stashed changes:deep-in-debt/scripts/ui/dialog_container.gd
 
 func is_voice_sound_active() -> bool:
 	if not current_sfx_instance or not current_sfx_instance.is_valid():
