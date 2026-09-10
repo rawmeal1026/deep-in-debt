@@ -178,7 +178,11 @@ radius = 40.0
 
 [node name="GarbageBag" type="Node2D" unique_id=275557160 groups=["bag"]]
 script = ExtResource("1_nbjeb")
+<<<<<<< Updated upstream
 carry_offset = Vector2(-24, -10)
+=======
+carry_offset = Vector2(-38, -38)
+>>>>>>> Stashed changes
 follow_sharpness = 20.0
 drop_offset = Vector2(-24, -10)
 flip_drop_offset_x_with_facing = true

@@ -179,7 +179,8 @@ texture_region_size = Vector2i(32, 32)
 7:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.187286, -6.834631, -4.4964685, -8, -1.7985878, -5.3957615, 3.5971737, 1.2590122, 3.4173164, 4.6763268, 6.4749146, 4.856186, 7.913784, 16.00743, -16.187286, 16.187284)
 
 [sub_resource type="TileSet" id="TileSet_gyiwm"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 9
+physics_layer_0/collision_mask = 9
 sources/1 = SubResource("TileSetAtlasSource_0ld40")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_muem4"]
@@ -254,6 +255,8 @@ position = Vector2(508, 448)
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Entities" unique_id=1407797791]
 position = Vector2(933, 40)
 scale = Vector2(3, 3)
+collision_layer = 9
+collision_mask = 9
 
 [node name="Sprite2D" type="Sprite2D" parent="Entities/CharacterBody2D" unique_id=515509408]
 material = SubResource("ShaderMaterial_muem4")
@@ -266,6 +269,8 @@ shape = SubResource("RectangleShape2D_0ld40")
 [node name="CharacterBody2D2" type="CharacterBody2D" parent="Entities" unique_id=1934305365]
 position = Vector2(1657, 734)
 scale = Vector2(3, 3)
+collision_layer = 9
+collision_mask = 9
 
 [node name="Sprite2D2" type="Sprite2D" parent="Entities/CharacterBody2D2" unique_id=1939286686]
 material = SubResource("ShaderMaterial_jbj1t")
@@ -279,6 +284,8 @@ shape = SubResource("RectangleShape2D_x4vyn")
 [node name="CharacterBody2D3" type="CharacterBody2D" parent="Entities" unique_id=1045877724]
 position = Vector2(1243, 686)
 scale = Vector2(3, 3)
+collision_layer = 9
+collision_mask = 9
 
 [node name="Sprite2D6" type="Sprite2D" parent="Entities/CharacterBody2D3" unique_id=2034159366]
 material = SubResource("ShaderMaterial_jbj1t")
@@ -291,6 +298,8 @@ shape = SubResource("RectangleShape2D_gqmmt")
 [node name="CharacterBody2D4" type="CharacterBody2D" parent="Entities" unique_id=1984673430]
 position = Vector2(743, 1164)
 scale = Vector2(3, 3)
+collision_layer = 9
+collision_mask = 9
 
 [node name="Sprite2D3" type="Sprite2D" parent="Entities/CharacterBody2D4" unique_id=523649991]
 material = SubResource("ShaderMaterial_jbj1t")
@@ -304,6 +313,8 @@ shape = SubResource("RectangleShape2D_yc10j")
 [node name="CharacterBody2D5" type="CharacterBody2D" parent="Entities" unique_id=1863939695]
 position = Vector2(1658, 1182.0001)
 scale = Vector2(3, 3)
+collision_layer = 9
+collision_mask = 9
 
 [node name="Sprite2D4" type="Sprite2D" parent="Entities/CharacterBody2D5" unique_id=596963208]
 material = SubResource("ShaderMaterial_jbj1t")
@@ -317,6 +328,8 @@ shape = SubResource("RectangleShape2D_jscy8")
 [node name="CharacterBody2D6" type="CharacterBody2D" parent="Entities" unique_id=1110887151]
 position = Vector2(531, 358)
 scale = Vector2(3, 3)
+collision_layer = 9
+collision_mask = 9
 
 [node name="Sprite2D5" type="Sprite2D" parent="Entities/CharacterBody2D6" unique_id=2033358524]
 material = SubResource("ShaderMaterial_jbj1t")
