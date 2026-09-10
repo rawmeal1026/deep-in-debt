@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var locked_walk_frames: Array[int] = [1, 2, 3, 8, 9, 10]
+@export var locked_walk_frames: Array[int] = [1, 2, 3, 4, 9, 10]
 @export var SPEED: float = 200
 @export var bag_group: String = "bag"
 @export var koi_group: String = "mikoi_angelo"

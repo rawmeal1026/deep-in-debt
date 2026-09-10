@@ -52,7 +52,7 @@ const GarbageBagScene := preload("res://scenes/entities/garbage_bag.tscn")
 ## Returns the spawned bag so you can configure it if needed.
 func spawn_garbage_bag(at_position: Vector2) -> Node2D:
 	var bag: Node2D = GarbageBagScene.instantiate()
-	var entities := get_tree().current_scene.get_node_or_null("Entities")
+	var entities := get_tree().current_scene.get_node_or_null("T-Sorted World/Entities")
 
 	if entities == null:
 		push_warning("spawn_garbage_bag(): Entities node not found.")
