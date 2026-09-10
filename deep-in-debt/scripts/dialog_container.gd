@@ -205,8 +205,12 @@ func _process(delta: float) -> void:
 		is_typing = false
 		set_process(false)
 <<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
+<<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
 <<<<<<< Updated upstream
 =======
+=======
+	
+>>>>>>> Stashed changes:deep-in-debt/scripts/ui/dialog_container.gd
 =======
 	
 >>>>>>> Stashed changes:deep-in-debt/scripts/ui/dialog_container.gd
@@ -217,10 +221,13 @@ func trigger_voice_sound():
 		match Globals.npc_name:
 			"Leon Octo":
 <<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
+<<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
 				current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
 			"Mon Whale":
 				current_sfx_instance = Globals.play_fmod_sfx_managed(mon_whale)
 =======
+=======
+>>>>>>> Stashed changes:deep-in-debt/scripts/ui/dialog_container.gd
 				if letters % 4 == 0:
 					Globals.play_fmod_sfx(leon_octo)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
@@ -233,11 +240,14 @@ func trigger_voice_sound():
 				current_sfx_instance = Globals.play_fmod_sfx_managed(van_gold)
 			"Picass Shark":
 <<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
+<<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
 				current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
 	elif is_player_speaking():
 		current_sfx_instance = Globals.play_fmod_sfx_managed(tuna_tello)
 	check_sfx()
 =======
+=======
+>>>>>>> Stashed changes:deep-in-debt/scripts/ui/dialog_container.gd
 				if letters % 5 == 0:
 					Globals.play_fmod_sfx(picass_shark)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
@@ -251,6 +261,9 @@ func trigger_voice_sound():
 		if letters % 4 == 0:
 			Globals.play_fmod_sfx(tuna_tello)
 		#current_sfx_instance = Globals.play_fmod_sfx(tuna_tello)
+<<<<<<< Updated upstream:deep-in-debt/scripts/dialog_container.gd
+>>>>>>> Stashed changes:deep-in-debt/scripts/ui/dialog_container.gd
+=======
 >>>>>>> Stashed changes:deep-in-debt/scripts/ui/dialog_container.gd
 
 func is_voice_sound_active() -> bool:
