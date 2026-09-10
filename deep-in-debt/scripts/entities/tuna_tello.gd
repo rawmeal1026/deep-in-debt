@@ -32,7 +32,8 @@ func _ready() -> void:
 	setup_FMOD_event_instances()
 
 func setup_FMOD_event_instances():
-	pass
+	Globals.bgm_instance = FmodServer.create_event_instance("event:/BGM")
+	Globals.bgm_instance.start()
 
 func _physics_process(_delta: float) -> void:
 	Globals.player_garbage_carry_count = get_collected_count()

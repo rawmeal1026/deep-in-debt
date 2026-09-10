@@ -63,6 +63,13 @@ func start_dialog() -> void:
 	visible = true
 	npc_name_label.text = Globals.npc_name
 	show_current_line()
+	match Globals.npc_name:
+		"Van Gold":
+			FmodServer.set_global_parameter_by_name("Character", 2)
+		"Leon Octo":
+			FmodServer.set_global_parameter_by_name("Character", 3)
+		"Picass Shark":
+			FmodServer.set_global_parameter_by_name("Character", 4)
 
 
 func get_current_speaker() -> int:
@@ -141,6 +148,7 @@ func end_dialog() -> void:
 	set_process(false)
 	visible = false
 	Globals.in_cutscene = false
+	FmodServer.set_global_parameter_by_name("Character", 0) #default bgm
 
 
 # ------------------------------------------------------------------
@@ -158,6 +166,7 @@ func begin_typing(labels: Array[Label], texts: Array[String]) -> void:
 
 	is_typing = true
 	set_process(true)
+	trigger_voice_sound(0, true)
 
 
 func finish_typing() -> void:
@@ -166,6 +175,7 @@ func finish_typing() -> void:
 
 	is_typing = false
 	set_process(false)
+	trigger_voice_sound(0, true)
 
 func _process(_delta: float) -> void:
 	if npc_name_container.custom_minimum_size.x != npc_name_label.size.x + 60:
@@ -196,33 +206,34 @@ func _process(_delta: float) -> void:
 		set_process(false)
 
 
-func trigger_voice_sound(letters: int):
+func trigger_voice_sound(letters: int, line_start = false):
 	if is_npc_speaking():
 		match Globals.npc_name:
 			"Leon Octo":
-				if letters % 2 == 0:
+				if letters % 6 == 0 or line_start:
 					Globals.play_fmod_sfx(leon_octo)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(leon_octo)
 			"Mon Whale":
-				if letters % 2 == 0:
+				if letters % 7 == 0 or line_start:
 					Globals.play_fmod_sfx(mon_whale)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(mon_whale)
 			"Van Gold":
-				if letters % 2 == 0:
+				if letters % 4 == 0 or line_start:
 					Globals.play_fmod_sfx(van_gold)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(van_gold)
 			"Picass Shark":
-				if letters % 2 == 0:
+				if letters % 6 == 0 or line_start:
 					Globals.play_fmod_sfx(picass_shark)
 				#current_sfx_instance = Globals.play_fmod_sfx_managed(picass_shark)
 			"Carpa Vaggio":
-				if letters % 2 == 0:
+				if letters % 6 == 0 or line_start:
 					Globals.play_fmod_sfx(carpa_vaggio)
 			"Mikoi Angelo":
-				if letters % 2 == 0:
+				if letters % 7 == 0 or line_start:
 					Globals.play_fmod_sfx(mikoi_angelo)
 	elif is_player_speaking():
-		current_sfx_instance = Globals.play_fmod_sfx_managed(tuna_tello)
+		if letters % 7 == 0 or line_start:
+			Globals.play_fmod_sfx(tuna_tello)
 
 func is_voice_sound_active() -> bool:
 	if not current_sfx_instance or not current_sfx_instance.is_valid():
