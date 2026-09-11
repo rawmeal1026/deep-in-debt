@@ -30,6 +30,7 @@ texture = ExtResource("2_bng3h")
 
 [node name="Aluminum Cans" type="Node2D" parent="." unique_id=830982279]
 visible = false
+position = Vector2(0, -15)
 
 [node name="Sprite2D" type="Sprite2D" parent="Aluminum Cans" unique_id=1083723037]
 visible = false
@@ -41,6 +42,7 @@ texture = ExtResource("4_o0dql")
 
 [node name="Cellulose Paperboards" type="Node2D" parent="." unique_id=2088503730]
 visible = false
+position = Vector2(0, -15)
 
 [node name="Sprite2D" type="Sprite2D" parent="Cellulose Paperboards" unique_id=1935508569]
 visible = false
@@ -52,6 +54,7 @@ texture = ExtResource("6_dkfkb")
 
 [node name="PE Bags" type="Node2D" parent="." unique_id=437197920]
 visible = false
+position = Vector2(0, -15)
 
 [node name="Sprite2D" type="Sprite2D" parent="PE Bags" unique_id=1968829441]
 visible = false

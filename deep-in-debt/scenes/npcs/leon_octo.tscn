@@ -2,23 +2,24 @@
 
 [ext_resource type="Script" uid="uid://sj06iri5fnnl" path="res://scripts/npcs/leon_octo.gd" id="1_72qqj"]
 [ext_resource type="Texture2D" uid="uid://fdeoaotxcod2" path="res://assets/sprites/Octy/Octy_idle.png" id="2_i0p7j"]
+[ext_resource type="Texture2D" uid="uid://chm3ict2v8si" path="res://assets/sprites/e.png" id="3_i0p7j"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ujkyx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_72qqj"]
 atlas = ExtResource("2_i0p7j")
-region = Rect2(0, 0, 48, 50)
+region = Rect2(0, 0, 48, 52)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7xo7i"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0p7j"]
 atlas = ExtResource("2_i0p7j")
-region = Rect2(48, 0, 48, 50)
+region = Rect2(48, 0, 48, 52)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_65qpk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ujkyx")
+"texture": SubResource("AtlasTexture_72qqj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7xo7i")
+"texture": SubResource("AtlasTexture_i0p7j")
 }],
 "loop": 1,
 "name": &"Idle",
@@ -39,7 +40,14 @@ animation = &"Idle"
 [node name="Leon Octo" type="Area2D" parent="." unique_id=293946084 groups=["leon_octo"]]
 position = Vector2(0, -23)
 collision_layer = 2
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Leon Octo" unique_id=1638671386]
 shape = SubResource("CircleShape2D_0dssy")
+
+[node name="E_button" type="Sprite2D" parent="." unique_id=1142274459]
+visible = false
+position = Vector2(0, -63)
+texture = ExtResource("3_i0p7j")
+
+[connection signal="area_entered" from="Leon Octo" to="." method="_on_leon_octo_area_entered"]
+[connection signal="area_exited" from="Leon Octo" to="." method="_on_leon_octo_area_exited"]

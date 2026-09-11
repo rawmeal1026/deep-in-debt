@@ -177,7 +177,6 @@ shape = SubResource("CircleShape2D_nd0q2")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1136304106]
 navigation_layers = 7
 simplify_path = true
-debug_enabled = true
 
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]

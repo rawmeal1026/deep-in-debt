@@ -1,0 +1,180 @@
+[gd_scene format=3 uid="uid://uil0pgoljyhw"]
+
+[ext_resource type="Texture2D" uid="uid://ditd8rvyh51rs" path="res://assets/tilesets/UI.png" id="1_bc3dm"]
+[ext_resource type="FontFile" uid="uid://bbo0jom7ar424" path="res://assets/fonts/monogram-extended.ttf" id="2_cdux6"]
+
+[node name="TutorialScene" type="CanvasLayer" unique_id=1141202860]
+
+[node name="TrashMeter" type="Control" parent="." unique_id=87465810]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TrashMeter" unique_id=178182177]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer2" unique_id=1573002332]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TrashMeter/HBoxContainer2" unique_id=984977934]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DeadSpace" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer2" unique_id=1686240302]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TrashMeter/HBoxContainer2/VBoxContainer2" unique_id=1307011186]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.06
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TrashMeter/HBoxContainer2/VBoxContainer2/HBoxContainer" unique_id=557687387]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+texture = ExtResource("1_bc3dm")
+region_rect = Rect2(736, 112, 128, 32)
+patch_margin_left = 17
+patch_margin_top = 7
+patch_margin_right = 17
+patch_margin_bottom = 7
+
+[node name="Label" type="Label" parent="TrashMeter/HBoxContainer2/VBoxContainer2/HBoxContainer/NinePatchRect" unique_id=710620557]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
+theme_override_colors/font_shadow_color = Color(0.29868206, 0.035102785, 0.012229759, 1)
+theme_override_colors/font_outline_color = Color(0.043137256, 0.047058824, 0.047058824, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_cdux6")
+theme_override_font_sizes/font_size = 30
+text = "WASD / ARROW KEYS - Movement"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="TrashMeter/HBoxContainer2/VBoxContainer2/HBoxContainer" unique_id=2117538012]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.12
+texture = ExtResource("1_bc3dm")
+region_rect = Rect2(736, 112, 128, 32)
+patch_margin_left = 17
+patch_margin_top = 7
+patch_margin_right = 17
+patch_margin_bottom = 7
+
+[node name="Label" type="Label" parent="TrashMeter/HBoxContainer2/VBoxContainer2/HBoxContainer/NinePatchRect2" unique_id=120561313]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
+theme_override_colors/font_shadow_color = Color(0.29868206, 0.035102785, 0.012229759, 1)
+theme_override_colors/font_outline_color = Color(0.043137256, 0.047058824, 0.047058824, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_cdux6")
+theme_override_font_sizes/font_size = 30
+text = "E - Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="TrashMeter/HBoxContainer2/VBoxContainer2/HBoxContainer" unique_id=1973231812]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.12
+texture = ExtResource("1_bc3dm")
+region_rect = Rect2(736, 112, 128, 32)
+patch_margin_left = 17
+patch_margin_top = 7
+patch_margin_right = 17
+patch_margin_bottom = 7
+
+[node name="Label" type="Label" parent="TrashMeter/HBoxContainer2/VBoxContainer2/HBoxContainer/NinePatchRect3" unique_id=243481945]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
+theme_override_colors/font_shadow_color = Color(0.29868206, 0.035102785, 0.012229759, 1)
+theme_override_colors/font_outline_color = Color(0.043137256, 0.047058824, 0.047058824, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_cdux6")
+theme_override_font_sizes/font_size = 30
+text = "H - Toggle UI"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NinePatchRect4" type="NinePatchRect" parent="TrashMeter/HBoxContainer2/VBoxContainer2/HBoxContainer" unique_id=1717768447]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.13
+texture = ExtResource("1_bc3dm")
+region_rect = Rect2(736, 112, 128, 32)
+patch_margin_left = 17
+patch_margin_top = 7
+patch_margin_right = 17
+patch_margin_bottom = 7
+
+[node name="Label" type="Label" parent="TrashMeter/HBoxContainer2/VBoxContainer2/HBoxContainer/NinePatchRect4" unique_id=863989864]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.8509804, 0.8235294, 1)
+theme_override_colors/font_shadow_color = Color(0.29868206, 0.035102785, 0.012229759, 1)
+theme_override_colors/font_outline_color = Color(0.043137256, 0.047058824, 0.047058824, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("2_cdux6")
+theme_override_font_sizes/font_size = 30
+text = "ESC -  Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeadSpace2" type="Panel" parent="TrashMeter/HBoxContainer2/VBoxContainer2" unique_id=1819176203]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.02
+
+[node name="DeadSpace2" type="Panel" parent="TrashMeter/HBoxContainer2" unique_id=1314058463]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.02

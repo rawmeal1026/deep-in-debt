@@ -29,10 +29,8 @@ var facing_direction := 1.0
 var whales_in_range: Array[Node2D] = []
 var sharks_in_range: Array[Node2D] = []
 var koi_in_range: Array[Node2D] = []
-var carp_in_range: Array[Node2D] = []
+var carps_in_range: Array[Node2D] = []
 var octopi_in_range: Array[Node2D] = []
-var cake_in_range: Array[Node2D] = []
-var goldfishes_in_range: Array[Node2D] = []
 
 func _ready() -> void:
 	setup_FMOD_event_instances()
@@ -61,9 +59,18 @@ func _physics_process(_delta: float) -> void:
 	if Globals.player_garbage_carry_count < (Globals.bag_slow_interval * 2):
 		SPEED = 250
 	elif Globals.player_garbage_carry_count < (Globals.bag_slow_interval * 3):
-		SPEED = 200
+		if Globals.roller_blades:
+			SPEED = 250
+		else:
+			SPEED = 200
 	else:
-		SPEED = 100
+		if Globals.roller_blades:
+			SPEED = 250
+		else:
+			SPEED = 100
+	
+	if Globals.anti_drag_boots:
+		SPEED += 100
 	
 	if not Globals.in_cutscene:
 		velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
@@ -71,41 +78,55 @@ func _physics_process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 	update_animation(velocity)
 	move_and_slide()
+	var border := Globals.world_border
+	var m := Globals.player_border_margin
+	global_position = global_position.clamp(
+		border.position + Vector2(m, m),
+		border.end - Vector2(m, m)
+	)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		var whale := get_nearest_whale()
+		if not Globals.in_cutscene:
+			var whale := get_nearest_whale()
 
-		if whale != null:
-			if whale.has_method("interact"):
-				whale.call("interact")
-			return  # delete this line if the bag logic should ALSO run
-
-		var shark := get_nearest_shark()
-
-		if shark != null:
-			if not Globals.in_cutscene:
-				if shark.has_method("talk"):
-					shark.call("talk")
+			if whale != null:
+				if whale.has_method("interact"):
+					whale.call("interact")
 				return  # delete this line if the bag logic should ALSO run
 
-		var koi := get_nearest_koi()
+			var shark := get_nearest_shark()
 
-		if koi != null:
-			if not Globals.in_cutscene:
-				if koi.has_method("interact"):
-					koi.call("interact")
-				return  # delete this line if the bag logic should ALSO run
+			if shark != null:
+				if not Globals.in_cutscene:
+					if shark.has_method("interact"):
+						shark.call("interact")
+					return  # delete this line if the bag logic should ALSO run
 
-		var octopus := get_nearest_octopus()
+			var koi := get_nearest_koi()
 
-		if octopus != null:
-			if not Globals.in_cutscene:
-				if octopus.has_method("interact"):
-					octopus.call("interact")
-				return  # delete this line if the bag logic should ALSO run
+			if koi != null:
+				if not Globals.in_cutscene:
+					if koi.has_method("interact"):
+						koi.call("interact")
+					return  # delete this line if the bag logic should ALSO run
 
-		handle_bag_interaction()
+			var octopus := get_nearest_octopus()
+
+			if octopus != null:
+				if not Globals.in_cutscene:
+					if octopus.has_method("interact"):
+						octopus.call("interact")
+					return  # delete this line if the bag logic should ALSO run
+
+			var carp := get_nearest_carp()
+			if carp != null:
+				if not Globals.in_cutscene:
+					if carp.has_method("interact"):
+						carp.call("interact")
+					return  # delete this line if the bag logic should ALSO run
+
+			handle_bag_interaction()
 
 # ------------------------------------------------------------------
 # Interaction area (bag pickup)
@@ -137,6 +158,11 @@ func _on_interaction_area_area_entered(area: Area2D) -> void:
 	if octopus != null and not octopi_in_range.has(octopus):
 		octopi_in_range.append(octopus)
 
+	var carp := get_carp_from_area(area)
+
+	if carp != null and not carps_in_range.has(carp):
+		carps_in_range.append(carp)
+
 
 func _on_interaction_area_area_exited(area: Area2D) -> void:
 	var bag := get_bag_from_area(area)
@@ -163,6 +189,11 @@ func _on_interaction_area_area_exited(area: Area2D) -> void:
 
 	if octopus != null:
 		octopi_in_range.erase(octopus)
+
+	var carp := get_carp_from_area(area)
+
+	if carp != null:
+		carps_in_range.erase(carp)
 
 # ------------------------------------------------------------------
 # Bag pickup / drop
@@ -432,6 +463,33 @@ func get_nearest_octopus() -> Node2D:
 
 	return nearest
 
+## The group is on the Area2D, so return its parent (the shark root).
+func get_carp_from_area(area: Area2D) -> Node2D:
+	if area.is_in_group("carpa_vaggio"):
+		return area.get_parent() as Node2D
+
+	var parent := area.get_parent() as Node2D
+	if parent != null and parent.is_in_group("carpa_vaggio"):
+		return parent
+
+	return null
+
+func get_nearest_carp() -> Node2D:
+	var nearest: Node2D = null
+	var best_distance := INF
+
+	for carp in carps_in_range:
+		if not is_instance_valid(carp):
+			continue
+
+		var distance := global_position.distance_squared_to(carp.global_position)
+
+		if distance < best_distance:
+			best_distance = distance
+			nearest = carp
+
+	return nearest
+
 func update_animation(movement: Vector2) -> void:
 	if movement == Vector2.ZERO:
 		if animated_sprite_2d.animation != "Idle":
@@ -457,7 +515,7 @@ func get_nearest_npc():
 	for npc in npc_list:
 		npc_dist_dict.set(npc.name, self.global_position.distance_to(npc.global_position))
 	var val_list = npc_dist_dict.values()
-	if val_list.min() <= 200:
+	if val_list.min() <= 100:
 		return npc_dist_dict.find_key(val_list.min())
 	return null
 

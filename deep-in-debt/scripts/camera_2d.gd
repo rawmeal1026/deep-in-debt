@@ -11,6 +11,13 @@ func _ready() -> void:
 	player = get_node_or_null(player_path) as CharacterBody2D
 	make_current()
 
+	# Engine-enforced border: the camera view can never show outside this.
+	var border := Globals.world_border
+	limit_left = int(border.position.x)
+	limit_top = int(border.position.y)
+	limit_right = int(border.end.x)
+	limit_bottom = int(border.end.y)
+
 
 func _physics_process(delta: float) -> void:
 	if player == null:

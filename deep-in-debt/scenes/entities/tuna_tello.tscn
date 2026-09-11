@@ -133,23 +133,19 @@ position = Vector2(0, -6)
 scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_88fa3")
 
-[node name="CollectionArea" type="Area2D" parent="." unique_id=1570048169]
+[node name="CollectionArea" type="Area2D" parent="." unique_id=1570048169 groups=["player_collection"]]
 position = Vector2(0, -18)
 scale = Vector2(1.2, 1.2)
-collision_layer = 0
 collision_mask = 4
-monitorable = false
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="CollectionArea" unique_id=1669599653]
 scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_qwt8m")
 
-[node name="InteractionArea" type="Area2D" parent="." unique_id=359972995]
+[node name="InteractionArea" type="Area2D" parent="." unique_id=359972995 groups=["player_interaction"]]
 position = Vector2(0, -18)
 scale = Vector2(1.2, 1.2)
-collision_layer = 0
 collision_mask = 2
-monitorable = false
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="InteractionArea" unique_id=715821396]
 scale = Vector2(1.2, 1.2)

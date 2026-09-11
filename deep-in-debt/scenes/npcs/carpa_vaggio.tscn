@@ -2,18 +2,19 @@
 
 [ext_resource type="Texture2D" uid="uid://c026xo2bxea5d" path="res://assets/sprites/Greeny's Granny/Greeny's_Granny_idle.png" id="1_37qyh"]
 [ext_resource type="Script" uid="uid://t8uu4bs3jtuv" path="res://scripts/npcs/carpa_vaggio.gd" id="1_68swd"]
+[ext_resource type="Texture2D" uid="uid://chm3ict2v8si" path="res://assets/sprites/e.png" id="3_x51rh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_68swd"]
 atlas = ExtResource("1_37qyh")
-region = Rect2(0, 0, 32, 34)
+region = Rect2(0, 0, 32, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x51rh"]
 atlas = ExtResource("1_37qyh")
-region = Rect2(32, 0, 32, 34)
+region = Rect2(32, 0, 32, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2lwdh"]
 atlas = ExtResource("1_37qyh")
-region = Rect2(64, 0, 32, 34)
+region = Rect2(64, 0, 32, 36)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_71cu8"]
 animations = [{
@@ -42,10 +43,18 @@ script = ExtResource("1_68swd")
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_71cu8")
 animation = &"Idle"
-frame_progress = 0.41486225
 
-[node name="Area2D" type="Area2D" parent="." unique_id=240688921]
+[node name="Carpa Vaggio" type="Area2D" parent="." unique_id=240688921 groups=["carpa_vaggio"]]
 position = Vector2(0, -16)
+collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=170919710]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Carpa Vaggio" unique_id=170919710]
 shape = SubResource("CircleShape2D_o36mj")
+
+[node name="E_button" type="Sprite2D" parent="." unique_id=840674579]
+visible = false
+position = Vector2(0, -46)
+texture = ExtResource("3_x51rh")
+
+[connection signal="area_entered" from="Carpa Vaggio" to="." method="_on_carpa_vaggio_area_entered"]
+[connection signal="area_exited" from="Carpa Vaggio" to="." method="_on_carpa_vaggio_area_exited"]

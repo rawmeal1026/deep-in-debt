@@ -126,8 +126,6 @@ radius = 16.666668
 [node name="WasteCollector" type="CharacterBody2D" unique_id=1621547015 groups=["worker"]]
 collision_mask = 0
 script = ExtResource("1_6itwq")
-SPEED = 250.0
-
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=854779139]
 position = Vector2(0, -28.999996)
@@ -165,7 +163,6 @@ shape = SubResource("CircleShape2D_hcv6w")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1224407562]
 navigation_layers = 7
 simplify_path = true
-debug_enabled = true
 
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]

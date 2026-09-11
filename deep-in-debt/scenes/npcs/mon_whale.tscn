@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://v4pbd76lj0v4" path="res://assets/sprites/Whale The Blublu/Whale_The_BlubluI_idle.png" id="1_q6i5d"]
 [ext_resource type="Script" uid="uid://p34mx86gv56s" path="res://scripts/npcs/mon_whale.gd" id="1_t7li8"]
+[ext_resource type="Texture2D" uid="uid://chm3ict2v8si" path="res://assets/sprites/e.png" id="3_5dud4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88fa3"]
 radius = 54.00926
@@ -20,8 +21,6 @@ flip_h = true
 [node name="Mon Whale" type="Area2D" parent="." unique_id=1814212557 groups=["mon_whale"]]
 position = Vector2(0, -38)
 collision_layer = 2
-collision_mask = 0
-monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mon Whale" unique_id=567362826]
 shape = SubResource("CircleShape2D_88fa3")
@@ -32,3 +31,11 @@ position = Vector2(0, -39)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GarbageBagSpawn" unique_id=1189784615]
 position = Vector2(-92, 36)
 shape = SubResource("CircleShape2D_qaahb")
+
+[node name="E_button" type="Sprite2D" parent="." unique_id=237683294]
+visible = false
+position = Vector2(0, -93)
+texture = ExtResource("3_5dud4")
+
+[connection signal="area_entered" from="Mon Whale" to="." method="_on_mon_whale_area_entered"]
+[connection signal="area_exited" from="Mon Whale" to="." method="_on_mon_whale_area_exited"]

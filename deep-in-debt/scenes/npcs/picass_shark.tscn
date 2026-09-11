@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cgrsslorhotdo" path="res://assets/sprites/Daddy Shark/Daddy_Shark_idle.png" id="1_12gtu"]
 [ext_resource type="Script" uid="uid://dhm473re7nd4c" path="res://scripts/npcs/picass_shark.gd" id="1_cpq2j"]
+[ext_resource type="Texture2D" uid="uid://chm3ict2v8si" path="res://assets/sprites/e.png" id="3_vdkoy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cpq2j"]
 atlas = ExtResource("1_12gtu")
@@ -42,6 +43,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_v7elb"]
 radius = 49.010204
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cpq2j"]
+radius = 21.023796
+
 [node name="Picass Shark" type="Node2D" unique_id=583273182]
 script = ExtResource("1_cpq2j")
 
@@ -49,13 +53,25 @@ script = ExtResource("1_cpq2j")
 position = Vector2(0, -30)
 sprite_frames = SubResource("SpriteFrames_xwebp")
 animation = &"Idle"
-frame_progress = 0.8740654
 
 [node name="Picass Shark" type="Area2D" parent="." unique_id=2117302878 groups=["picass_shark"]]
 position = Vector2(0, -30)
 collision_layer = 2
-collision_mask = 0
-monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Picass Shark" unique_id=1171590816]
 shape = SubResource("CircleShape2D_v7elb")
+
+[node name="WorkerSpawn" type="Area2D" parent="." unique_id=1268208359]
+position = Vector2(0, -39)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkerSpawn" unique_id=74954437]
+position = Vector2(114, 29)
+shape = SubResource("CircleShape2D_cpq2j")
+
+[node name="E_button" type="Sprite2D" parent="." unique_id=1800296425]
+visible = false
+position = Vector2(0, -81)
+texture = ExtResource("3_vdkoy")
+
+[connection signal="area_entered" from="Picass Shark" to="." method="_on_picass_shark_area_entered"]
+[connection signal="area_exited" from="Picass Shark" to="." method="_on_picass_shark_area_exited"]

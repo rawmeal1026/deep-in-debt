@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://duqns5a3ck2nc" path="res://assets/sprites/Carponello/Carponello_idle.png" id="1_wvjj4"]
 [ext_resource type="Script" uid="uid://cd1smgurp82e6" path="res://scripts/npcs/mikoi_angelo.gd" id="1_xuqnv"]
+[ext_resource type="Texture2D" uid="uid://chm3ict2v8si" path="res://assets/sprites/e.png" id="3_nqwu3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xuqnv"]
 atlas = ExtResource("1_wvjj4")
@@ -47,7 +48,14 @@ flip_h = true
 [node name="Mikoi Angelo" type="Area2D" parent="." unique_id=1948870626 groups=["mikoi_angelo"]]
 position = Vector2(0, -22)
 collision_layer = 2
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mikoi Angelo" unique_id=1189871125]
 shape = SubResource("CircleShape2D_88fa3")
+
+[node name="E_button" type="Sprite2D" parent="." unique_id=313697363]
+visible = false
+position = Vector2(0, -49)
+texture = ExtResource("3_nqwu3")
+
+[connection signal="area_entered" from="Mikoi Angelo" to="." method="_on_mikoi_angelo_area_entered"]
+[connection signal="area_exited" from="Mikoi Angelo" to="." method="_on_mikoi_angelo_area_exited"]
