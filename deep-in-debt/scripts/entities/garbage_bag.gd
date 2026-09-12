@@ -10,7 +10,6 @@ signal moving(direction)
 signal stopped_moving
 
 
-<<<<<<< Updated upstream:deep-in-debt/scripts/garbage_bag.gd
 # Where the bag sits while being carried.
 @export var carry_offset := Vector2(-24.0, 8.0)
 
@@ -43,12 +42,10 @@ signal stopped_moving
 
 # Minimum speed before the bag counts as moving.
 @export var move_threshold := 1.0
-=======
 @onready var audio_manager: Node = $AudioManager
 
 # If the carrier is in this group, FMOD SFX will not play.
 @export var worker_group: String = "worker"
->>>>>>> Stashed changes:deep-in-debt/scripts/entities/garbage_bag.gd
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -92,7 +89,6 @@ var garbage_mass
 
 # INITIALIZE
 func _ready() -> void:
-	setup_FMOD_event_instances()
 	add_to_group("bag")
 
 	previous_global_position = global_position
@@ -121,12 +117,6 @@ func _physics_process(delta: float) -> void:
 		global_position = drop_start_position.lerp(drop_target_position, drop_progress)
 
 	update_movement_detection(delta)
-
-func setup_FMOD_event_instances():
-	pass
-<<<<<<< Updated upstream:deep-in-debt/scripts/garbage_bag.gd
-	
-=======
 
 
 # ------------------------------------------------------------------
@@ -159,20 +149,10 @@ func play_sfx_with_mass(event_path: String, carrier: Node = null) -> void:
 
 
 # ------------------------------------------------------------------
->>>>>>> Stashed changes:deep-in-debt/scripts/entities/garbage_bag.gd
 # BAG CONTENTS FUNCTIONS
 func add_collected_material(material_name: String) -> void:
 	match material_name:
 		"PET Bottles":
-<<<<<<< Updated upstream:deep-in-debt/scripts/garbage_bag.gd
-			Globals.play_fmod_sfx(pickup_bottle)
-		"Aluminum Cans":
-			Globals.play_fmod_sfx(pickup_can)
-		"Cellulose Paperboards":
-			Globals.play_fmod_sfx(pickup_milk)
-		"PE Bags":
-			Globals.play_fmod_sfx(pickup_bag)
-=======
 			audio_manager.play_sfx_oneshot("bottle")
 		"Aluminum Cans":
 			audio_manager.play_sfx_oneshot("can")
@@ -181,7 +161,6 @@ func add_collected_material(material_name: String) -> void:
 		"PE Bags":
 			audio_manager.play_sfx_oneshot("bag")
 
->>>>>>> Stashed changes:deep-in-debt/scripts/entities/garbage_bag.gd
 	collected_materials.append(material_name)
 	
 
@@ -231,7 +210,7 @@ func pick_up(new_player: CharacterBody2D) -> void:
 	if not can_be_picked_up():
 		return
 
-	Globals.play_fmod_sfx(pickup_bag, "garbage_mass", garbage_mass)
+	audio_manager.play_sfx_oneshot("trashbag", remap(garbage_mass, 0, 30, 1, 0.707107))
 	
 	carried = true
 	can_pick_up = false
@@ -313,7 +292,7 @@ func drop() -> void:
 		_finish_drop_pickup_delay()
 	else:
 		get_tree().create_timer(drop_pickup_delay).timeout.connect(_finish_drop_pickup_delay)
-	Globals.play_fmod_sfx(putdown_bag, "garbage_mass", garbage_mass)
+	audio_manager.play_sfx_oneshot("trashbag", remap(garbage_mass, 0, 30, 1, 0.707107))
 
 func _finish_drop_pickup_delay() -> void:
 	if not carried:

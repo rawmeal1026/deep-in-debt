@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dln7rqqbchjr8" path="res://assets/sprites/Trash/Bag2.png" id="2_c7e52"]
 [ext_resource type="Texture2D" uid="uid://bgyrbclabn28j" path="res://assets/sprites/Trash/Bag3.png" id="2_ewx2r"]
 [ext_resource type="Texture2D" uid="uid://b6jr7s4i6oejf" path="res://assets/sprites/Trash/Bag1.png" id="2_uwm1s"]
+[ext_resource type="PackedScene" uid="uid://tsnff4qkr57v" path="res://scenes/audio_manager.tscn" id="6_lktvm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ifpo6"]
 atlas = ExtResource("2_uwm1s")
@@ -178,9 +179,7 @@ radius = 40.0
 
 [node name="GarbageBag" type="Node2D" unique_id=275557160 groups=["bag"]]
 script = ExtResource("1_nbjeb")
-
 carry_offset = Vector2(-38, -38)
-
 follow_sharpness = 20.0
 drop_offset = Vector2(-24, -10)
 flip_drop_offset_x_with_facing = true
@@ -204,3 +203,5 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=745900648]
 shape = SubResource("CircleShape2D_nbjeb")
+
+[node name="AudioManager" parent="." unique_id=1938142978 instance=ExtResource("6_lktvm")]
