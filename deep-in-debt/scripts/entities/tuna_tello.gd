@@ -52,7 +52,7 @@ func _process(_delta: float) -> void:
 		"Mon Whale":
 			audio_manager.play_or_update_loop("bgm", 4)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	Globals.player_garbage_carry_count = get_collected_count()
 	if Globals.player_garbage_carry_count < (Globals.bag_slow_interval * 2):
 		SPEED = 250
@@ -71,9 +71,9 @@ func _physics_process(_delta: float) -> void:
 		SPEED += 100
 	
 	if not Globals.in_cutscene:
-		velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED
+		velocity = velocity.move_toward(Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED, 2000 * delta)
 	else:
-		velocity = Vector2.ZERO
+		velocity = velocity.move_toward(Vector2.ZERO, 1000 * delta)
 	update_animation(velocity)
 	move_and_slide()
 	var border := Globals.world_border
@@ -513,7 +513,7 @@ func get_nearest_npc():
 	for npc in npc_list:
 		npc_dist_dict.set(npc.name, self.global_position.distance_to(npc.global_position))
 	var val_list = npc_dist_dict.values()
-	if val_list.min() <= 80:
+	if val_list.min() <= 80 and self.velocity.length() == 0:
 		return npc_dist_dict.find_key(val_list.min())
 	return null
 
