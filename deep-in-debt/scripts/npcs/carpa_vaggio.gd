@@ -6,6 +6,7 @@ var intro = true
 
 func _ready() -> void:
 	animated_sprite_2d.play("Idle")
+	Globals.dialog_end.connect(end_intro)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func interact():
@@ -26,8 +27,8 @@ func interact():
 		Globals.talk()
 		return
 
-	if Globals.shell_count > 199:
-		Globals.shell_count -= 200
+	if Globals.shell_count > 400:
+		Globals.shell_count -= 400
 		Globals.objective_3 = true
 
 
@@ -35,6 +36,10 @@ func _on_carpa_vaggio_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player_interaction"):
 		e_button.show()
 
+func end_intro():
+	if Globals.shell_count < 200:
+		e_button.hide()
+	return
 
 func _on_carpa_vaggio_area_exited(area: Area2D) -> void:
 	if area.is_in_group("player_interaction"):

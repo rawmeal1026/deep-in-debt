@@ -14,7 +14,7 @@ General/banks_path="res://addons/fmod/banks"
 
 [application]
 
-config/name="Deep in Debt"
+config/name="Van Gold's Birthday Party"
 run/main_scene="uid://bktbabej4kben"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -28,6 +28,7 @@ Globals="*uid://burlh6vla1shr"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

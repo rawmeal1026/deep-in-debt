@@ -160,7 +160,7 @@ func start_player_line() -> void:
 	# Start 5 second timer
 	progress_bar.visible = true
 	progress_bar.value = 100.0
-	choice_time_left = 5.0
+	choice_time_left = 10.0
 
 	var texts: Array[String] = ["", ""]
 	if player_line_index < Globals.player_option_1.size():
@@ -267,7 +267,7 @@ func _process(_delta: float) -> void:
 			timeout_choice()
 			return
 			
-		progress_bar.value = (choice_time_left / 5.0) * 100.0
+		progress_bar.value = (choice_time_left / 10.0) * 100.0
 
 	if not is_typing:
 		return

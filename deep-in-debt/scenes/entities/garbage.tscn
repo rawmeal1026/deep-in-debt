@@ -54,7 +54,7 @@ texture = ExtResource("6_dkfkb")
 
 [node name="PE Bags" type="Node2D" parent="." unique_id=437197920]
 visible = false
-position = Vector2(0, -15)
+position = Vector2(0, -18)
 
 [node name="Sprite2D" type="Sprite2D" parent="PE Bags" unique_id=1968829441]
 visible = false
@@ -62,6 +62,7 @@ texture = ExtResource("7_fbk4h")
 
 [node name="Sprite2D2" type="Sprite2D" parent="PE Bags" unique_id=629224598]
 visible = false
+position = Vector2(0, 4)
 texture = ExtResource("8_8v17s")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1615589387]
