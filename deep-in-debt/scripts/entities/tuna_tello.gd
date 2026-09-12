@@ -513,7 +513,7 @@ func get_nearest_npc():
 	for npc in npc_list:
 		npc_dist_dict.set(npc.name, self.global_position.distance_to(npc.global_position))
 	var val_list = npc_dist_dict.values()
-	if val_list.min() <= 110:
+	if val_list.min() <= 80:
 		return npc_dist_dict.find_key(val_list.min())
 	return null
 
