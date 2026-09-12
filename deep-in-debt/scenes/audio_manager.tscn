@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://fp5wtxkgk7ih" path="res://sfx/npc_voices/tuna_tello_voice.wav" id="7_8igv3"]
 [ext_resource type="AudioStream" uid="uid://dldq58ggl1yut" path="res://sfx/footsteps/player_footsteps-006.wav" id="7_hssp1"]
 [ext_resource type="AudioStream" uid="uid://duh7pgwx8ejs3" path="res://sfx/footsteps/player_footsteps-007.wav" id="8_8b11i"]
+[ext_resource type="AudioStream" uid="uid://b4x4mhvf3uad7" path="res://bgm_stream_interactive.tres" id="8_thanh"]
 [ext_resource type="AudioStream" uid="uid://dmn4p7ldbssgq" path="res://sfx/pickup/player_pickup_bottle_1.wav" id="16_f6jxr"]
 [ext_resource type="AudioStream" uid="uid://clx5o6fkks3ld" path="res://sfx/pickup/player_pickup_bag_1.wav" id="16_thanh"]
 [ext_resource type="AudioStream" uid="uid://bkfwopyhqp31e" path="res://sfx/pickup/player_pickup_bag_2.wav" id="17_nplbh"]
@@ -112,62 +113,78 @@ stream_1/stream = ExtResource("23_yt2vs")
 script = ExtResource("1_liach")
 
 [node name="player_footstep" type="AudioStreamPlayer" parent="." unique_id=928363543]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_op1ro")
 volume_db = 20.0
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1189276919]
+unique_name_in_owner = true
+stream = ExtResource("8_thanh")
+volume_db = -12.004
 
 [node name="npc_voices" type="Node" parent="." unique_id=102663509]
 
 [node name="carpa_vaggio" type="AudioStreamPlayer" parent="npc_voices" unique_id=1607773938]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_2y2jw")
 volume_db = -3.0
 pitch_scale = 0.92
 
 [node name="leon_octo" type="AudioStreamPlayer" parent="npc_voices" unique_id=1315279891]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_2y5yn")
 volume_db = -7.0
 
 [node name="mikoi_angelo" type="AudioStreamPlayer" parent="npc_voices" unique_id=115752005]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_oucy0")
 volume_db = -7.5
 
 [node name="mon_whale" type="AudioStreamPlayer" parent="npc_voices" unique_id=1429021746]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_cuol6")
 volume_db = -8.0
 
 [node name="picass_shark" type="AudioStreamPlayer" parent="npc_voices" unique_id=1162305962]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_m1k83")
 volume_db = -7.5
 
 [node name="tuna_tello" type="AudioStreamPlayer" parent="npc_voices" unique_id=1205517965]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_oummu")
 volume_db = -5.0
 pitch_scale = 0.8
 
 [node name="van_gold" type="AudioStreamPlayer" parent="npc_voices" unique_id=776407995]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_jisk1")
 volume_db = -16.5
 
 [node name="pickup_sfx" type="Node" parent="." unique_id=1791608410]
 
 [node name="trashbag" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=99264348]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_hssp1")
 volume_db = 7.0
 
 [node name="bottle" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=2130101935]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_8b11i")
 volume_db = 5.0
 pitch_scale = 0.88
 
 [node name="can" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=1490243446]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_u6qdm")
 volume_db = 5.0
 
 [node name="milk" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=566371074]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_f6jxr")
 volume_db = 5.0
 
 [node name="bag" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=1237587453]
+unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_ovaav")
 volume_db = 5.0

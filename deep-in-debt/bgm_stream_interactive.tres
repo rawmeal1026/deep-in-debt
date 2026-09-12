@@ -1,0 +1,45 @@
+[gd_resource type="AudioStreamInteractive" format=3 uid="uid://b4x4mhvf3uad7"]
+
+[ext_resource type="AudioStream" uid="uid://b151q31kohm70" path="res://sfx/BGM/default.ogg" id="1_smc06"]
+[ext_resource type="AudioStream" uid="uid://xqgwk60wcv7x" path="res://sfx/BGM/carpa_vaggio.ogg" id="2_vq6i7"]
+[ext_resource type="AudioStream" uid="uid://nie2a37eyq8" path="res://sfx/BGM/leon_octo.ogg" id="3_evhcb"]
+[ext_resource type="AudioStream" uid="uid://dd8pql1vrkega" path="res://sfx/BGM/mikoi_angelo.ogg" id="4_37sjk"]
+[ext_resource type="AudioStream" uid="uid://f7oexvm8bk8t" path="res://sfx/BGM/mon_whale.ogg" id="5_rsm26"]
+[ext_resource type="AudioStream" uid="uid://bwelv33ron2bw" path="res://sfx/BGM/picass_shark.ogg" id="6_pqkgd"]
+[ext_resource type="AudioStream" uid="uid://ctn5g0k6stg7n" path="res://sfx/BGM/tuna_tello.ogg" id="7_i6ywk"]
+[ext_resource type="AudioStream" uid="uid://l4sg3agx5qah" path="res://sfx/BGM/van_gold.ogg" id="8_n2qvy"]
+
+[resource]
+clip_count = 8
+clip_0/name = &"Default"
+clip_0/stream = ExtResource("1_smc06")
+clip_0/auto_advance = 0
+clip_1/name = &"Carpa Vaggio"
+clip_1/stream = ExtResource("2_vq6i7")
+clip_1/auto_advance = 0
+clip_2/name = &"Leon Octo"
+clip_2/stream = ExtResource("3_evhcb")
+clip_2/auto_advance = 0
+clip_3/name = &"Mikoi Angelo"
+clip_3/stream = ExtResource("4_37sjk")
+clip_3/auto_advance = 0
+clip_4/name = &"Mon Whale"
+clip_4/stream = ExtResource("5_rsm26")
+clip_4/auto_advance = 0
+clip_5/name = &"Picass Shark"
+clip_5/stream = ExtResource("6_pqkgd")
+clip_5/auto_advance = 0
+clip_6/name = &"Tuna Tello"
+clip_6/stream = ExtResource("7_i6ywk")
+clip_6/auto_advance = 0
+clip_7/name = &"Van Gold"
+clip_7/stream = ExtResource("8_n2qvy")
+clip_7/auto_advance = 0
+_transitions = {
+Vector2i(-1, -1): {
+"fade_beats": 1.0,
+"fade_mode": 3,
+"from_time": 1,
+"to_time": 0
+}
+}
