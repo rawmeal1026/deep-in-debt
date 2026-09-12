@@ -121,7 +121,6 @@ radius = 16.666668
 collision_layer = 9
 collision_mask = 8
 script = ExtResource("1_2qooa")
-footsteps = "event:/player_footstep"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=616594180]
 position = Vector2(0, -20)
@@ -151,9 +150,6 @@ collision_mask = 2
 [node name="CollisionShape2d" type="CollisionShape2D" parent="InteractionArea" unique_id=715821396]
 scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_dsc6t")
-
-[node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=1351174695]
-bank_paths = ["res://addons/fmod/banks/Master.strings.bank", "res://addons/fmod/banks/Master.bank"]
 
 [node name="AudioManager" parent="." unique_id=1938142978 instance=ExtResource("5_i6o4a")]
 

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dakg68gr8t1qs" path="res://scenes/entities/tuna_tello.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://rqwv2dbc508q" path="res://scripts/main.gd" id="1_pm3ni"]
+[ext_resource type="PackedScene" uid="uid://tsnff4qkr57v" path="res://scenes/audio_manager.tscn" id="2_2f3dj"]
 [ext_resource type="Texture2D" uid="uid://drwwww5kdurc1" path="res://assets/tilesets/desert_demo_terrain.png" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://cj5uucn3nuufs" path="res://assets/tilesets/corals.png" id="3_0ld40"]
 [ext_resource type="Texture2D" uid="uid://cmem05hfegjms" path="res://assets/tilesets/desert_demo_objects.png" id="3_jyhfs"]
@@ -332,8 +333,7 @@ tile_set = SubResource("TileSet_gyiwm")
 z_as_relative = false
 y_sort_enabled = true
 
-[node name="Tunado" parent="T-Sorted World/Entities" unique_id=2006865255 instance=ExtResource("1_o5qli")]
-position = Vector2(1200, 808)
+[node name="Tuna Tello" parent="T-Sorted World/Entities" unique_id=927444226 instance=ExtResource("1_o5qli")]
 
 [node name="Mon Whale" parent="T-Sorted World/Entities" unique_id=1515454381 instance=ExtResource("8_85g3d")]
 position = Vector2(1696, 832)
@@ -3145,7 +3145,7 @@ navigation_polygon = SubResource("NavigationPolygon_88fa3")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=654211785 groups=["player_camera"]]
 position = Vector2(1200, 808)
 script = ExtResource("4_jyhfs")
-player_path = NodePath("../T-Sorted World/Entities/Tunado")
+player_path = NodePath("../T-Sorted World/Entities/Tuna Tello")
 deadzone_radius = 50.0
 follow_sharpness = null
 
@@ -3180,3 +3180,5 @@ visible = false
 visible = false
 
 [node name="ConversationScene" parent="." unique_id=1566053693 instance=ExtResource("19_0ld40")]
+
+[node name="AudioManager" parent="." unique_id=1938142978 instance=ExtResource("2_2f3dj")]
