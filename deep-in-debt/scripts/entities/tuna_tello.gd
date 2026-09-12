@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 var SPEED = 250.0
 
+@onready var audio_manager: Node = $AudioManager
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area: Area2D = get_node_or_null("InteractionArea") as Area2D
 @onready var collection_area: Area2D = get_node_or_null("CollectionArea") as Area2D
@@ -521,4 +523,4 @@ func get_nearest_npc():
 
 func _on_frame_changed() -> void:
 	if $AnimatedSprite2D.animation == "Walk" and $AnimatedSprite2D.frame == 0 or $AnimatedSprite2D.frame == 3:
-		Globals.play_fmod_sfx(footsteps)
+		audio_manager.play_sfx_oneshot("player_footstep")

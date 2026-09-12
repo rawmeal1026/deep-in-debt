@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://tsnff4qkr57v"]
+
+[ext_resource type="Script" uid="uid://dg1224sadeec8" path="res://scripts/audio_manager.gd" id="1_liach"]
+[ext_resource type="AudioStream" uid="uid://cnmp8ixg7shns" path="res://sfx/npc_voices/carpa_vaggio_voice.wav" id="2_02gw7"]
+[ext_resource type="AudioStream" uid="uid://bbvpokqci51wi" path="res://sfx/footsteps/player_footsteps-001.wav" id="2_2y5yn"]
+[ext_resource type="AudioStream" uid="uid://dmwqja3mjitwx" path="res://sfx/npc_voices/van_gold_voice.wav" id="2_3asnw"]
+[ext_resource type="AudioStream" uid="uid://clmxjbx67pa03" path="res://sfx/footsteps/player_footsteps-002.wav" id="3_oucy0"]
+[ext_resource type="AudioStream" uid="uid://dtlj2wym5licw" path="res://sfx/npc_voices/leon_octo_voice.wav" id="3_ujhup"]
+[ext_resource type="AudioStream" uid="uid://cw0eq8oh46opy" path="res://sfx/npc_voices/mikoi_angelo_voice.wav" id="4_064dn"]
+[ext_resource type="AudioStream" uid="uid://b3ulykc4qafgg" path="res://sfx/footsteps/player_footsteps-003.wav" id="4_cuol6"]
+[ext_resource type="AudioStream" uid="uid://ooliqjx4qb66" path="res://sfx/npc_voices/mon_whale_voice.wav" id="5_ic5jq"]
+[ext_resource type="AudioStream" uid="uid://w1ii1ga6cdiw" path="res://sfx/footsteps/player_footsteps-004.wav" id="5_m1k83"]
+[ext_resource type="AudioStream" uid="uid://bcdjc63dp36" path="res://sfx/npc_voices/picass_shark_voice.wav" id="6_if78k"]
+[ext_resource type="AudioStream" uid="uid://nitr4y7ya3tj" path="res://sfx/footsteps/player_footsteps-005.wav" id="6_oummu"]
+[ext_resource type="AudioStream" uid="uid://fp5wtxkgk7ih" path="res://sfx/npc_voices/tuna_tello_voice.wav" id="7_8igv3"]
+[ext_resource type="AudioStream" uid="uid://dldq58ggl1yut" path="res://sfx/footsteps/player_footsteps-006.wav" id="7_hssp1"]
+[ext_resource type="AudioStream" uid="uid://duh7pgwx8ejs3" path="res://sfx/footsteps/player_footsteps-007.wav" id="8_8b11i"]
+[ext_resource type="AudioStream" uid="uid://dmn4p7ldbssgq" path="res://sfx/pickup/player_pickup_bottle_1.wav" id="16_f6jxr"]
+[ext_resource type="AudioStream" uid="uid://clx5o6fkks3ld" path="res://sfx/pickup/player_pickup_bag_1.wav" id="16_thanh"]
+[ext_resource type="AudioStream" uid="uid://bkfwopyhqp31e" path="res://sfx/pickup/player_pickup_bag_2.wav" id="17_nplbh"]
+[ext_resource type="AudioStream" uid="uid://ee564n7t5wo3" path="res://sfx/pickup/player_pickup_bottle_2.wav" id="17_ovaav"]
+[ext_resource type="AudioStream" uid="uid://b32qxyow01xv3" path="res://sfx/pickup/player_pickup_can_1.wav" id="18_thanh"]
+[ext_resource type="AudioStream" uid="uid://dcxwsbqbt0w7m" path="res://sfx/pickup/player_pickup_can_2.wav" id="19_nplbh"]
+[ext_resource type="AudioStream" uid="uid://6tq2i5xo74rn" path="res://sfx/pickup/player_pickup_milk_1.wav" id="20_24ib7"]
+[ext_resource type="AudioStream" uid="uid://8gh137t8s3tw" path="res://sfx/pickup/player_pickup_milk_2.wav" id="21_kr8a2"]
+[ext_resource type="AudioStream" uid="uid://c1cx5ecmqdh6k" path="res://sfx/pickup/player_putdown_bag_1.wav" id="22_2agnf"]
+[ext_resource type="AudioStream" uid="uid://djowpqftmexsx" path="res://sfx/pickup/player_putdown_bag_2.wav" id="23_yt2vs"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_op1ro"]
+playback_mode = 1
+random_pitch = 1.2968395
+streams_count = 7
+stream_0/stream = ExtResource("2_2y5yn")
+stream_1/stream = ExtResource("3_oucy0")
+stream_2/stream = ExtResource("4_cuol6")
+stream_3/stream = ExtResource("5_m1k83")
+stream_4/stream = ExtResource("6_oummu")
+stream_5/stream = ExtResource("7_hssp1")
+stream_6/stream = ExtResource("8_8b11i")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2y2jw"]
+random_pitch = 1.977028
+streams_count = 1
+stream_0/stream = ExtResource("2_02gw7")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2y5yn"]
+random_pitch = 1.977028
+streams_count = 1
+stream_0/stream = ExtResource("3_ujhup")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oucy0"]
+random_pitch = 1.977028
+streams_count = 1
+stream_0/stream = ExtResource("4_064dn")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cuol6"]
+random_pitch = 1.977028
+streams_count = 1
+stream_0/stream = ExtResource("5_ic5jq")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_m1k83"]
+random_pitch = 1.977028
+streams_count = 1
+stream_0/stream = ExtResource("6_if78k")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oummu"]
+random_pitch = 1.977028
+streams_count = 1
+stream_0/stream = ExtResource("7_8igv3")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jisk1"]
+random_pitch = 1.977028
+streams_count = 1
+stream_0/stream = ExtResource("2_3asnw")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hssp1"]
+playback_mode = 1
+random_pitch = 1.1553527
+streams_count = 2
+stream_0/stream = ExtResource("16_thanh")
+stream_1/stream = ExtResource("17_nplbh")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8b11i"]
+playback_mode = 1
+random_pitch = 1.2599211
+streams_count = 2
+stream_0/stream = ExtResource("16_f6jxr")
+stream_1/stream = ExtResource("17_ovaav")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_u6qdm"]
+playback_mode = 1
+random_pitch = 1.2599211
+streams_count = 2
+stream_0/stream = ExtResource("18_thanh")
+stream_1/stream = ExtResource("19_nplbh")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_f6jxr"]
+playback_mode = 1
+random_pitch = 1.2599211
+streams_count = 2
+stream_0/stream = ExtResource("20_24ib7")
+stream_1/stream = ExtResource("21_kr8a2")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ovaav"]
+playback_mode = 1
+random_pitch = 1.122462
+streams_count = 2
+stream_0/stream = ExtResource("22_2agnf")
+stream_1/stream = ExtResource("23_yt2vs")
+
+[node name="AudioManager" type="Node" unique_id=1938142978]
+script = ExtResource("1_liach")
+
+[node name="player_footstep" type="AudioStreamPlayer" parent="." unique_id=928363543]
+stream = SubResource("AudioStreamRandomizer_op1ro")
+volume_db = 20.0
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1189276919]
+
+[node name="npc_voices" type="Node" parent="." unique_id=102663509]
+
+[node name="carpa_vaggio" type="AudioStreamPlayer" parent="npc_voices" unique_id=1607773938]
+stream = SubResource("AudioStreamRandomizer_2y2jw")
+volume_db = -3.0
+pitch_scale = 0.92
+
+[node name="leon_octo" type="AudioStreamPlayer" parent="npc_voices" unique_id=1315279891]
+stream = SubResource("AudioStreamRandomizer_2y5yn")
+volume_db = -7.0
+
+[node name="mikoi_angelo" type="AudioStreamPlayer" parent="npc_voices" unique_id=115752005]
+stream = SubResource("AudioStreamRandomizer_oucy0")
+volume_db = -7.5
+
+[node name="mon_whale" type="AudioStreamPlayer" parent="npc_voices" unique_id=1429021746]
+stream = SubResource("AudioStreamRandomizer_cuol6")
+volume_db = -8.0
+
+[node name="picass_shark" type="AudioStreamPlayer" parent="npc_voices" unique_id=1162305962]
+stream = SubResource("AudioStreamRandomizer_m1k83")
+volume_db = -7.5
+
+[node name="tuna_tello" type="AudioStreamPlayer" parent="npc_voices" unique_id=1205517965]
+stream = SubResource("AudioStreamRandomizer_oummu")
+volume_db = -5.0
+pitch_scale = 0.8
+
+[node name="van_gold" type="AudioStreamPlayer" parent="npc_voices" unique_id=776407995]
+stream = SubResource("AudioStreamRandomizer_jisk1")
+volume_db = -16.5
+
+[node name="pickup_sfx" type="Node" parent="." unique_id=1791608410]
+
+[node name="trashbag" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=99264348]
+stream = SubResource("AudioStreamRandomizer_hssp1")
+volume_db = 7.0
+
+[node name="bottle" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=2130101935]
+stream = SubResource("AudioStreamRandomizer_8b11i")
+volume_db = 5.0
+pitch_scale = 0.88
+
+[node name="can" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=1490243446]
+stream = SubResource("AudioStreamRandomizer_u6qdm")
+volume_db = 5.0
+
+[node name="milk" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=566371074]
+stream = SubResource("AudioStreamRandomizer_f6jxr")
+volume_db = 5.0
+
+[node name="bag" type="AudioStreamPlayer" parent="pickup_sfx" unique_id=1237587453]
+stream = SubResource("AudioStreamRandomizer_ovaav")
+volume_db = 5.0
