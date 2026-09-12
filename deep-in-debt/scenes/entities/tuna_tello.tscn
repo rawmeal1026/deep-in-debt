@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://23kbi7xaunx2" path="res://assets/sprites/Handsome guy in sneakers/Handsome_guy_in_sneakers_damaged.png" id="1_xm4hj"]
 [ext_resource type="Texture2D" uid="uid://cuclcyftpol46" path="res://assets/sprites/Handsome guy in sneakers/Handsome_guy_in_sneakers_idle.png" id="2_dsc6t"]
 [ext_resource type="Texture2D" uid="uid://ba6mvq03eby84" path="res://assets/sprites/Handsome guy in sneakers/Handsome_guy_in_sneakers_walk.png" id="3_qwt8m"]
+[ext_resource type="PackedScene" uid="uid://tsnff4qkr57v" path="res://scenes/audio_manager.tscn" id="5_i6o4a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xiee4"]
 atlas = ExtResource("1_xm4hj")
@@ -152,7 +153,9 @@ scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_dsc6t")
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="." unique_id=1351174695]
-bank_paths = ["res://addons/fmod/banks/Master.strings.bank", "res://addons/fmod/banks/Master.bank", "res://addons/fmod/banks/player.bank", "res://addons/fmod/banks/npc_voices.bank"]
+bank_paths = ["res://addons/fmod/banks/Master.strings.bank", "res://addons/fmod/banks/Master.bank"]
+
+[node name="AudioManager" parent="." unique_id=1938142978 instance=ExtResource("5_i6o4a")]
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_frame_changed"]
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
