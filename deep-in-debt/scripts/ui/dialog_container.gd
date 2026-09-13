@@ -4,14 +4,17 @@ extends MarginContainer
 @export var player_turn_marker: String = "XXXXX"
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 @export var type_speed := 30.0
 
 @onready var npc_speech_label: Label = $NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel/Label
 =======
+=======
+@onready var audio_manager: Node = $"../../../AudioManager"
+
+>>>>>>> Stashed changes
 @export var type_speed := 6
 @export var portrait_toggle_interval := 0.15
-
-@onready var audio_manager: Node = $"../../../AudioManager"
 
 @onready var npc_speech_label: RichTextLabel = $NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel/Label
 >>>>>>> Stashed changes
@@ -54,9 +57,10 @@ var is_typing := false # THIS VARIABLE IS ON WHEN THE TYPING IS ON
 
 <<<<<<< Updated upstream
 var _full_texts: Array[String] = []
-var _labels: Array[Label] = []
+var _labels: Array[Control] = []
 var _revealed_counts: Array[int] = []
 
+<<<<<<< Updated upstream
 var current_sfx_instance: FmodEvent
 =======
 # --- NEW CHOICE VARIABLES ---
@@ -67,15 +71,13 @@ var _play_voice_for_typing := true
 # ----------------------------
 
 # --- PORTRAIT ANIMATION VARIABLES ---
+=======
+>>>>>>> Stashed changes
 var current_portrait_frames: Array = []
 var portrait_toggle_timer := 0.0
 var portrait_frame_index := 0
 var active_portrait: TextureRect = null # Tracks which TextureRect is currently animating
-# ------------------------------------
 
-var _full_texts: Array[String] = []
-var _labels: Array[Control] = []  # Can hold both Label and RichTextLabel
-var _revealed_counts: Array[int] = []
 var _total_counts: Array[int] = []
 >>>>>>> Stashed changes
 
@@ -160,7 +162,10 @@ func advance_dialog() -> void:
 		return
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	# Ignore "talk" button while the choice timer is running
 	if is_choosing:
 		return
@@ -205,13 +210,16 @@ func start_player_line() -> void:
 	npc_container.visible = false
 	player_container.visible = true
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	
 	# Reset NPC portrait to frame 0, then STOP animation while player chooses
 	active_portrait = npc_portrait
 	current_portrait_frames = npc_portrait_library.get(Globals.npc_name, [])
 	_reset_portrait()
-	active_portrait = null # <--- ADD THIS to freeze the portrait
+	active_portrait = null # Freeze the portrait while choosing
 
 	# Start 10 second timer
 	progress_bar.visible = true
@@ -226,10 +234,14 @@ func start_player_line() -> void:
 		texts[1] = str(Globals.player_option_2[player_line_index])
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	begin_typing([player_option_1_label, player_option_2_label], texts)
 =======
+=======
+>>>>>>> Stashed changes
 	# Pass 'false' so Tuna Tello doesn't speak while options are typing
 	begin_typing([player_option_1_label, player_option_2_label], texts, false)
+
 
 func select_choice(option_index: int) -> void:
 	is_choosing = false
@@ -276,6 +288,7 @@ func timeout_choice() -> void:
 	line_index += 1
 	show_current_line()
 >>>>>>> Stashed changes
+
 
 
 func end_dialog() -> void:
@@ -335,6 +348,7 @@ func finish_typing() -> void:
 
 	is_typing = false
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	set_process(false)
 =======
 	# Reset portrait to first frame when typing finishes
@@ -344,13 +358,28 @@ func finish_typing() -> void:
 	if _play_voice_for_typing:
 		trigger_voice_sound(0, true)
 >>>>>>> Stashed changes
+=======
+
+	# Reset portrait to first frame when typing finishes
+	_reset_portrait()
+	
+	# Keep processing if the player is still in the choice window
+	set_process(is_choosing) 
+	
+	if _play_voice_for_typing:
+		trigger_voice_sound(0, true)
+
+>>>>>>> Stashed changes
 
 func _process(delta: float) -> void:
 	if npc_name_container.custom_minimum_size.x != npc_name_label.size.x + 60:
 		npc_name_container.custom_minimum_size.x = npc_name_label.size.x + 60
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 	# Handle Choice Timer
 	if is_choosing:
 		choice_time_left -= _delta
@@ -398,12 +427,33 @@ func _process(delta: float) -> void:
 			all_done = false
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	if not is_voice_sound_active() and is_typing:
 		trigger_voice_sound()
 
 	if all_done:
 		is_typing = false
 		set_process(false)
+=======
+	# Voice blips: count revealed NON-space characters of the parsed text
+	# (parsed text = what the player sees, tags stripped).
+	var parsed := npc_speech_label.get_parsed_text()
+	var shown := npc_speech_label.visible_characters
+	if shown < 0 or shown > parsed.length():
+		shown = parsed.length()
+	letters_shown = parsed.substr(0, shown).replace(" ", "").length()
+	
+	# Only play voice if _play_voice_for_typing is true
+	if is_typing and _play_voice_for_typing:
+		trigger_voice_sound(letters_shown)
+
+	if all_done:
+		is_typing = false
+		# Reset portrait to first frame when typing finishes
+		_reset_portrait()
+		# Keep processing if the player is still in the choice window
+		set_process(is_choosing)
+>>>>>>> Stashed changes
 
 
 func trigger_voice_sound():
@@ -420,6 +470,7 @@ func trigger_voice_sound():
 	elif is_player_speaking():
 		current_sfx_instance = Globals.play_fmod_sfx_managed(tuna_tello)
 
+<<<<<<< Updated upstream
 func is_voice_sound_active() -> bool:
 	if not current_sfx_instance or not current_sfx_instance.is_valid():
 		return false
@@ -462,12 +513,15 @@ func check_sfx():
 		# Keep processing if the player is still in the choice window
 		set_process(is_choosing)
 
+=======
+>>>>>>> Stashed changes
 
 func _reset_portrait() -> void:
 	portrait_toggle_timer = 0.0
 	portrait_frame_index = 0
 	if active_portrait != null and current_portrait_frames.size() > 0:
 		active_portrait.texture = current_portrait_frames[0]
+<<<<<<< Updated upstream
 
 
 func trigger_voice_sound(letters: int, line_start = false):
@@ -494,4 +548,6 @@ func trigger_voice_sound(letters: int, line_start = false):
 	elif is_player_speaking():
 		if letters % 2 == 0 or line_start:
 			audio_manager.play_sfx_oneshot("tuna_tello")
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
