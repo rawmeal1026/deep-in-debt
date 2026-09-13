@@ -22,7 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://ccfq86i03b0ky" path="res://scenes/npcs/picass_shark.tscn" id="15_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://bohvun8lnbyfl" path="res://scenes/ui/conversation_scene.tscn" id="19_0ld40"]
 [ext_resource type="PackedScene" uid="uid://cqicmensgt7gn" path="res://scenes/ui/trash_meter_scene.tscn" id="19_gqmmt"]
-
 [ext_resource type="Script" uid="uid://bhtu85juap1l2" path="res://scripts/cutscene_manager.gd" id="19_yc10j"]
 [ext_resource type="Script" uid="uid://bnwe0xiotyjtx" path="res://scripts/cutscene_data.gd" id="21_y6deb"]
 [ext_resource type="Script" uid="uid://nwby8v6tbtmj" path="res://scripts/letter_box.gd" id="22_y6deb"]
@@ -3151,8 +3150,6 @@ script = ExtResource("4_jyhfs")
 player_path = NodePath("../T-Sorted World/Entities/Tuna Tello")
 deadzone_radius = 50.0
 
-follow_sharpness = null
-
 [node name="CutsceneManager" type="Node" parent="." unique_id=351086922 groups=["cutscene_manager"]]
 script = ExtResource("19_yc10j")
 cutscenes = Array[ExtResource("21_y6deb")]([SubResource("Resource_y6deb"), SubResource("Resource_jscy8"), SubResource("Resource_pm3ni")])
@@ -3188,10 +3185,7 @@ visible = false
 
 [node name="AudioManager" parent="." unique_id=1938142978 instance=ExtResource("2_2f3dj")]
 
-
-visible = false
-
-[node name="AudioManager" parent="." unique_id=1938142978 instance=ExtResource("2_2f3dj")]
+[node name="AudioManager2" parent="." unique_id=1247748455 instance=ExtResource("2_2f3dj")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=746554708]
 
@@ -3245,5 +3239,4 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.3
 
-[node name="ConversationScene" parent="." unique_id=1566053693 instance=ExtResource("19_0ld40")]
-
+[node name="ConversationScene2" parent="." unique_id=1229046232 instance=ExtResource("19_0ld40")]

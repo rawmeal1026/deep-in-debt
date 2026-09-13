@@ -4,17 +4,10 @@ var letters_shown := 0
 ## Marker in npc_speech that triggers a player turn. It is NEVER displayed.
 @export var player_turn_marker: String = "XXXXX"
 
-
-@onready var audio_manager: Node = $"../../../AudioManager"
-
-@export var type_speed := 30.0
-
-@onready var npc_speech_label: Label = $NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel/Label
-
-@onready var audio_manager: Node = $"../../../AudioManager"
-
 @export var type_speed := 6
 @export var portrait_toggle_interval := 0.15
+
+@onready var audio_manager: Node = $"../../../AudioManager"
 
 @onready var npc_speech_label: RichTextLabel = $NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel/Label
 @onready var player_option_1_label: Label = $PlayerContainer/SpeechContainer/HBoxContainer/NinePatchRect/MarginContainer/Panel/HBoxContainer/Label
@@ -67,15 +60,6 @@ var _play_voice_for_typing := true
 var _full_texts: Array[String] = []
 var _labels: Array[Control] = []
 var _revealed_counts: Array[int] = []
-
-var current_sfx_instance: FmodEvent
-
-# --- NEW CHOICE VARIABLES ---
-var is_choosing := false
-var is_speaking_choice := false
-var choice_time_left: float = 0.0
-var _play_voice_for_typing := true
-# ----------------------------
 
 # --- PORTRAIT ANIMATION VARIABLES ---
 var current_portrait_frames: Array = []
@@ -158,7 +142,6 @@ func advance_dialog() -> void:
 		finish_typing()
 		return
 
-
 	# Ignore "talk" button while the choice timer is running
 	if is_choosing:
 		return
@@ -200,7 +183,6 @@ func start_player_line() -> void:
 
 	npc_container.visible = false
 	player_container.visible = true
-
 	
 	# Reset NPC portrait to frame 0, then STOP animation while player chooses
 	active_portrait = npc_portrait
@@ -267,6 +249,7 @@ func timeout_choice() -> void:
 	line_index += 1
 	show_current_line()
 
+
 func end_dialog() -> void:
 	current_speaker = Speaker.NONE
 	is_typing = false
@@ -320,19 +303,7 @@ func finish_typing() -> void:
 			_labels[i].text = _full_texts[i]
 
 	is_typing = false
-
-	# Keep processing if the player is still in the 5-second choice window
-	set_process(is_choosing) 
-	if _play_voice_for_typing:
-		trigger_voice_sound(0, true)
-
-	# Reset portrait to first frame when typing finishes
-	_reset_portrait()
-	# Keep processing if the player is still in the choice window
-	set_process(is_choosing) 
-	if _play_voice_for_typing:
-		trigger_voice_sound(0, true)
-
+	
 	# Reset portrait to first frame when typing finishes
 	_reset_portrait()
 	
@@ -346,7 +317,6 @@ func finish_typing() -> void:
 func _process(_delta: float) -> void:
 	if npc_name_container.custom_minimum_size.x != npc_name_label.size.x + 60:
 		npc_name_container.custom_minimum_size.x = npc_name_label.size.x + 60
-
 
 	# Handle Choice Timer
 	if is_choosing:
@@ -384,19 +354,6 @@ func _process(_delta: float) -> void:
 		if _revealed_counts[i] < _total_counts[i]:
 			all_done = false
 
-	letters_shown = npc_speech_label.text.replace(" ", "").length()
-	
-	# Only play voice if _play_voice_for_typing is true
-	if is_typing and _play_voice_for_typing: #if not is_voice_sound_active() and is_typing and _play_voice_for_typing:
-		trigger_voice_sound(letters_shown)
-
-	if not is_voice_sound_active() and is_typing:
-		trigger_voice_sound()
-
-	if all_done:
-		is_typing = false
-		set_process(false)
-=======
 	# Voice blips: count revealed NON-space characters of the parsed text
 	# (parsed text = what the player sees, tags stripped).
 	var parsed := npc_speech_label.get_parsed_text()
@@ -405,8 +362,8 @@ func _process(_delta: float) -> void:
 		shown = parsed.length()
 	letters_shown = parsed.substr(0, shown).replace(" ", "").length()
 	
-	# Only play voice if _play_voice_for_typing is true
-	if is_typing and _play_voice_for_typing:
+	# Only play voice if _play_voice_for_typing is true AND previous blip finished
+	if is_typing and _play_voice_for_typing and not is_voice_sound_active():
 		trigger_voice_sound(letters_shown)
 
 	if all_done:
@@ -415,6 +372,30 @@ func _process(_delta: float) -> void:
 		_reset_portrait()
 		# Keep processing if the player is still in the choice window
 		set_process(is_choosing)
+
+
+func is_voice_sound_active() -> bool:
+	var node_name := ""
+	if is_npc_speaking():
+		match Globals.npc_name:
+			"Leon Octo": node_name = "leon_octo"
+			"Mon Whale": node_name = "mon_whale"
+			"Van Gold": node_name = "van_gold"
+			"Picass Shark": node_name = "picass_shark"
+			"Carpa Vaggio": node_name = "carpa_vaggio"
+			"Mikoi Angelo": node_name = "mikoi_angelo"
+	elif is_player_speaking():
+		node_name = "tuna_tello"
+		
+	if node_name == "":
+		return false
+		
+	var sfx_player = audio_manager.get(node_name)
+	if sfx_player is AudioStreamPlayer:
+		return sfx_player.playing
+		
+	return false
+
 
 func trigger_voice_sound(letters: int, line_start = false):
 	if is_npc_speaking():
@@ -447,30 +428,3 @@ func _reset_portrait() -> void:
 	portrait_frame_index = 0
 	if active_portrait != null and current_portrait_frames.size() > 0:
 		active_portrait.texture = current_portrait_frames[0]
-<<<<<<< Updated upstream
-
-
-func trigger_voice_sound(letters: int, line_start = false):
-	if is_npc_speaking():
-		match Globals.npc_name:
-			"Leon Octo":
-				if letters % 1 == 0 or line_start:
-					audio_manager.play_sfx_oneshot("leon_octo")
-			"Mon Whale":
-				if letters % 6 == 0 or line_start:
-					audio_manager.play_sfx_oneshot("mon_whale")
-			"Van Gold":
-				if letters % 1 == 0 or line_start:
-					audio_manager.play_sfx_oneshot("van_gold")
-			"Picass Shark":
-				if letters % 6 == 0 or line_start:
-					audio_manager.play_sfx_oneshot("picass_shark")
-			"Carpa Vaggio":
-				if letters % 1 == 0 or line_start:
-					audio_manager.play_sfx_oneshot("carpa_vaggio")
-			"Mikoi Angelo":
-				if letters % 1 == 0 or line_start:
-					audio_manager.play_sfx_oneshot("mikoi_angelo")
-	elif is_player_speaking():
-		if letters % 2 == 0 or line_start:
-			audio_manager.play_sfx_oneshot("tuna_tello")
