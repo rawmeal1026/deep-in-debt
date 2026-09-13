@@ -7,6 +7,28 @@ func _ready() -> void:
 	animated_sprite_2d.play("Idle")
 
 func interact():
+<<<<<<< Updated upstream
+=======
+	if intro:
+		intro = false
+		Globals.npc_name = "Mikoi Angelo"
+		Globals.npc_speech = ["YO. A star hunter pulling up, that's [color=#98776b]crazy[/color], that's actually [color=#98776b]kinda crazy[/color].",
+								"[wave]Sixty-seven[/wave] stars fell outta the sky last night alone.",
+								"Bro said 'let there be [rainbow]glitter[/rainbow]' and dropped these [color=#98776b]LITTER[/color]. Hell nahh",
+								"XXXXX",
+								"I'm the one who polishes 'em out and sorts the pile. [wave]Plastic[/wave] here, [wave]metal[/wave] there, and whatever this [rainbow]cappoccino-assassino-lookin' thing[/rainbow] is goes in its own bin 'cause I genuinely cannot classify it.",
+								"Other than my GOAT, [color=#98776b]Mon Whale[/color], nobody else down here sorts 'em right, they just let the stars rot in big piles.",
+								"That's how the [color=#98776b]water gets murky[/color] and the [color=#98776b]sky starts dimming[/color]. [rainbow]Skibidi behavior[/rainbow], not gonna lie.",
+								"I'm the [color=#98776b]star custodian[/color], no cap. Bring me bags with stars, and I'll polish it like my treat, [rainbow]sigma generosity type beat[/rainbow].",
+								"I bring it back full and sorted proper. Use em materials however you like.",
+								"XXXXX"]
+								
+		Globals.player_option_1 = ["Why are you talking like that?", "Never ever open your mouth in front of me again :)"]
+		Globals.player_option_2 = ["6767676767", "Gotcha twin."]
+		Globals.talk()
+		return
+
+>>>>>>> Stashed changes
 	polish()
 
 func get_collected_materials() -> Array[String]:
@@ -51,3 +73,85 @@ func polish() -> void:
 	Globals.carried_bag = null
 	Globals.is_player_carrying_a_bag = false
 	Globals.player_garbage_carry_count = 0
+<<<<<<< Updated upstream
+=======
+
+## Called by a worker (waste hauler) when it delivers a full bag.
+## The worker passes itself in, because worker traits live on the
+## worker object itself, not in Globals.
+func worker_interact(worker: Node2D) -> void:
+	if not is_instance_valid(worker):
+		return
+
+	# The worker's bag lives on the worker object, not in Globals.
+	var bag: Node2D = worker.get("carried_bag")
+
+	# Must be carrying a bag.
+	if not is_instance_valid(bag):
+		return
+
+	# Must have garbage in the bag.
+	var collected_count := 0
+
+	if worker.has_method("get_collected_count"):
+		collected_count = int(worker.call("get_collected_count"))
+	elif bag.has_method("get_collected_count"):
+		collected_count = int(bag.call("get_collected_count"))
+
+	if collected_count <= 0:
+		return
+
+	for i in get_collected_materials(bag):
+		match i:
+			"PE Bags":
+				Globals.soft_plastic_count += 1
+			"PET Bottles":
+				Globals.hard_plastic_count += 1
+			"Cellulose Paperboards":
+				Globals.paper_count += 1
+			"Aluminum Cans":
+				Globals.metal_count += 1
+			_:
+				print(i)
+
+	if bag.has_method("drop"):
+		bag.call("drop")
+
+	bag.queue_free()
+
+	# Reset the worker's carrying state.
+	if worker.has_method("clear_carried_bag"):
+		worker.call("clear_carried_bag")
+	else:
+		worker.set("carried_bag", null)
+		worker.set("is_carrying_bag", false)
+
+
+func _on_mikoi_angelo_area_entered(area: Area2D) -> void:
+	if area.is_in_group("player_interaction"):
+		if intro:
+			e_button.show()
+		else:
+			if not is_instance_valid(Globals.carried_bag):
+				return
+
+			# Must have garbage in the bag.
+			if Globals.player_garbage_carry_count <= 0:
+				return
+			
+			e_button.show()
+
+func end_intro():
+	if not is_instance_valid(Globals.carried_bag):
+		e_button.hide()
+
+	# Must have garbage in the bag.
+	if Globals.player_garbage_carry_count <= 0:
+		e_button.hide()
+
+	return
+
+func _on_mikoi_angelo_area_exited(area: Area2D) -> void:
+	if area.is_in_group("player_interaction"):
+		e_button.hide()
+>>>>>>> Stashed changes

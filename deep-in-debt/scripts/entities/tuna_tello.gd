@@ -41,7 +41,17 @@ func _physics_process(_delta: float) -> void:
 	elif Globals.player_garbage_carry_count < (Globals.bag_slow_interval * 3):
 		SPEED = 200
 	else:
+<<<<<<< Updated upstream
 		SPEED = 100
+=======
+		if Globals.roller_blades:
+			SPEED = 250
+		else:
+			SPEED = 100
+	
+	if Globals.anti_drag_boots:
+		SPEED += 50
+>>>>>>> Stashed changes
 	
 	if not Globals.in_cutscene:
 		velocity = Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED

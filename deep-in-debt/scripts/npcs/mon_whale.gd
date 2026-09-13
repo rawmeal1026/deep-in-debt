@@ -13,6 +13,7 @@ func interact() -> void:
 	if intro:
 		intro = false
 		Globals.npc_name = "Mon Whale"
+<<<<<<< Updated upstream
 		Globals.npc_speech = ["I like my steak...", "Whale done.", "HAHAHAHAHAHA.", "Laugh or I'll eat you."]
 		'''
 		Globals.npc_speech = ["The shining stars falling from the sky.",
@@ -30,8 +31,20 @@ func interact() -> void:
 		'''
 		Globals.player_option_1 = ["They're disgusting. We should stay away from them.", "I don't know about that."]
 		Globals.player_option_2 = ["They reek incomprehensible wonders.", "That's a plausible theory."]
+=======
+		Globals.npc_speech = ["The [rainbow]shining stars[/rainbow] falling from the sky.",
+								"Who would've known even the most beautiful thing can emit such a [color=#98776b]bad smell[/color]?",
+								"XXXXX",
+								"Because of them, air is slowly becoming [color=#98776b]dimmer[/color]. And day by day, it's getting [color=#98776b]harder to see[/color].",
+								"I give [color=#98776b]free star containers[/color]. These stars need to go somewhere other than just lying on the [color=#98776b]oceanfloor[/color].",
+								"Seeing you wish to give your brother a decent party here, I suggest you start cleaning now.",
+								"Interact with the bags to either pick them up or drop them down.",
+								"[color=#98776b]Be careful[/color] filling the bags with too much stars, as it will significantly [color=#98776b]slow you down[/color].",
+								"I wish your brother a happy birthday."]
+		Globals.player_option_1 = ["They're disgusting. We should stay away from them."]
+		Globals.player_option_2 = ["They reek incomprehensible wonders."]
+>>>>>>> Stashed changes
 		Globals.talk()
-		return
 
 	if not is_instance_valid(Globals.carried_bag):
 		Globals.spawn_garbage_bag(get_random_spawn_point())
