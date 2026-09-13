@@ -508,13 +508,18 @@ func update_animation(movement: Vector2) -> void:
 func get_facing_direction() -> float:
 	return facing_direction
 
+var inside_npc = false
 func get_nearest_npc():
 	var npc_dist_dict := {}
 	for npc in npc_list:
 		npc_dist_dict.set(npc.name, self.global_position.distance_to(npc.global_position))
 	var val_list = npc_dist_dict.values()
 	if val_list.min() <= 80 and self.velocity.length() == 0:
+		inside_npc = true
 		return npc_dist_dict.find_key(val_list.min())
+	if inside_npc and val_list.min() <= 80:
+		return npc_dist_dict.find_key(val_list.min())
+	inside_npc = false
 	return null
 
 func _on_frame_changed() -> void:
