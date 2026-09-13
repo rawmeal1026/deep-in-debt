@@ -121,6 +121,7 @@ volume_db = 20.0
 unique_name_in_owner = true
 stream = ExtResource("8_thanh")
 volume_db = -12.004
+bus = &"Music"
 
 [node name="npc_voices" type="Node" parent="." unique_id=102663509]
 
@@ -188,3 +189,6 @@ volume_db = 5.0
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_ovaav")
 volume_db = 5.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1687677006]
+volume_db = 24.0
