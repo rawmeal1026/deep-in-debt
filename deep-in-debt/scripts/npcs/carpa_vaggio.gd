@@ -43,4 +43,3 @@ func end_intro():
 func _on_carpa_vaggio_area_exited(area: Area2D) -> void:
 	if area.is_in_group("player_interaction"):
 		e_button.hide()
-

@@ -120,4 +120,3 @@ func _on_leon_octo_area_entered(area: Area2D) -> void:
 func _on_leon_octo_area_exited(area: Area2D) -> void:
 	if area.is_in_group("player_interaction"):
 		e_button.hide()
-

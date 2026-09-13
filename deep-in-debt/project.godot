@@ -19,6 +19,11 @@ run/main_scene="uid://bktbabej4kben"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+driver/mix_rate=48000
+driver/mix_rate.web=48000
+
 [autoload]
 
 Globals="*uid://burlh6vla1shr"
