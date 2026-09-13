@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 			SPEED = 100
 	
 	if Globals.anti_drag_boots:
-		SPEED += 100
+		SPEED += 50
 	
 	if not Globals.in_cutscene:
 		velocity = velocity.move_toward(Input.get_vector("move_left", "move_right", "move_up", "move_down") * SPEED, 2000 * delta)

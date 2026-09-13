@@ -14,23 +14,23 @@ func interact():
 	if intro:
 		intro = false
 		Globals.npc_name = "Picass Shark"
-		Globals.npc_speech = ["What. You need money or are you just here to stare?",
+		Globals.npc_speech = ["What. You need [color=#98776b]money[/color] or are you just here to stare?",
 								"XXXXX",
-								"Ah, maybe I can offer you some service.",
-								"Ya see, I am a loan shark, and I have these fishes who can't pay for what they owed.",
+								"Ah, maybe I can offer you some [color=#98776b]service[/color].",
+								"Ya see, I am a [color=#98776b]loan shark[/color], and I have these [color=#98776b]fishes who can't pay[/color] for what they owed.",
 								"You can hire them to work for your ocean-cleaning, for all I care. I just need them to get shells from somewhere.",
-								"They come in pairs. One waste collector that fills star bags to the brim, and one waste hauler that brings star bags to Mikoi.",
-								"I currently have 4 pairs of workers. I'm going to need 200 shells if you want to rent a pair for a day.",
-								"That should free them for their debts.",
+								"They come in pairs. A [color=#98776b]waste collector[/color] that fills star bags to the brim, and a [color=#98776b]waste hauler[/color] that brings star bags to Mikoi.",
+								"I currently have [color=#98776b]3 pairs[/color] of workers. I'm going to need [color=#98776b]100 shells[/color] if you want to rent a pair for a day.",
+								"That should free them off their debts.",
 								"Come talk to me when you've got the shells. They'll work right away."]
 		Globals.player_option_1 = ["I need to clean this town for my brother's party."]
 		Globals.player_option_2 = ["I'm bothered with those fishes inside your house."]
 		Globals.talk()
 		return
 
-	if Globals.shell_count > 199 and worker < 5:
+	if Globals.shell_count > 99 and worker < 3:
 		worker += 1
-		Globals.shell_count -= 200
+		Globals.shell_count -= 100
 		Globals.spawn_garbage_hauler(get_random_spawn_point())
 		Globals.spawn_garbage_collector(get_random_spawn_point())
 
@@ -60,12 +60,12 @@ func _on_picass_shark_area_entered(area: Area2D) -> void:
 		if intro:
 			e_button.show()
 		else:
-			if Globals.shell_count < 200:
+			if Globals.shell_count < 100 and worker < 3:
 				return
 			e_button.show()
 
 func end_intro():
-	if Globals.shell_count < 200:
+	if Globals.shell_count < 100 and worker < 3:
 		e_button.hide()
 	return
 

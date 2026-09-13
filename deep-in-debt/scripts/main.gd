@@ -16,10 +16,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			tutorial_scene.show()
 		1:
 			tutorial_scene.hide()
+			trash_meter_scene.show()
 			objectives_scene.show()
 		2:
 			objectives_scene.hide()
-			trash_meter_scene.show()
 		3:
 			trash_meter_scene.hide()
 

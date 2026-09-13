@@ -11,27 +11,25 @@ func _ready() -> void:
 	Globals.dialog_end.connect(end_intro)
 
 func interact():
+
 	if intro:
 		intro = false
 		Globals.npc_name = "Mikoi Angelo"
-		Globals.npc_speech = ["YO. Another star hunter pulling up, that's crazy, that's actually kinda crazy.",
-								"Six-seven stars fell outta the sky last night alone.",
-								"Bro said 'let there be glitter' and dropped these LITTER. Hell nahh",
+		Globals.npc_speech = ["YO. A star hunter pulling up, that's [color=#98776b]crazy[/color], that's actually [color=#98776b]kinda crazy[/color].",
+								"[wave]Sixty-seven[/wave] stars fell outta the sky last night alone.",
+								"Bro said 'let there be [rainbow]glitter[/rainbow]' and dropped these [color=#98776b]LITTER[/color]. Hell nahh",
 								"XXXXX",
-								"I'm the one who polishes 'em out and sorts the pile. Plastic here, metal there, and whatever this cappoccino-assassino-lookin' thing is goes in its own bin 'cause I genuinely cannot classify it.",
-								"Other than my GOAT, Mon Whale, nobody else down here sorts 'em right, they just let the stars rot in big piles.",
-								"That's how the water gets murky and the sky starts dimming. Skibidi behavior, not gonna lie.",
-								"I'm the star custodian, no cap. I polish stars, my treat, sigma generosity type beat.",
+								"I'm the one who polishes 'em out and sorts the pile. [wave]Plastic[/wave] here, [wave]metal[/wave] there, and whatever this [rainbow]cappoccino-assassino-lookin' thing[/rainbow] is goes in its own bin 'cause I genuinely cannot classify it.",
+								"Other than my GOAT, [color=#98776b]Mon Whale[/color], nobody else down here sorts 'em right, they just let the stars rot in big piles.",
+								"That's how the [color=#98776b]water gets murky[/color] and the [color=#98776b]sky starts dimming[/color]. [rainbow]Skibidi behavior[/rainbow], not gonna lie.",
+								"I'm the [color=#98776b]star custodian[/color], no cap. Bring me bags with stars, and I'll polish it like my treat, [rainbow]sigma generosity type beat[/rainbow].",
 								"I bring it back full and sorted proper. Use em materials however you like.",
-								"Oh, you tryna cop a party for your bro's birthday? Bestie. My neighbor is RIGHT THERE.",
-								"Bring them materials to him tentacles. Trust me, he'll cook the best party of your bro's life. 67.",
 								"XXXXX"]
 								
 		Globals.player_option_1 = ["Why are you talking like that?", "Never ever open your mouth in front of me again :)"]
 		Globals.player_option_2 = ["6767676767", "Gotcha twin."]
 		Globals.talk()
 		return
-
 	polish()
 
 ## Returns the materials inside the given bag.
@@ -83,6 +81,7 @@ func polish() -> void:
 	Globals.carried_bag = null
 	Globals.is_player_carrying_a_bag = false
 	Globals.player_garbage_carry_count = 0
+
 
 ## Called by a worker (waste hauler) when it delivers a full bag.
 ## The worker passes itself in, because worker traits live on the
@@ -151,14 +150,15 @@ func _on_mikoi_angelo_area_entered(area: Area2D) -> void:
 
 func end_intro():
 	if not is_instance_valid(Globals.carried_bag):
-				return
+		e_button.hide()
 
 	# Must have garbage in the bag.
 	if Globals.player_garbage_carry_count <= 0:
-		return
+		e_button.hide()
 
-	e_button.hide()
+	return
 
 func _on_mikoi_angelo_area_exited(area: Area2D) -> void:
 	if area.is_in_group("player_interaction"):
 		e_button.hide()
+

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ditd8rvyh51rs" path="res://assets/tilesets/UI.png" id="1_5kld3"]
 [ext_resource type="Script" uid="uid://b5m3g5fqgujuq" path="res://scripts/ui/dialog_container.gd" id="1_nfjjb"]
 [ext_resource type="Script" uid="uid://bfdbbdk4r41kr" path="res://scripts/ui/name_card_sizing_script.gd" id="2_5dppf"]
-[ext_resource type="Texture2D" uid="uid://dabd7vj0yyjxr" path="res://assets/popart/MonWhale01.png" id="3_372r4"]
+[ext_resource type="Texture2D" uid="uid://g26f3hy8sdj6" path="res://assets/popart/MikoiAngelo02.png" id="3_ernsm"]
 [ext_resource type="FontFile" uid="uid://bbo0jom7ar424" path="res://assets/fonts/monogram-extended.ttf" id="4_gq0ot"]
 [ext_resource type="Texture2D" uid="uid://dg7dw8vhmxhpc" path="res://assets/tilesets/UI - Copy.png" id="5_1liqq"]
 [ext_resource type="Texture2D" uid="uid://v51j0v7wfspw" path="res://assets/tilesets/arrow.png" id="5_372r4"]
@@ -93,7 +93,7 @@ size_flags_stretch_ratio = 0.5
 
 [node name="TextureRect2" type="TextureRect" parent="TalkScreen/Panel/DialogContainer/IllusContainer/HBoxContainer" unique_id=912120700]
 layout_mode = 2
-texture = ExtResource("3_372r4")
+texture = ExtResource("3_ernsm")
 expand_mode = 3
 stretch_mode = 6
 flip_h = true
@@ -149,26 +149,29 @@ theme_override_constants/margin_bottom = 30
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TalkScreen/Panel/DialogContainer/NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel" unique_id=2036897316]
+[node name="Label" type="RichTextLabel" parent="TalkScreen/Panel/DialogContainer/NPCContainer/SpeechContainer/NinePatchRect/MarginContainer/Panel" unique_id=219242633]
+clip_contents = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0.9812259, 0.7724698, 0.6991301, 1)
-theme_override_colors/font_shadow_color = Color(0.03529412, 0.015686275, 0, 1)
+offset_transform_position = Vector2(2, 0)
+theme_override_colors/default_color = Color(0.98039216, 0.77254903, 0.69803923, 1)
 theme_override_colors/font_outline_color = Color(0.03529412, 0.015686275, 0, 1)
-theme_override_constants/outline_size = 8
+theme_override_colors/font_shadow_color = Color(0.03529412, 0.015686275, 0, 1)
 theme_override_constants/shadow_outline_size = 8
-theme_override_fonts/font = ExtResource("4_gq0ot")
-theme_override_font_sizes/font_size = 46
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("4_gq0ot")
+theme_override_fonts/bold_font = ExtResource("4_gq0ot")
+theme_override_font_sizes/normal_font_size = 46
+theme_override_font_sizes/bold_font_size = 56
+bbcode_enabled = true
 text = "penus"
-autowrap_mode = 3
 
 [node name="PlayerContainer" type="VBoxContainer" parent="TalkScreen/Panel/DialogContainer" unique_id=1905602898]
+visible = false
 layout_mode = 2
 
 [node name="DeadSpace" type="Panel" parent="TalkScreen/Panel/DialogContainer/PlayerContainer" unique_id=607173614]

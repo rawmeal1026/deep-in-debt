@@ -85,7 +85,7 @@ var previous_global_position := Vector2.ZERO
 
 ## Every material collected into this bag.
 var collected_materials: Array[String] = []
-var garbage_mass
+var garbage_mass = 0
 
 # INITIALIZE
 func _ready() -> void:
@@ -428,3 +428,8 @@ func _on_stopped_moving_debug() -> void:
 		animated_sprite_2d.play("Idle3")
 	else:
 		animated_sprite_2d.play("Idle4")
+
+func is_full():
+	if garbage_mass < (Globals.bag_slow_interval * 3):
+		return false
+	return true
