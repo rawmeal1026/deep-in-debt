@@ -83,7 +83,7 @@ func spawn_garbage_hauler(at_position: Vector2) -> Node2D:
 # DIALOG GLOBALS
 signal initiate_talk
 
-var in_cutscene = false
+var in_cutscene = true
 
 func talk():
 	in_cutscene = true
@@ -160,3 +160,5 @@ func get_remaining_garbage_count() -> int:
 		count += 1
 
 	return count
+
+var drawing = 0

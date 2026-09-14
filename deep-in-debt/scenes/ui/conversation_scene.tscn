@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cugvg8eexht22" path="res://assets/popart/TunaTello1.png" id="1_5dppf"]
 [ext_resource type="Texture2D" uid="uid://ditd8rvyh51rs" path="res://assets/tilesets/UI.png" id="1_5kld3"]
+[ext_resource type="Texture2D" uid="uid://psy00s72gy1c" path="res://assets/popart/VanGold.jpg" id="1_bvdcd"]
 [ext_resource type="Script" uid="uid://b5m3g5fqgujuq" path="res://scripts/ui/dialog_container.gd" id="1_nfjjb"]
 [ext_resource type="Script" uid="uid://bfdbbdk4r41kr" path="res://scripts/ui/name_card_sizing_script.gd" id="2_5dppf"]
 [ext_resource type="Texture2D" uid="uid://g26f3hy8sdj6" path="res://assets/popart/MikoiAngelo02.png" id="3_ernsm"]
@@ -25,6 +26,56 @@ atlas = ExtResource("5_372r4")
 region = Rect2(32, 0, 32, 32)
 
 [node name="ConversationScene" type="CanvasLayer" unique_id=1566053693]
+
+[node name="IllustrationBoard" type="Control" parent="." unique_id=100013898]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="IllustrationBoard" unique_id=642546744]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="IllustrationBoard" unique_id=2145102124]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="IllustrationBoard/MarginContainer" unique_id=265442075]
+layout_mode = 2
+
+[node name="DeadSpace2" type="Panel" parent="IllustrationBoard/MarginContainer/VBoxContainer" unique_id=1045512755]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.09
+
+[node name="TextureRect" type="TextureRect" parent="IllustrationBoard/MarginContainer/VBoxContainer" unique_id=1231731604]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.6
+texture = ExtResource("1_bvdcd")
+expand_mode = 1
+flip_h = true
+
+[node name="DeadSpace" type="Panel" parent="IllustrationBoard/MarginContainer/VBoxContainer" unique_id=1710992051]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.3
 
 [node name="TalkScreen" type="Control" parent="." unique_id=316915614]
 layout_mode = 3

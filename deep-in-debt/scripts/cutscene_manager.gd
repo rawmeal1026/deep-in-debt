@@ -113,7 +113,8 @@ func finish_cutscene() -> void:
 	if lb != null:
 		lb.hide_bars()
 	else:
-		Globals.in_cutscene = false
+		if Globals.drawing != 6:
+			Globals.in_cutscene = false
 
 	is_playing = false
 	current_data = null

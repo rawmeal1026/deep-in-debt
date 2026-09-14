@@ -36,7 +36,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	match get_nearest_npc():
 		null:
-			audio_manager.play_or_update_loop("bgm", 0)
+			if Globals.drawing == 7:
+				audio_manager.play_or_update_loop("bgm", 0)
 		"Tuna Tello":
 			audio_manager.play_or_update_loop("bgm", 6)
 		"Van Gold":

@@ -29,14 +29,27 @@ func interact():
 	if Globals.shell_count > 709:
 		Globals.shell_count -= 710
 		Globals.objective_3 = true
+		Globals.npc_name = "Carpa Vaggio"
+		Globals.npc_speech = ["Ah, you're back, and with enough shells too. [wave]Wonderful[/wave].",
+								"Let me wrap this up nice for you. Fresh out of the oven, just the way it should be.",
+								"XXXXX",
+								"There you go, dear.",
+								"Enjoy every bite. And don't be a stranger — the kitchen's always open."]
+		Globals.player_option_1 = ["Thank you, Carpa."]
+		Globals.player_option_2 = ["It smells amazing already."]
+		Globals.talk()
+		return
 
 
 func _on_carpa_vaggio_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player_interaction"):
-		e_button.show()
+		if intro:
+			e_button.show()
+		elif Globals.shell_count < 710:
+			e_button.show()
 
 func end_intro():
-	if Globals.shell_count < 200:
+	if Globals.shell_count < 710:
 		e_button.hide()
 	return
 

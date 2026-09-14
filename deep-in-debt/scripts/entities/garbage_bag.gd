@@ -150,7 +150,10 @@ func play_sfx_with_mass(event_path: String, carrier: Node = null) -> void:
 
 # ------------------------------------------------------------------
 # BAG CONTENTS FUNCTIONS
-func add_collected_material(material_name: String) -> void:
+func add_collected_material(material_name: String, carrier: Node = null) -> void:
+	if is_worker(carrier):
+		return
+		
 	match material_name:
 		"PET Bottles":
 			audio_manager.play_sfx_oneshot("bottle")
@@ -207,8 +210,6 @@ func is_carried() -> bool:
 # PLAYER GARBAGE BAG INTERACTION
 
 func pick_up(new_player: CharacterBody2D) -> void:
-	if not can_be_picked_up():
-		return
 
 	audio_manager.play_sfx_oneshot("trashbag", remap(garbage_mass, 0, 30, 1, 0.707107))
 	
@@ -237,8 +238,6 @@ func pick_up(new_player: CharacterBody2D) -> void:
 		pickup_tween.set_ease(Tween.EASE_OUT)
 
 		pickup_tween.tween_property(self, "pickup_blend", 1.0, pickup_time)
-	#PICKUP SOUND HERE
-	
 
 func drop() -> void:
 	if not carried:

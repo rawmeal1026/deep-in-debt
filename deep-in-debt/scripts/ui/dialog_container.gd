@@ -6,6 +6,7 @@ var letters_shown := 0
 
 @export var type_speed := 6
 @export var portrait_toggle_interval := 0.15
+@export var illustration_fade_time := 0.4
 
 @onready var audio_manager: Node = $"../../../AudioManager"
 
@@ -21,6 +22,8 @@ var letters_shown := 0
 @onready var npc_name_container: NinePatchRect = $NameContainer/NamePanel/HBoxContainer/NinePatchRect2
 @onready var player_portrait: TextureRect = $IllusContainer/HBoxContainer/TextureRect
 @onready var npc_portrait: TextureRect = $IllusContainer/HBoxContainer/TextureRect2
+@onready var illustration_board: TextureRect = $"../../../IllustrationBoard/MarginContainer/VBoxContainer/TextureRect"
+@onready var illustration_color_rect: ColorRect = $"../../../IllustrationBoard/ColorRect"
 
 # the event paths given by fmod
 @export_group("sfx references")
@@ -37,10 +40,19 @@ var npc_portrait_library = {
 	"Mikoi Angelo": [preload("res://assets/popart/MikoiAngelo01.png"), preload("res://assets/popart/MikoiAngelo02.png")],
 	"Mon Whale": [preload("res://assets/popart/MonWhale01.png"), preload("res://assets/popart/MonWhale02.png")],
 	"Picass Shark": [preload("res://assets/popart/PicassShark01.png"), preload("res://assets/popart/PicassShark02.png")],
-	"Leon Octo": [preload("res://assets/popart/TunaTello1.png"), preload("res://assets/popart/TunaTello2.png")]
+	"Leon Octo": [preload("res://assets/popart/LeonOcto1.png"), preload("res://assets/popart/LeonOcto2.png")]
 }
 
 var player_portrait_library = [preload("res://assets/popart/TunaTello1.png"), preload("res://assets/popart/TunaTello2.png")]
+
+var illustration_board_library = [preload("res://assets/popart/VanGoldbubble10.png"), 
+									preload("res://assets/popart/VanGoldbubble3.png"),
+									preload("res://assets/popart/VanGoldbubble3.png"),
+									preload("res://assets/popart/VanGoldbubble6.png"),
+									preload("res://assets/popart/VanGoldbubble1.png"),
+									preload("res://assets/popart/VanGoldbubble1.png"),
+									preload("res://assets/popart/VanGold.jpg"),
+									preload("res://assets/popart/VanGold_cake.jpg")]
 
 enum Speaker { NONE, NPC, PLAYER }
 var player_sprites = [preload("res://assets/popart/TunaTello1.png"), preload("res://assets/popart/TunaTello2.png")]
@@ -67,11 +79,21 @@ var portrait_toggle_timer := 0.0
 var portrait_frame_index := 0
 var active_portrait: TextureRect = null # Tracks which TextureRect is currently animating
 
+# --- ILLUSTRATION FADE VARIABLES ---
+var _current_drawing_index := -1   # -1 = board hidden / no drawing shown
+var _fade_tween: Tween = null
+# -----------------------------------
+
 var _total_counts: Array[int] = []
 
 func _ready() -> void:
 	Globals.initiate_talk.connect(start_dialog)
 	visible = false
+
+	# Start with the illustration board fully hidden and transparent
+	illustration_board.visible = false
+	illustration_color_rect.visible = false
+	illustration_board.modulate.a = 0.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
@@ -123,6 +145,8 @@ func is_player_speaking() -> bool:
 # ------------------------------------------------------------------
 
 func show_current_line() -> void:
+	update_drawing_state() # <--- Updates visibility and illustration board based on Globals.drawing
+
 	if line_index >= Globals.npc_speech.size():
 		end_dialog()
 		return
@@ -229,6 +253,8 @@ func select_choice(option_index: int) -> void:
 	current_speaker = Speaker.PLAYER # Activates Tuna Tello voice
 	is_speaking_choice = true
 
+	update_drawing_state() # <--- Re-check drawing state when player speaks their choice
+
 	# Set Player portrait as active and load frames
 	active_portrait = player_portrait
 	current_portrait_frames = player_portrait_library
@@ -256,13 +282,118 @@ func end_dialog() -> void:
 	is_choosing = false
 	is_speaking_choice = false
 	progress_bar.visible = false
+
+	# Fade the illustration out instead of snapping it away
+	if _current_drawing_index != -1:
+		_current_drawing_index = -1
+		_fade_illustration_out()
+	else:
+		_hide_illustration_nodes()
+
+	# Make sure portraits are visible again for the next conversation
+	player_portrait.visible = true
+	npc_portrait.visible = true
+
 	current_portrait_frames = []
 	active_portrait = null
 	_reset_portrait()
 	set_process(false)
-	Globals.dialog_end.emit()
 	visible = false
-	Globals.in_cutscene = false
+	
+	# Only unlock the player if we are fully done with the dialog chain and entering the cutscene
+	if Globals.drawing >= 7:
+		Globals.in_cutscene = false
+
+	# Emit LAST: any handler that starts a new dialog (Globals.talk())
+	# must not be undone by the teardown lines above.
+	Globals.dialog_end.emit()
+
+# ------------------------------------------------------------------
+# Illustration Board & Visibility Logic (with fades)
+# ------------------------------------------------------------------
+func update_drawing_state() -> void:
+	if Globals.drawing >= 7:
+		# Portrait mode / Cutscene: fade the illustration away if it's still up
+		player_portrait.visible = true
+		npc_portrait.visible = true
+		if _current_drawing_index != -1:
+			_current_drawing_index = -1
+			_fade_illustration_out()
+		return
+
+	# Illustration mode: portraits off
+	player_portrait.visible = false
+	npc_portrait.visible = false
+
+	# Direct mapping: drawing 0 = index 0, drawing 6 = index 6 (VanGold.jpg)
+	var img_index = Globals.drawing
+
+	if img_index < 0 or img_index >= illustration_board_library.size():
+		img_index = -1
+
+	# Get the actual texture we want to show
+	var target_texture = null
+	if img_index >= 0:
+		target_texture = illustration_board_library[img_index]
+
+	if _current_drawing_index == -1:
+		# Board was hidden: show it and fade in with the new picture
+		_current_drawing_index = img_index
+		if target_texture != null:
+			illustration_board.texture = target_texture
+		_fade_illustration_in()
+		
+	elif target_texture != illustration_board.texture:
+		# The actual IMAGE is different: fade out old, swap texture, fade in new
+		_current_drawing_index = img_index
+		if target_texture != null:
+			_fade_swap_illustration(target_texture)
+		else:
+			_fade_illustration_out()
+			
+	# If the target_texture is the EXACT SAME as the current texture, do nothing!
+	# (This prevents the flicker when two array indices share the same picture).
+
+func _kill_fade_tween() -> void:
+	if _fade_tween != null and _fade_tween.is_valid():
+		_fade_tween.kill()
+	_fade_tween = null
+
+
+func _fade_illustration_in() -> void:
+	_kill_fade_tween()
+	illustration_board.visible = true
+	illustration_color_rect.visible = true # Background snaps on instantly
+	illustration_board.modulate.a = 0.0
+
+	_fade_tween = create_tween()
+	# Only fade the image itself
+	_fade_tween.tween_property(illustration_board, "modulate:a", 1.0, illustration_fade_time)
+
+
+func _fade_illustration_out() -> void:
+	_kill_fade_tween()
+	_fade_tween = create_tween()
+	# Only fade the image itself
+	_fade_tween.tween_property(illustration_board, "modulate:a", 0.0, illustration_fade_time)
+	# Once the image is fully transparent, hide both nodes
+	_fade_tween.tween_callback(_hide_illustration_nodes)
+
+
+func _fade_swap_illustration(new_texture: Texture2D) -> void:
+	_kill_fade_tween()
+	_fade_tween = create_tween()
+	# Fade the picture out (the board backing stays visible)...
+	_fade_tween.tween_property(illustration_board, "modulate:a", 0.0, illustration_fade_time)
+	# ...swap the texture while invisible...
+	_fade_tween.tween_callback(func(): illustration_board.texture = new_texture)
+	# ...and fade the new picture in.
+	_fade_tween.tween_property(illustration_board, "modulate:a", 1.0, illustration_fade_time)
+
+
+func _hide_illustration_nodes() -> void:
+	illustration_board.visible = false
+	illustration_color_rect.visible = false
 
 
 # ------------------------------------------------------------------
