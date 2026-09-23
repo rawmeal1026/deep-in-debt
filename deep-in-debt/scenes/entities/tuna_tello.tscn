@@ -4,7 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://23kbi7xaunx2" path="res://assets/sprites/Handsome guy in sneakers/Handsome_guy_in_sneakers_damaged.png" id="1_xm4hj"]
 [ext_resource type="Texture2D" uid="uid://cuclcyftpol46" path="res://assets/sprites/Handsome guy in sneakers/Handsome_guy_in_sneakers_idle.png" id="2_dsc6t"]
 [ext_resource type="Texture2D" uid="uid://ba6mvq03eby84" path="res://assets/sprites/Handsome guy in sneakers/Handsome_guy_in_sneakers_walk.png" id="3_qwt8m"]
+[ext_resource type="Script" uid="uid://dqis41i8xa8t6" path="res://scripts/collection_area.gd" id="5_blyo0"]
 [ext_resource type="PackedScene" uid="uid://tsnff4qkr57v" path="res://scenes/audio_manager.tscn" id="5_i6o4a"]
+[ext_resource type="Script" uid="uid://cvsah3ip1ama1" path="res://scripts/interaction_area.gd" id="6_owwxx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xiee4"]
 atlas = ExtResource("1_xm4hj")
@@ -137,6 +139,7 @@ shape = SubResource("CircleShape2D_88fa3")
 position = Vector2(0, -18)
 scale = Vector2(1.2, 1.2)
 collision_mask = 4
+script = ExtResource("5_blyo0")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="CollectionArea" unique_id=1669599653]
 scale = Vector2(1.2, 1.2)
@@ -146,6 +149,7 @@ shape = SubResource("CircleShape2D_qwt8m")
 position = Vector2(0, -18)
 scale = Vector2(1.2, 1.2)
 collision_mask = 2
+script = ExtResource("6_owwxx")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="InteractionArea" unique_id=715821396]
 scale = Vector2(1.2, 1.2)
@@ -155,5 +159,9 @@ shape = SubResource("CircleShape2D_dsc6t")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_frame_changed"]
 [connection signal="area_entered" from="CollectionArea" to="." method="_on_collection_area_area_entered"]
+[connection signal="area_entered" from="CollectionArea" to="CollectionArea" method="_on_area_entered"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_area_entered"]
+[connection signal="area_entered" from="InteractionArea" to="InteractionArea" method="_on_area_entered"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_area_exited"]
+[connection signal="area_exited" from="InteractionArea" to="InteractionArea" method="_on_area_exited"]
+[connection signal="bag_picked_up" from="InteractionArea" to="CollectionArea" method="_on_interaction_area_bag_picked_up"]

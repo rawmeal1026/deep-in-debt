@@ -10,8 +10,7 @@ func _ready() -> void:
 	animated_sprite_2d.play("Idle")
 	Globals.dialog_end.connect(end_intro)
 
-func interact():
-
+func action():
 	if intro:
 		intro = false
 		Globals.npc_name = "Mikoi Angelo"
@@ -31,6 +30,9 @@ func interact():
 		Globals.talk()
 		return
 	polish()
+
+func talk():
+	print("talk")
 
 ## Returns the materials inside the given bag.
 ## If no bag is passed, it falls back to the player's bag in Globals.

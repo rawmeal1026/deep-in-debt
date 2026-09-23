@@ -8,7 +8,7 @@ func _ready() -> void:
 	animated_sprite_2d.play("Idle")
 	Globals.dialog_end.connect(end_intro)
 
-func interact():
+func talk():
 	if intro:
 		intro = false
 		Globals.npc_name = "Carpa Vaggio"
@@ -17,42 +17,27 @@ func interact():
 								"XXXXX",
 								"I'm also the [color=#98776b]head baker[/color] of this town's bakery. I still say I've got a few good years of baking left in these fins.",
 								"You caught me at a good time — the ovens are warm and the kitchen smells like something worth staying for.",
-								"A cake from me will cost you [color=#98776b]711 shells[/color]. Quality never comes cheap, sweetheart.",
+								"A cake from me will cost you [color=#98776b]1000 shells[/color]. Quality never comes cheap, sweetheart.",
 								"Oh, it's a birthday cake you wish me to create?",
-								"You must've started with that, honey. I'll give you a discount. I'll take only [color=#98776b]710 shells[/color] for the cake.",
+								"You must've started with that, honey. I'll give you a discount. I'll take only [color=#98776b]500 shells[/color] for the cake.",
 								"Come back whenever the shell's ready. Granny's not going anywhere."]
 		Globals.player_option_1 = ["You're the only lady in this town though."]
 		Globals.player_option_2 = ["It's very understandable, ma'am."]
 		Globals.talk()
 		return
 
-	if Globals.shell_count > 709:
-		Globals.shell_count -= 710
+	if Globals.shell_count > 499:
+		Globals.shell_count -= 500
 		Globals.objective_3 = true
-		Globals.npc_name = "Carpa Vaggio"
-		Globals.npc_speech = ["Ah, you're back, and with enough shells too. [wave]Wonderful[/wave].",
-								"Let me wrap this up nice for you. Fresh out of the oven, just the way it should be.",
-								"XXXXX",
-								"There you go, dear.",
-								"Enjoy every bite. And don't be a stranger — the kitchen's always open."]
-		Globals.player_option_1 = ["Thank you, Carpa."]
-		Globals.player_option_2 = ["It smells amazing already."]
-		Globals.talk()
-		return
-
 
 func _on_carpa_vaggio_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player_interaction"):
-		if intro:
-			e_button.show()
-		elif Globals.shell_count < 710:
-			e_button.show()
+		e_button.show()
+
+func action():
+	print("action")
 
 func end_intro():
-	if Globals.shell_count < 710:
+	if Globals.shell_count < 500:
 		e_button.hide()
 	return
-
-func _on_carpa_vaggio_area_exited(area: Area2D) -> void:
-	if area.is_in_group("player_interaction"):
-		e_button.hide()

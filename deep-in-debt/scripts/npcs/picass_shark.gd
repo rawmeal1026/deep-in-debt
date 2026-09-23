@@ -10,7 +10,7 @@ func _ready() -> void:
 	animated_sprite_2d.play("Idle")
 	Globals.dialog_end.connect(end_intro)
 
-func interact():
+func action():
 	if intro:
 		intro = false
 		Globals.npc_name = "Picass Shark"
@@ -36,6 +36,12 @@ func interact():
 		if Globals.shell_count < 100 and worker < 3:
 			e_button.hide()
 
+	if Globals.shell_count < 100 or worker == 3:
+		e_button.hide()
+
+func talk():
+	print("talk")
+
 ## Returns a random point inside the GarbageBagSpawn shape.
 func get_random_spawn_point() -> Vector2:
 	var shape := worker_spawn.shape
@@ -56,21 +62,7 @@ func get_random_spawn_point() -> Vector2:
 	# Use the shape's position so offsets inside the Area2D are respected.
 	return worker_spawn.global_position + local
 
-
-func _on_picass_shark_area_entered(area: Area2D) -> void:
-	if area.is_in_group("player_interaction"):
-		if intro:
-			e_button.show()
-		else:
-			if Globals.shell_count < 100 and worker < 3:
-				return
-			e_button.show()
-
 func end_intro():
 	if Globals.shell_count < 100 and worker < 3:
 		e_button.hide()
 	return
-
-func _on_picass_shark_area_exited(area: Area2D) -> void:
-	if area.is_in_group("player_interaction"):
-		e_button.hide()

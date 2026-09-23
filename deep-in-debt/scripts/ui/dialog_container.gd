@@ -7,6 +7,7 @@ var letters_shown := 0
 @export var type_speed := 6
 @export var portrait_toggle_interval := 0.15
 @export var illustration_fade_time := 0.4
+@export var dialog_fade_time := 0.3
 
 @onready var audio_manager: Node = $"../../../AudioManager"
 
@@ -59,36 +60,36 @@ var player_sprites = [preload("res://assets/popart/TunaTello1.png"), preload("re
 var shark_sprites = [preload("res://assets/popart/PicassShark01.png"), preload("res://assets/popart/PicassShark02.png")]
 var current_speaker: int = Speaker.NONE
 var line_index := 0
-var player_line_index := 0   # ← which XXXXX / which option pair we're on
-var is_typing := false # THIS VARIABLE IS ON WHEN THE TYPING IS ON
+var player_line_index := 0
+var is_typing := false
 
-# --- NEW CHOICE VARIABLES ---
 var is_choosing := false
 var is_speaking_choice := false
 var choice_time_left: float = 0.0
 var _play_voice_for_typing := true
-# ----------------------------
 
 var _full_texts: Array[String] = []
 var _labels: Array[Control] = []
 var _revealed_counts: Array[int] = []
 
-# --- PORTRAIT ANIMATION VARIABLES ---
 var current_portrait_frames: Array = []
 var portrait_toggle_timer := 0.0
 var portrait_frame_index := 0
-var active_portrait: TextureRect = null # Tracks which TextureRect is currently animating
+var active_portrait: TextureRect = null
 
-# --- ILLUSTRATION FADE VARIABLES ---
-var _current_drawing_index := -1   # -1 = board hidden / no drawing shown
+var _current_drawing_index := -1
 var _fade_tween: Tween = null
-# -----------------------------------
+var _dialog_fade_tween: Tween = null
 
 var _total_counts: Array[int] = []
 
 func _ready() -> void:
 	Globals.initiate_talk.connect(start_dialog)
+	
+	# Start hidden. Alpha at 1.0 because non-drawing-7 dialogs skip the fade
+	# and just snap visible, so they need the alpha already at full.
 	visible = false
+	modulate.a = 1.0
 
 	# Start with the illustration board fully hidden and transparent
 	illustration_board.visible = false
@@ -99,7 +100,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		return
 
-	# Handle Choice Selection
 	if is_choosing:
 		if event.is_action_pressed("move_left"):
 			select_choice(0)
@@ -110,8 +110,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 			return
 
-	# "is_pressed()" means it's a press (not a release).
-	# "not event.is_echo()" ensures it doesn't trigger repeatedly if the key is held down.
 	if event.is_pressed() and not event.is_echo():
 		advance_dialog()
 
@@ -123,7 +121,15 @@ func _unhandled_input(event: InputEvent) -> void:
 func start_dialog() -> void:
 	line_index = 0
 	player_line_index = 0
-	visible = true
+	
+	# Only fade at drawing 7; otherwise snap visible
+	if Globals.drawing == 7:
+		_fade_dialog_in()
+	else:
+		_kill_dialog_tween()
+		modulate.a = 1.0
+		visible = true
+	
 	npc_name_label.text = Globals.npc_name
 	show_current_line()
 
@@ -145,7 +151,7 @@ func is_player_speaking() -> bool:
 # ------------------------------------------------------------------
 
 func show_current_line() -> void:
-	update_drawing_state() # <--- Updates visibility and illustration board based on Globals.drawing
+	update_drawing_state()
 
 	if line_index >= Globals.npc_speech.size():
 		end_dialog()
@@ -166,11 +172,9 @@ func advance_dialog() -> void:
 		finish_typing()
 		return
 
-	# Ignore "talk" button while the choice timer is running
 	if is_choosing:
 		return
 
-	# If we just finished speaking the chosen option, advance to next line
 	if is_speaking_choice:
 		is_speaking_choice = false
 		player_line_index += 1
@@ -192,7 +196,6 @@ func start_npc_line() -> void:
 	player_container.visible = false
 	progress_bar.visible = false
 
-	# Set NPC portrait as active and load frames
 	active_portrait = npc_portrait
 	current_portrait_frames = npc_portrait_library.get(Globals.npc_name, [])
 	_reset_portrait()
@@ -201,20 +204,18 @@ func start_npc_line() -> void:
 
 
 func start_player_line() -> void:
-	current_speaker = Speaker.NONE # Prevent voice during choice display
+	current_speaker = Speaker.NONE
 	is_choosing = true
 	is_speaking_choice = false
 
 	npc_container.visible = false
 	player_container.visible = true
 	
-	# Reset NPC portrait to frame 0, then STOP animation while player chooses
 	active_portrait = npc_portrait
 	current_portrait_frames = npc_portrait_library.get(Globals.npc_name, [])
 	_reset_portrait()
-	active_portrait = null # Freeze the portrait while choosing
+	active_portrait = null
 
-	# Start 10 second timer
 	progress_bar.visible = true
 	progress_bar.value = 100.0
 	choice_time_left = 10.0
@@ -244,18 +245,16 @@ func select_choice(option_index: int) -> void:
 		timeout_choice()
 		return
 
-	# Show the chosen text in the main NPC speech label
 	npc_container.visible = true
 	player_container.visible = false
 	player_name_container.show()
 	npc_name_container.hide()
 
-	current_speaker = Speaker.PLAYER # Activates Tuna Tello voice
+	current_speaker = Speaker.PLAYER
 	is_speaking_choice = true
 
-	update_drawing_state() # <--- Re-check drawing state when player speaks their choice
+	update_drawing_state()
 
-	# Set Player portrait as active and load frames
 	active_portrait = player_portrait
 	current_portrait_frames = player_portrait_library
 	_reset_portrait()
@@ -270,11 +269,9 @@ func timeout_choice() -> void:
 	set_process(false)
 	player_container.visible = false
 
-	# Proceed to next line as usual without speaking a choice
 	player_line_index += 1
 	line_index += 1
 	show_current_line()
-
 
 func end_dialog() -> void:
 	current_speaker = Speaker.NONE
@@ -283,76 +280,119 @@ func end_dialog() -> void:
 	is_speaking_choice = false
 	progress_bar.visible = false
 
-	# Fade the illustration out instead of snapping it away
-	if _current_drawing_index != -1:
-		_current_drawing_index = -1
-		_fade_illustration_out()
-	else:
-		_hide_illustration_nodes()
-
-	# Make sure portraits are visible again for the next conversation
-	player_portrait.visible = true
-	npc_portrait.visible = true
-
 	current_portrait_frames = []
 	active_portrait = null
 	_reset_portrait()
 	set_process(false)
-	visible = false
-	
-	# Only unlock the player if we are fully done with the dialog chain and entering the cutscene
+
 	if Globals.drawing >= 7:
 		Globals.in_cutscene = false
 
-	# Emit LAST: any handler that starts a new dialog (Globals.talk())
-	# must not be undone by the teardown lines above.
+	if Globals.drawing == 7:
+		_sync_illustration_for_drawing()
+		_fade_dialog_out()
+	else:
+		_kill_dialog_tween()
+		visible = false
+		modulate.a = 1.0
+		Globals.dialog_end.emit()
+		_sync_illustration_for_drawing()
+
+func _sync_illustration_for_drawing() -> void:
+	if Globals.drawing == 7:
+		# Cutscene: no illustration board
+		if illustration_board.visible or illustration_color_rect.visible:
+			_fade_illustration_out()
+		_current_drawing_index = -1
+		player_portrait.visible = true
+		npc_portrait.visible = true
+	elif Globals.drawing >= 8:
+		# Epilogue: show illustration (last image), hide portraits
+		player_portrait.visible = false
+		npc_portrait.visible = false
+		var img_index = illustration_board_library.size() - 1
+		var target_texture = illustration_board_library[img_index]
+		if _current_drawing_index == -1 or illustration_board.texture != target_texture:
+			_current_drawing_index = img_index
+			illustration_board.texture = target_texture
+			_fade_illustration_in()
+	# For drawings 0-6 the freshly-started dialog manages the board itself.
+
+# ------------------------------------------------------------------
+# Dialog Container Fading (only used at Globals.drawing == 7)
+# ------------------------------------------------------------------
+
+func _fade_dialog_in() -> void:
+	_kill_dialog_tween()
+	visible = true
+	modulate.a = 0.0
+	
+	_dialog_fade_tween = create_tween()
+	_dialog_fade_tween.tween_property(self, "modulate:a", 1.0, dialog_fade_time)
+
+
+func _fade_dialog_out() -> void:
+	_kill_dialog_tween()
+	
+	_dialog_fade_tween = create_tween()
+	_dialog_fade_tween.tween_property(self, "modulate:a", 0.0, dialog_fade_time)
+	_dialog_fade_tween.tween_callback(_on_dialog_fade_out_complete)
+
+
+func _on_dialog_fade_out_complete() -> void:
+	visible = false
+	modulate.a = 1.0   # reset for next non-fade show
 	Globals.dialog_end.emit()
+
+
+func _kill_dialog_tween() -> void:
+	if _dialog_fade_tween != null and _dialog_fade_tween.is_valid():
+		_dialog_fade_tween.kill()
+	_dialog_fade_tween = null
+
 
 # ------------------------------------------------------------------
 # Illustration Board & Visibility Logic (with fades)
 # ------------------------------------------------------------------
 func update_drawing_state() -> void:
-	if Globals.drawing >= 7:
-		# Portrait mode / Cutscene: fade the illustration away if it's still up
+	if Globals.drawing == 7:
+		# Cutscene: illustration hidden, portraits shown
+		if illustration_board.visible or illustration_color_rect.visible:
+			_fade_illustration_out()
+		_current_drawing_index = -1
 		player_portrait.visible = true
 		npc_portrait.visible = true
-		if _current_drawing_index != -1:
-			_current_drawing_index = -1
-			_fade_illustration_out()
 		return
 
-	# Illustration mode: portraits off
+	# Drawing 0-6 and 8+: illustration mode, portraits off
 	player_portrait.visible = false
 	npc_portrait.visible = false
 
-	# Direct mapping: drawing 0 = index 0, drawing 6 = index 6 (VanGold.jpg)
+	# Map drawing to illustration index.
+	# For the epilogue (drawing 8), use the last image in the library.
 	var img_index = Globals.drawing
+	if Globals.drawing >= 8:
+		img_index = illustration_board_library.size() - 1
 
 	if img_index < 0 or img_index >= illustration_board_library.size():
 		img_index = -1
 
-	# Get the actual texture we want to show
 	var target_texture = null
 	if img_index >= 0:
 		target_texture = illustration_board_library[img_index]
 
 	if _current_drawing_index == -1:
-		# Board was hidden: show it and fade in with the new picture
 		_current_drawing_index = img_index
 		if target_texture != null:
 			illustration_board.texture = target_texture
 		_fade_illustration_in()
 		
 	elif target_texture != illustration_board.texture:
-		# The actual IMAGE is different: fade out old, swap texture, fade in new
 		_current_drawing_index = img_index
 		if target_texture != null:
 			_fade_swap_illustration(target_texture)
 		else:
 			_fade_illustration_out()
-			
-	# If the target_texture is the EXACT SAME as the current texture, do nothing!
-	# (This prevents the flicker when two array indices share the same picture).
 
 func _kill_fade_tween() -> void:
 	if _fade_tween != null and _fade_tween.is_valid():
@@ -363,31 +403,25 @@ func _kill_fade_tween() -> void:
 func _fade_illustration_in() -> void:
 	_kill_fade_tween()
 	illustration_board.visible = true
-	illustration_color_rect.visible = true # Background snaps on instantly
+	illustration_color_rect.visible = true
 	illustration_board.modulate.a = 0.0
 
 	_fade_tween = create_tween()
-	# Only fade the image itself
 	_fade_tween.tween_property(illustration_board, "modulate:a", 1.0, illustration_fade_time)
 
 
 func _fade_illustration_out() -> void:
 	_kill_fade_tween()
 	_fade_tween = create_tween()
-	# Only fade the image itself
 	_fade_tween.tween_property(illustration_board, "modulate:a", 0.0, illustration_fade_time)
-	# Once the image is fully transparent, hide both nodes
 	_fade_tween.tween_callback(_hide_illustration_nodes)
 
 
 func _fade_swap_illustration(new_texture: Texture2D) -> void:
 	_kill_fade_tween()
 	_fade_tween = create_tween()
-	# Fade the picture out (the board backing stays visible)...
 	_fade_tween.tween_property(illustration_board, "modulate:a", 0.0, illustration_fade_time)
-	# ...swap the texture while invisible...
 	_fade_tween.tween_callback(func(): illustration_board.texture = new_texture)
-	# ...and fade the new picture in.
 	_fade_tween.tween_property(illustration_board, "modulate:a", 1.0, illustration_fade_time)
 
 
@@ -411,12 +445,10 @@ func begin_typing(labels: Array[Control], texts: Array[String], play_voice: bool
 		_revealed_counts.append(0)
 		
 		if _labels[i] is RichTextLabel:
-			# RichTextLabel: set full text, reveal via visible_characters
 			_labels[i].text = texts[i]
 			_labels[i].visible_characters = 0
 			_total_counts.append(_labels[i].get_total_character_count())
 		else:
-			# Regular Label: start empty, reveal via substr
 			_labels[i].text = ""
 			_total_counts.append(texts[i].length())
 
@@ -429,16 +461,14 @@ func begin_typing(labels: Array[Control], texts: Array[String], play_voice: bool
 func finish_typing() -> void:
 	for i in range(_labels.size()):
 		if _labels[i] is RichTextLabel:
-			_labels[i].visible_characters = -1  # -1 = show everything
+			_labels[i].visible_characters = -1
 		else:
 			_labels[i].text = _full_texts[i]
 
 	is_typing = false
 	
-	# Reset portrait to first frame when typing finishes
 	_reset_portrait()
 	
-	# Keep processing if the player is still in the choice window
 	set_process(is_choosing) 
 	
 	if _play_voice_for_typing:
@@ -449,7 +479,6 @@ func _process(_delta: float) -> void:
 	if npc_name_container.custom_minimum_size.x != npc_name_label.size.x + 60:
 		npc_name_container.custom_minimum_size.x = npc_name_label.size.x + 60
 
-	# Handle Choice Timer
 	if is_choosing:
 		choice_time_left -= _delta
 		if choice_time_left <= 0.0:
@@ -459,12 +488,11 @@ func _process(_delta: float) -> void:
 			
 		progress_bar.value = (choice_time_left / 10.0) * 100.0
 
-	# Handle Portrait Animation (Uses active_portrait)
 	if is_typing and active_portrait != null and current_portrait_frames.size() >= 2:
 		portrait_toggle_timer += _delta
 		if portrait_toggle_timer >= portrait_toggle_interval:
 			portrait_toggle_timer = 0.0
-			portrait_frame_index = 1 - portrait_frame_index  # Toggle between 0 and 1
+			portrait_frame_index = 1 - portrait_frame_index
 			if portrait_frame_index < current_portrait_frames.size():
 				active_portrait.texture = current_portrait_frames[portrait_frame_index]
 
@@ -485,23 +513,18 @@ func _process(_delta: float) -> void:
 		if _revealed_counts[i] < _total_counts[i]:
 			all_done = false
 
-	# Voice blips: count revealed NON-space characters of the parsed text
-	# (parsed text = what the player sees, tags stripped).
 	var parsed := npc_speech_label.get_parsed_text()
 	var shown := npc_speech_label.visible_characters
 	if shown < 0 or shown > parsed.length():
 		shown = parsed.length()
 	letters_shown = parsed.substr(0, shown).replace(" ", "").length()
 	
-	# Only play voice if _play_voice_for_typing is true AND previous blip finished
 	if is_typing and _play_voice_for_typing and not is_voice_sound_active():
 		trigger_voice_sound(letters_shown)
 
 	if all_done:
 		is_typing = false
-		# Reset portrait to first frame when typing finishes
 		_reset_portrait()
-		# Keep processing if the player is still in the choice window
 		set_process(is_choosing)
 
 

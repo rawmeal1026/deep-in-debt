@@ -8,7 +8,7 @@ var intro = true
 func _ready() -> void:
 	animated_sprite_2d.play("Idle")
 
-func interact():
+func action():
 	if Globals.objective_2_counter > 0:
 		Globals.shell_count += Globals.paper_count * 2
 		Globals.paper_count = 0
@@ -111,12 +111,5 @@ func interact():
 			Globals.talk()
 		return
 
-
-func _on_leon_octo_area_entered(area: Area2D) -> void:
-	if area.is_in_group("player_interaction"):
-		e_button.show()
-
-
-func _on_leon_octo_area_exited(area: Area2D) -> void:
-	if area.is_in_group("player_interaction"):
-		e_button.hide()
+func talk():
+	print("talk")

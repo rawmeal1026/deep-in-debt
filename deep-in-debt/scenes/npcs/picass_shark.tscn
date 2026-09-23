@@ -2,7 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://cgrsslorhotdo" path="res://assets/sprites/Daddy Shark/Daddy_Shark_idle.png" id="1_12gtu"]
 [ext_resource type="Script" uid="uid://dhm473re7nd4c" path="res://scripts/npcs/picass_shark.gd" id="1_cpq2j"]
+[ext_resource type="FontFile" uid="uid://bbo0jom7ar424" path="res://assets/fonts/monogram-extended.ttf" id="3_tnjea"]
 [ext_resource type="Texture2D" uid="uid://chm3ict2v8si" path="res://assets/sprites/e.png" id="3_vdkoy"]
+[ext_resource type="PackedScene" uid="uid://dm2xpj8jtcc4f" path="res://scenes/npcs/npc components/interact.tscn" id="5_em1bk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cpq2j"]
 atlas = ExtResource("1_12gtu")
@@ -40,11 +42,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v7elb"]
-radius = 49.010204
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_cpq2j"]
 radius = 21.023796
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v7elb"]
+radius = 49.010204
 
 [node name="Picass Shark" type="Node2D" unique_id=583273182]
 script = ExtResource("1_cpq2j")
@@ -54,12 +56,23 @@ position = Vector2(0, -30)
 sprite_frames = SubResource("SpriteFrames_xwebp")
 animation = &"Idle"
 
-[node name="Picass Shark" type="Area2D" parent="." unique_id=2117302878 groups=["picass_shark"]]
-position = Vector2(0, -30)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Picass Shark" unique_id=1171590816]
-shape = SubResource("CircleShape2D_v7elb")
+[node name="Label" type="Label" parent="AnimatedSprite2D" unique_id=1776535750]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -34.0
+offset_right = -40.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -20)
+theme_override_constants/line_spacing = -2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_tnjea")
+text = "e"
+horizontal_alignment = 1
 
 [node name="WorkerSpawn" type="Area2D" parent="." unique_id=1268208359]
 position = Vector2(0, -39)
@@ -73,5 +86,9 @@ visible = false
 position = Vector2(0, -81)
 texture = ExtResource("3_vdkoy")
 
-[connection signal="area_entered" from="Picass Shark" to="." method="_on_picass_shark_area_entered"]
-[connection signal="area_exited" from="Picass Shark" to="." method="_on_picass_shark_area_exited"]
+[node name="Interact" parent="." unique_id=1638526299 instance=ExtResource("5_em1bk")]
+position = Vector2(-40, -64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interact" unique_id=1171590816]
+position = Vector2(40, 34)
+shape = SubResource("CircleShape2D_v7elb")
