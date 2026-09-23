@@ -33,15 +33,12 @@ func action():
 		Globals.shell_count -= 100
 		Globals.spawn_garbage_hauler(get_random_spawn_point())
 		Globals.spawn_garbage_collector(get_random_spawn_point())
-<<<<<<< Updated upstream
-=======
 
 	if Globals.shell_count < 100 or worker == 3:
 		e_button.hide()
 
 func talk():
 	print("talk")
->>>>>>> Stashed changes
 
 ## Returns a random point inside the GarbageBagSpawn shape.
 func get_random_spawn_point() -> Vector2:

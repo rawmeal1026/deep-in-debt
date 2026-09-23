@@ -6,11 +6,8 @@ var letters_shown := 0
 
 @export var type_speed := 6
 @export var portrait_toggle_interval := 0.15
-<<<<<<< Updated upstream
-=======
 @export var illustration_fade_time := 0.4
 @export var dialog_fade_time := 0.3
->>>>>>> Stashed changes
 
 @onready var audio_manager: Node = $"../../../AudioManager"
 
@@ -26,6 +23,8 @@ var letters_shown := 0
 @onready var npc_name_container: NinePatchRect = $NameContainer/NamePanel/HBoxContainer/NinePatchRect2
 @onready var player_portrait: TextureRect = $IllusContainer/HBoxContainer/TextureRect
 @onready var npc_portrait: TextureRect = $IllusContainer/HBoxContainer/TextureRect2
+@onready var illustration_board: TextureRect = $"../../../IllustrationBoard/MarginContainer/VBoxContainer/TextureRect"
+@onready var illustration_color_rect: ColorRect = $"../../../IllustrationBoard/ColorRect"
 
 # the event paths given by fmod
 @export_group("sfx references")
@@ -42,10 +41,19 @@ var npc_portrait_library = {
 	"Mikoi Angelo": [preload("res://assets/popart/MikoiAngelo01.png"), preload("res://assets/popart/MikoiAngelo02.png")],
 	"Mon Whale": [preload("res://assets/popart/MonWhale01.png"), preload("res://assets/popart/MonWhale02.png")],
 	"Picass Shark": [preload("res://assets/popart/PicassShark01.png"), preload("res://assets/popart/PicassShark02.png")],
-	"Leon Octo": [preload("res://assets/popart/TunaTello1.png"), preload("res://assets/popart/TunaTello2.png")]
+	"Leon Octo": [preload("res://assets/popart/LeonOcto1.png"), preload("res://assets/popart/LeonOcto2.png")]
 }
 
 var player_portrait_library = [preload("res://assets/popart/TunaTello1.png"), preload("res://assets/popart/TunaTello2.png")]
+
+var illustration_board_library = [preload("res://assets/popart/VanGoldbubble10.png"), 
+									preload("res://assets/popart/VanGoldbubble3.png"),
+									preload("res://assets/popart/VanGoldbubble3.png"),
+									preload("res://assets/popart/VanGoldbubble6.png"),
+									preload("res://assets/popart/VanGoldbubble1.png"),
+									preload("res://assets/popart/VanGoldbubble1.png"),
+									preload("res://assets/popart/VanGold.jpg"),
+									preload("res://assets/popart/VanGold_cake.jpg")]
 
 enum Speaker { NONE, NPC, PLAYER }
 var player_sprites = [preload("res://assets/popart/TunaTello1.png"), preload("res://assets/popart/TunaTello2.png")]
@@ -69,13 +77,10 @@ var portrait_toggle_timer := 0.0
 var portrait_frame_index := 0
 var active_portrait: TextureRect = null
 
-<<<<<<< Updated upstream
-=======
 var _current_drawing_index := -1
 var _fade_tween: Tween = null
 var _dialog_fade_tween: Tween = null
 
->>>>>>> Stashed changes
 var _total_counts: Array[int] = []
 
 func _ready() -> void:
@@ -85,6 +90,11 @@ func _ready() -> void:
 	# and just snap visible, so they need the alpha already at full.
 	visible = false
 	modulate.a = 1.0
+
+	# Start with the illustration board fully hidden and transparent
+	illustration_board.visible = false
+	illustration_color_rect.visible = false
+	illustration_board.modulate.a = 0.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
@@ -141,11 +151,8 @@ func is_player_speaking() -> bool:
 # ------------------------------------------------------------------
 
 func show_current_line() -> void:
-<<<<<<< Updated upstream
-=======
 	update_drawing_state()
 
->>>>>>> Stashed changes
 	if line_index >= Globals.npc_speech.size():
 		end_dialog()
 		return
@@ -246,12 +253,8 @@ func select_choice(option_index: int) -> void:
 	current_speaker = Speaker.PLAYER
 	is_speaking_choice = true
 
-<<<<<<< Updated upstream
-	# Set Player portrait as active and load frames
-=======
 	update_drawing_state()
 
->>>>>>> Stashed changes
 	active_portrait = player_portrait
 	current_portrait_frames = player_portrait_library
 	_reset_portrait()
@@ -276,19 +279,11 @@ func end_dialog() -> void:
 	is_choosing = false
 	is_speaking_choice = false
 	progress_bar.visible = false
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 	current_portrait_frames = []
 	active_portrait = null
 	_reset_portrait()
 	set_process(false)
-<<<<<<< Updated upstream
-	Globals.dialog_end.emit()
-	visible = false
-	Globals.in_cutscene = false
-=======
 
 	if Globals.drawing >= 7:
 		Globals.in_cutscene = false
@@ -433,7 +428,6 @@ func _fade_swap_illustration(new_texture: Texture2D) -> void:
 func _hide_illustration_nodes() -> void:
 	illustration_board.visible = false
 	illustration_color_rect.visible = false
->>>>>>> Stashed changes
 
 
 # ------------------------------------------------------------------

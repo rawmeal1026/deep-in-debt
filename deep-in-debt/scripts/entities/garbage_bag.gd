@@ -144,9 +144,6 @@ func play_sfx_with_mass(event_path: String, carrier: Node = null) -> void:
 
 # ------------------------------------------------------------------
 # BAG CONTENTS FUNCTIONS
-<<<<<<< Updated upstream
-func add_collected_material(material_name: String) -> void:
-=======
 
 func add_collected_material(material_name: String, carrier: Node = null) -> void:
 	# If the caller didn't say who collected it, assume the current carrier.
@@ -159,7 +156,6 @@ func add_collected_material(material_name: String, carrier: Node = null) -> void
 	if is_worker(who):
 		return
 
->>>>>>> Stashed changes
 	match material_name:
 		"PET Bottles":
 			audio_manager.play_sfx_oneshot("bottle")

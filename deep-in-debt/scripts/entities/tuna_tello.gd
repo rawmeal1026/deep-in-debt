@@ -32,16 +32,13 @@ func _process(_delta: float) -> void: #audio
 	
 	match raw_npc:
 		null:
-<<<<<<< Updated upstream
 			audio_manager.play_or_update_loop("bgm", 0)
-=======
 			if Globals.drawing == 7:
 				audio_manager.play_or_update_loop("bgm", 0)
 				if _previous_nearest_npc != raw_npc:
 					_previous_nearest_npc = raw_npc
 					if not Globals.game_end:
 						Globals.npc_out.emit()
->>>>>>> Stashed changes
 		"Tuna Tello":
 			if Globals.game_end:
 				Globals.npc_name = "Press SPACE"

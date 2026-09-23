@@ -35,8 +35,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().quit()
 
 func _ready() -> void:
-<<<<<<< Updated upstream
-	# ... any other setup code you already had ...
 	Globals.max_garbage = Globals.get_garbage_count()
 	
 	# Wait one frame so all nodes and cameras are fully in the tree.
@@ -44,7 +42,6 @@ func _ready() -> void:
 
 	# Start your cutscene chain (use the exact names from your Cutscenes array).
 	Globals.play_cutscene_chain(["Opening1"])
-=======
 	if not Globals.dialog_end.is_connected(cutscenes):
 		Globals.dialog_end.connect(cutscenes)
 	Globals.max_garbage = Globals.get_garbage_count()
@@ -171,4 +168,3 @@ func cutscenes():
 	# NOTE: no drawing == 8 branch here anymore. The epilogue is started
 	# once by start_epilogue(); keeping it here would replay it forever
 	# because cutscenes() runs on every dialog_end.
->>>>>>> Stashed changes

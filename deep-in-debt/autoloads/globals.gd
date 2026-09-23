@@ -160,8 +160,6 @@ func get_remaining_garbage_count() -> int:
 		count += 1
 
 	return count
-<<<<<<< Updated upstream
-=======
 
 var drawing = 0
 
@@ -169,4 +167,3 @@ signal npc_in
 signal npc_out
 
 var game_end = false
->>>>>>> Stashed changes

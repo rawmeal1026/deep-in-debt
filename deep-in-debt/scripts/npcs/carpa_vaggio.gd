@@ -30,20 +30,14 @@ func talk():
 		Globals.shell_count -= 500
 		Globals.objective_3 = true
 
-<<<<<<< Updated upstream
-
 func _on_carpa_vaggio_area_entered(area: Area2D) -> void:
 	if area.is_in_group("player_interaction"):
 		e_button.show()
 
-func end_intro():
-	if Globals.shell_count < 200:
-=======
 func action():
 	print("action")
 
 func end_intro():
 	if Globals.shell_count < 500:
->>>>>>> Stashed changes
 		e_button.hide()
 	return
