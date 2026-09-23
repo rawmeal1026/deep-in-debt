@@ -64,6 +64,7 @@ func _ready() -> void:
 	Globals.player_option_2 = []
 	Globals.talk()
 '''
+
 func start_epilogue() -> void:
 	Globals.npc_name = "Surstromming"
 	Globals.npc_speech = ["And with that, [color=#98776b]Van Gold[/color] got to experience the best birthday ever.",

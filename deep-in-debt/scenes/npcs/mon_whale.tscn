@@ -60,4 +60,4 @@ shape = SubResource("CircleShape2D_qaahb")
 
 [node name="SpeechManager" type="Node" parent="." unique_id=1374697057]
 script = ExtResource("7_4okfm")
-quest_lines = Array[Object]([SubResource("Resource_hl603")])
+quest_lines = Array[ExtResource("8_ncil6")]([SubResource("Resource_hl603")])
