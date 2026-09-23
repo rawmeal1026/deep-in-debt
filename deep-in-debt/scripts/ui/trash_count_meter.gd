@@ -4,8 +4,9 @@ extends TextureProgressBar
 func _ready() -> void:
 	max_value = 20 + Globals.bag_slow_interval * 4
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if max_value != 20 + Globals.bag_slow_interval * 4:
+		max_value = 20 + Globals.bag_slow_interval * 4
 	if value != 15 + Globals.player_garbage_carry_count:
 		value = 15 + Globals.player_garbage_carry_count

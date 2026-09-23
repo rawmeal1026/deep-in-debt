@@ -117,6 +117,7 @@ var objective_3 = false
 var objective_2_counter = 0
 var anti_drag_boots = false
 var roller_blades = false
+var current_garbage = 0
 var max_garbage = 0
 
 
@@ -133,7 +134,6 @@ var garbage_group: String = "garbage"
 ## How many garbage nodes exist right now (collected or not).
 func get_garbage_count() -> int:
 	return get_tree().get_nodes_in_group(garbage_group).size()
-
 
 ## How many garbage pieces are still waiting to be collected.
 func get_remaining_garbage_count() -> int:
@@ -160,3 +160,13 @@ func get_remaining_garbage_count() -> int:
 		count += 1
 
 	return count
+<<<<<<< Updated upstream
+=======
+
+var drawing = 0
+
+signal npc_in
+signal npc_out
+
+var game_end = false
+>>>>>>> Stashed changes

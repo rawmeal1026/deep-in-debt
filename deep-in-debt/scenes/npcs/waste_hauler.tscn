@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c6vtwth2gasdi"]
 
-[ext_resource type="Script" uid="uid://78rv1qwnam2n" path="res://scripts/npcs/waste_hauler.gd" id="1_ub55a"]
+[ext_resource type="Script" uid="uid://556tfweuutmh" path="res://scripts/npcs/waste_hauler.gd" id="1_ub55a"]
 [ext_resource type="Texture2D" uid="uid://yuax2phivc22" path="res://assets/sprites/Mr Puffy/Mr_Puffy_damaged.png" id="2_ub55a"]
 [ext_resource type="Texture2D" uid="uid://dgma17emmm8s0" path="res://assets/sprites/Mr Puffy/Mr_Puffy_idle.png" id="3_afv04"]
 [ext_resource type="Texture2D" uid="uid://cx8prat3tymhx" path="res://assets/sprites/Mr Puffy/Mr_Puffy_walk.png" id="4_oiltk"]

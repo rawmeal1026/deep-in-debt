@@ -22,12 +22,16 @@
 [ext_resource type="PackedScene" uid="uid://ccfq86i03b0ky" path="res://scenes/npcs/picass_shark.tscn" id="15_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://bohvun8lnbyfl" path="res://scenes/ui/conversation_scene.tscn" id="19_0ld40"]
 [ext_resource type="PackedScene" uid="uid://cqicmensgt7gn" path="res://scenes/ui/trash_meter_scene.tscn" id="19_gqmmt"]
-[ext_resource type="Script" uid="uid://bhtu85juap1l2" path="res://scripts/cutscene_manager.gd" id="19_yc10j"]
+[ext_resource type="Script" uid="uid://bhtu85juap1l2" path="res://scripts/managers/cutscene_manager.gd" id="19_yc10j"]
 [ext_resource type="Script" uid="uid://bnwe0xiotyjtx" path="res://scripts/cutscene_data.gd" id="21_y6deb"]
 [ext_resource type="Script" uid="uid://nwby8v6tbtmj" path="res://scripts/letter_box.gd" id="22_y6deb"]
 [ext_resource type="PackedScene" uid="uid://cs228ok0ieayg" path="res://scenes/ui/objectives_scene.tscn" id="25_og1vs"]
 [ext_resource type="PackedScene" uid="uid://uil0pgoljyhw" path="res://scenes/ui/tutorial_scene.tscn" id="26_2wyq8"]
+<<<<<<< Updated upstream
 [ext_resource type="Texture2D" uid="uid://psy00s72gy1c" path="res://assets/popart/VanGold.jpg" id="27_2f3dj"]
+=======
+[ext_resource type="PackedScene" uid="uid://bnchxi8mc4jx3" path="res://scenes/ui/canvas_layer.tscn" id="28_2f3dj"]
+>>>>>>> Stashed changes
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jscy8"]
 texture = ExtResource("2_sugp2")
@@ -3185,6 +3189,7 @@ visible = false
 
 [node name="AudioManager" parent="." unique_id=1938142978 instance=ExtResource("2_2f3dj")]
 
+<<<<<<< Updated upstream
 [node name="AudioManager2" parent="." unique_id=1247748455 instance=ExtResource("2_2f3dj")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=746554708]
@@ -3240,3 +3245,6 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 3.3
 
 [node name="ConversationScene2" parent="." unique_id=1229046232 instance=ExtResource("19_0ld40")]
+=======
+[node name="CanvasLayer" parent="." unique_id=1191498273 instance=ExtResource("28_2f3dj")]
+>>>>>>> Stashed changes

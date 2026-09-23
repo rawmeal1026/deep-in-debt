@@ -17,6 +17,29 @@ extends Node
 @onready var milk: AudioStreamPlayer = %milk
 @onready var bag: AudioStreamPlayer = %bag
 
+# --- VOLUME CONTROL (0.0 = silent, 1.0 = full) ---
+var sfx_volume: float = 1.0
+var bgm_volume: float = 1.0
+## How much one increase/decrease call moves the volume
+var volume_step: float = 0.1
+
+var _sfx_players: Array[AudioStreamPlayer] = []
+var _sfx_base_db: Dictionary = {}
+var _bgm_base_db: float = 0.0
+
+func _ready() -> void:
+	# Every player except BGM counts as SFX
+	_sfx_players = [
+		player_footstep,
+		carpa_vaggio, leon_octo, mikoi_angelo, mon_whale,
+		picass_shark, tuna_tello, van_gold,
+		trashbag, bottle, can, milk, bag,
+	]
+	# Remember each node's editor volume so we never destroy your mix
+	for p in _sfx_players:
+		_sfx_base_db[p.name] = p.volume_db
+	_bgm_base_db = bgm.volume_db
+
 
 func play_sfx_oneshot(node: String, pitch: float = -1.0):
 	var event = get(node)
@@ -26,7 +49,6 @@ func play_sfx_oneshot(node: String, pitch: float = -1.0):
 	if pitch != -1:
 		event.pitch_scale = pitch
 	event.play()
-	print("played sfx " + node + " with pitch " + str(event.pitch_scale))
 
 func play_or_update_loop(node_name: String, clip_id: int = 0) -> void:
 	var event = get(node_name)

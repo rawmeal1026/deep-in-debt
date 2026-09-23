@@ -3,10 +3,6 @@ extends Node2D
 ## Emitted after randomization with the chosen material name.
 signal material_assigned(material_name: String)
 
-## Emitted right before the garbage vanishes.
-signal collected(material_name: String)
-
-
 ## How long the fly-to-bag animation takes.
 @export var collect_time := 0.35
 
@@ -20,8 +16,6 @@ var collect_tween: Tween = null
 
 
 func _ready() -> void:
-	add_to_group("garbage")
-
 	# Update after the player so it follows smoothly.
 	if "physics_process_priority" in self:
 		set("physics_process_priority", 100)
@@ -29,7 +23,6 @@ func _ready() -> void:
 	set_physics_process(false)
 
 	randomize_appearance()
-
 
 # ------------------------------------------------------------------
 # Randomization
@@ -132,7 +125,7 @@ func collect(target_collector: Node2D) -> void:
 
 
 func _finish_collection() -> void:
-	collected.emit(current_material)
+	Signals.garbage_collected.emit()
 	queue_free()
 
 

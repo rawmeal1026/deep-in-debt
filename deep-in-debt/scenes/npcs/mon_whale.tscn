@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://coj6bvo3vosxu"]
 
 [ext_resource type="Texture2D" uid="uid://v4pbd76lj0v4" path="res://assets/sprites/Whale The Blublu/Whale_The_BlubluI_idle.png" id="1_q6i5d"]
-[ext_resource type="Script" uid="uid://p34mx86gv56s" path="res://scripts/npcs/mon_whale.gd" id="1_t7li8"]
-[ext_resource type="Texture2D" uid="uid://chm3ict2v8si" path="res://assets/sprites/e.png" id="3_5dud4"]
+[ext_resource type="Script" uid="uid://b2ad8opq7voxr" path="res://scripts/npcs/mon_whale.gd" id="1_qc3ru"]
+[ext_resource type="FontFile" uid="uid://bbo0jom7ar424" path="res://assets/fonts/monogram-extended.ttf" id="3_pppf7"]
+[ext_resource type="PackedScene" uid="uid://dm2xpj8jtcc4f" path="res://scenes/npcs/npc components/interact.tscn" id="4_hl603"]
+[ext_resource type="Script" uid="uid://b12abnb1dmcbf" path="res://scripts/managers/speech_manager.gd" id="7_4okfm"]
+[ext_resource type="Script" uid="uid://bdxjew4fxcx4p" path="res://scripts/resources/quest_data.gd" id="8_ncil6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_88fa3"]
 radius = 54.00926
@@ -10,19 +13,42 @@ radius = 54.00926
 [sub_resource type="CircleShape2D" id="CircleShape2D_qaahb"]
 radius = 21.023796
 
-[node name="Mon Whale" type="Node2D" unique_id=1195302392]
-script = ExtResource("1_t7li8")
+[sub_resource type="Resource" id="Resource_hl603"]
+script = ExtResource("8_ncil6")
+start_quest_actor_speech = Array[String](["hey", "hello"])
+unfinished_actor_speech = Array[String](["hiii"])
+metadata/_custom_type_script = "uid://bdxjew4fxcx4p"
+
+[node name="Mon Whale" type="Node2D" unique_id=1195302392 groups=["npc"]]
+script = ExtResource("1_qc3ru")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1991769603]
 position = Vector2(-3, -41)
 texture = ExtResource("1_q6i5d")
 flip_h = true
 
-[node name="Mon Whale" type="Area2D" parent="." unique_id=1814212557 groups=["mon_whale"]]
-position = Vector2(0, -38)
-collision_layer = 2
+[node name="Label" type="Label" parent="Sprite2D" unique_id=228642615]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -42.5
+offset_right = -40.0
+offset_bottom = -42.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -20)
+theme_override_constants/line_spacing = -2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_pppf7")
+text = "e"
+horizontal_alignment = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mon Whale" unique_id=567362826]
+[node name="Interact" parent="." unique_id=1638526299 instance=ExtResource("4_hl603")]
+position = Vector2(0, -38)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interact" unique_id=518904326]
 shape = SubResource("CircleShape2D_88fa3")
 
 [node name="GarbageBagSpawn" type="Area2D" parent="." unique_id=1834488145]
@@ -32,10 +58,6 @@ position = Vector2(0, -39)
 position = Vector2(-92, 36)
 shape = SubResource("CircleShape2D_qaahb")
 
-[node name="E_button" type="Sprite2D" parent="." unique_id=237683294]
-visible = false
-position = Vector2(0, -93)
-texture = ExtResource("3_5dud4")
-
-[connection signal="area_entered" from="Mon Whale" to="." method="_on_mon_whale_area_entered"]
-[connection signal="area_exited" from="Mon Whale" to="." method="_on_mon_whale_area_exited"]
+[node name="SpeechManager" type="Node" parent="." unique_id=1374697057]
+script = ExtResource("7_4okfm")
+quest_lines = Array[Object]([SubResource("Resource_hl603")])

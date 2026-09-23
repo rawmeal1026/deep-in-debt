@@ -9,7 +9,6 @@ signal moving(direction)
 # Emitted when the bag stops moving.
 signal stopped_moving
 
-
 # Where the bag sits while being carried.
 @export var carry_offset := Vector2(-24.0, 8.0)
 
@@ -89,8 +88,6 @@ var garbage_mass = 0
 
 # INITIALIZE
 func _ready() -> void:
-	add_to_group("bag")
-
 	previous_global_position = global_position
 	current_carry_offset = carry_offset
 
@@ -126,7 +123,6 @@ func _physics_process(delta: float) -> void:
 func is_worker(carrier: Node) -> bool:
 	return is_instance_valid(carrier) and carrier.is_in_group(worker_group)
 
-
 func play_sfx(event_path: String, carrier: Node = null) -> void:
 	if event_path == "":
 		return
@@ -135,7 +131,6 @@ func play_sfx(event_path: String, carrier: Node = null) -> void:
 		return
 
 	audio_manager.play_sfx_oneshot("trashbag")
-
 
 func play_sfx_with_mass(event_path: String, carrier: Node = null) -> void:
 	if event_path == "":
@@ -147,10 +142,24 @@ func play_sfx_with_mass(event_path: String, carrier: Node = null) -> void:
 	audio_manager.play_sfx_oneshot("trashbag", remap(garbage_mass, 0, 30, 1, 0.707107))
 	#Globals.play_fmod_sfx(event_path, "garbage_mass", float(garbage_mass))
 
-
 # ------------------------------------------------------------------
 # BAG CONTENTS FUNCTIONS
+<<<<<<< Updated upstream
 func add_collected_material(material_name: String) -> void:
+=======
+
+func add_collected_material(material_name: String, carrier: Node = null) -> void:
+	# If the caller didn't say who collected it, assume the current carrier.
+	var who := carrier if is_instance_valid(carrier) else player
+
+	# The material is ALWAYS recorded, worker or player...
+	collected_materials.append(material_name)
+
+	# ...but only the player's collections make noise.
+	if is_worker(who):
+		return
+
+>>>>>>> Stashed changes
 	match material_name:
 		"PET Bottles":
 			audio_manager.play_sfx_oneshot("bottle")
@@ -160,8 +169,6 @@ func add_collected_material(material_name: String) -> void:
 			audio_manager.play_sfx_oneshot("milk")
 		"PE Bags":
 			audio_manager.play_sfx_oneshot("bag")
-
-	collected_materials.append(material_name)
 	
 
 func get_collected_materials() -> Array[String]:
